@@ -14,7 +14,7 @@ Flame in Freefall is an evidence workbench for NASA's microgravity combustion re
 
 The core finding is a gap, not a number: PSI contains **zero partial-gravity combustion datasets**. Every tabulated test ran in microgravity or at 1 g. The workbench plots all 13 tabulated oxygen conditions by gravity level, shades the lunar habitat band at ≥30% O₂, and leaves the Moon/Mars gravity lane visibly empty. Teams can see what the archive supports, what it only approximates, and what it cannot answer — before a design decision depends on it.
 
-An assistant answers in plain language from the same normalized evidence. It retrieves passages from 91 real NASA reports downloaded from the public PSI repository, quotes them verbatim with their page number, cites the record behind each claim, and passes a numeric guard that rejects any percentage appearing in neither the normalized tables nor the cited passages.
+An assistant answers in plain language from the same normalized evidence. It retrieves passages from 91 real NASA reports downloaded from the public PSI repository, quotes them verbatim with their page number, cites the record behind each claim, and passes a numeric guard that rejects any percentage appearing in neither the normalized tables nor the cited passages. Against a 20-question golden set it scores 20/20, with 100% citation accuracy and no invented figures.
 
 ## Link to final project
 
@@ -23,9 +23,9 @@ Code: https://github.com/12errh/firelens
 
 ## Link to project demo
 
-https://12errh.github.io/firelens/
+https://12errh.github.io/firelens/flame-in-freefall.pdf
 
-A seven-slide deck covering the question, the evidence map, the product, the grounded assistant, the honest limits, and the links. It is a static page in this repository and needs no login.
+A seven-page PDF of the seven-slide deck, public and login-free: the question, the evidence map, the product, the grounded assistant, the honest limits, and the links. Interactive version: https://12errh.github.io/firelens/
 
 ## Detailed project description
 
@@ -45,6 +45,18 @@ A seven-slide deck covering the question, the evidence map, the product, the gro
 
 Yes. SI was used as an implementation and drafting accelerator, not as the source of the idea or the data.
 
+**Check every SI-use box:**
+
+- [x] Ideation / Brainstorming — used to pressure-test the concept and structure the argument around the absent partial-gravity data.
+- [x] Research / Information Gathering — used to trace the PSI API, the challenge brief, and the relevant NASA reports.
+- [x] Data Analysis and Interpretation — used to review normalization rules and to find the 22.2% solid-material ceiling and the empty partial-gravity lane.
+- [x] Coding — used to write and refactor the Next.js frontend, the Python ingestion, the BM25 retrieval index, and the FastAPI mirror.
+- [x] Debugging — used to diagnose build, deployment, routing and retrieval failures.
+- [x] Building SI/ML Into the Project — the deployed assistant optionally calls Groq-hosted `openai/gpt-oss-120b` at request time.
+- [x] Writing / Editing — used to draft and edit interface copy, the methodology page, this submission text, and the deck.
+
+Every number shown by the project is read from the PSI snapshot or the downloaded NASA documents, never from a model.
+
 - **Code:** large-language-model assistance was used to write and review frontend, ingestion, retrieval, and API code. All code was executed and tested locally; numbers come from the PSI snapshot, not from the model.
 - **Assistant:** the deployed assistant optionally calls Groq-hosted `openai/gpt-oss-120b`. Its output is constrained to retrieved evidence and validated by a numeric guard. When no key is present, the assistant answers deterministically from the tables and the document corpus without a model.
 - **Retrieval:** the passage index is built by the included ingestion script and ranked with BM25. No external embedding service is used, so no document text leaves the deployment.
@@ -56,16 +68,21 @@ This disclosure also appears on the `/methodology` page.
 ## NASA data and resources
 
 - NASA Physical Science Informatics (PSI) public repository: <https://psi.nasa.gov/physci/repo/>
-- 24 PSI investigation records, including BASS-II, FLEX, CFI-G, SAFFIRE-I/II/III, SAME, E-FIELD, and BRE.
+- PSI Combustion Science search: <https://psi.nasa.gov/physci/repo/search?q=combustion>
+- PSI public API used by the ingestion script: <https://psi.nasa.gov/geode-py/ws/repo/search>
+- NASA Space Apps 2026 challenge brief, Flame in Freefall: <https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/>
+- 24 PSI investigation records, including BASS-II, FLEX, CFI-G, SAFFIRE-I/II/III, SAME, E-FIELD, and BRE. Each record is linked from its investigation page, for example <https://psi.nasa.gov/physci/repo/search?q=PSI-25> and <https://psi.nasa.gov/physci/repo/search?q=PSI-159>.
 - 22 experimental summary tables and 2,870 normalized test rows.
 - 109 report, paper, and document records with DOIs where available; 91 of them downloaded and indexed as 2,583 page-stamped passages.
 - PSI snapshot retrieved 14 November 2026. Metadata, tables and report text only; raw instrument files were indexed, not downloaded.
 
 ## Other references and tools
 
-- Next.js, React, TypeScript, Tailwind CSS, Lucide icons, FastAPI, Pydantic, Uvicorn.
-- Groq API for the optional language-model lane.
-- NASA Space Apps Challenge 2026 challenge brief and judging guide.
+- Next.js 16, React, TypeScript, Tailwind CSS v4, Lucide icons: <https://nextjs.org>, <https://react.dev>, <https://tailwindcss.com>, <https://lucide.dev>
+- Python 3.14, FastAPI, Pydantic, Uvicorn: <https://www.python.org>, <https://fastapi.tiangolo.com>, <https://docs.pydantic.dev>
+- Groq API for the optional language-model lane: <https://groq.com>
+- IBM Plex Sans and IBM Plex Mono via Google Fonts: <https://fonts.google.com/specimen/IBM+Plex+Sans>
+- NASA Space Apps Challenge 2026 challenge brief and judging guide: <https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/>, <https://www.spaceappschallenge.org/resources/judging-awards-guide/>
 - Document licenses follow the source records: 23 of 24 investigations are CC0 1.0; PSI-10 has no specified license and is linked to, not reproduced.
 
 ---
