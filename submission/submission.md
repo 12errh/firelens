@@ -23,7 +23,7 @@ Code: https://github.com/12errh/firelens
 
 ## Link to project demo
 
-https://12errh.github.io/firelens/deck/
+https://12errh.github.io/firelens/
 
 A seven-slide deck covering the question, the evidence map, the product, the grounded assistant, the honest limits, and the links. It is a static page in this repository and needs no login.
 

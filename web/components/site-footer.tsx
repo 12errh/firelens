@@ -63,7 +63,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
-                  href="https://12errh.github.io/firelens/deck/"
+                  href="https://12errh.github.io/firelens/"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
