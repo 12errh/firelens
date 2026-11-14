@@ -1,5 +1,6 @@
 import {
   evidencePoints,
+  formatNumber,
   formatO2,
   insights,
   investigations,
@@ -176,10 +177,22 @@ function recordAnswer(record: Investigation): ChatAnswer {
       record.gravity === "microgravity" ? "microgravity" : "normal gravity"
     }. Subarea: ${record.subResearchArea ?? "not classified"}.`,
     `O₂: ${o2For(record)}. Pressure: ${pressureFor(record)}. Tables: ${record.tableCount}. Publications: ${record.publicationCount}.`,
+    `License: ${record.licenseId ? `${record.licenseId} (CC0 1.0 Universal)` : "not stated in the PSI record"}.`,
   ];
 
   if (record.summary) {
     lines.push("", record.summary);
+  }
+
+  const fuels = [
+    ...new Set(
+      record.tables.flatMap((table) => table.fuelValues),
+    ),
+  ]
+    .slice(0, 6)
+    .join(", ");
+  if (fuels) {
+    lines.push("", `Materials and fuels in the table: ${fuels}.`);
   }
 
   if (record.tables.length) {
@@ -297,6 +310,142 @@ function gasAnswer(): ChatAnswer {
       "Fuel phase changes the flammability question; gas results are not a substitute for solid-material tests.",
       "High-oxygen inverse flames are not representative of a cabin air mixture.",
       "Oxygen values are reported test conditions, not design limits.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** The two high-oxygen gaseous campaigns, named separately. */
+function highOxygenAnswer(): ChatAnswer {
+  return {
+    answer: [
+      "The highest oxygen in the archive comes from gaseous-fuel inverse flames.",
+      "",
+      "CFI-G (PSI-159) reaches 85% O₂ in inverse flames and 40% in normal flames; its two tables hold 1,015 inverse rows and 179 normal rows. Flame Design (PSI-10) reaches 85% inverse and 40% normal.",
+      "",
+      "These are inverse flames: the fuel and oxidizer are arranged so the flame burns toward the oxidizer rather than the fuel. That geometry is not the geometry of a cabin fire, so the numbers describe a real limit of the archive and not a cabin flammability envelope.",
+    ].join("\n"),
+    sources: sourcesFor(["PSI-159", "PSI-10"]),
+    confidence: "high",
+    limitations: [
+      "Inverse flames are a laboratory configuration, not a habitat geometry.",
+      "Gaseous fuel is not a solid material; the results do not transfer to fabrics or cable.",
+      "85% O₂ is a reported test condition, not a flammability limit.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** Which tables actually carry an oxygen value. */
+function coverageAnswer(): ChatAnswer {
+  const withO2 = investigations.filter((record) =>
+    record.tables.some((table) => table.o2),
+  );
+  const withPressure = investigations.filter((record) =>
+    record.tables.some((table) => table.pressure),
+  );
+  return {
+    answer: [
+      `Only ${stats.tablesWithO2} of ${stats.experimentalTables} experimental summary tables report an oxygen concentration, across ${withO2.length} of ${stats.investigations} investigations.`,
+      "",
+      `The records with a reported oxygen value are: ${withO2.map((record) => record.id).join(", ")}.`,
+      "",
+      `Pressure is reported by fewer tables still — ${withPressure.length} investigations carry a pressure value, and most of the solid-material campaigns do not report it at all.`,
+    ].join("\n"),
+    sources: sourcesFor(withO2.map((record) => record.id)),
+    confidence: "high",
+    limitations: [
+      "A missing value means the table does not report it, not that the value is zero.",
+      "Coverage counts the published summary tables, not the raw instrument files behind them.",
+      "Comparisons across phases are therefore asymmetric.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** Licensing and attribution status. */
+function licenseAnswer(): ChatAnswer {
+  const cc0 = investigations.filter((record) => record.licenseId === "CC0-1.0");
+  const unspecified = investigations.filter((record) => !record.licenseId);
+  return {
+    answer: [
+      `${cc0.length} of ${stats.investigations} investigations are published under CC0 1.0: ${cc0.map((record) => record.id).join(", ")}.`,
+      "",
+      `${unspecified.length} record does not state a license: ${unspecified.map((record) => record.id).join(", ")}. For that record the license is not stated and it should be verified with the source before redistribution.`,
+      "",
+      "Every investigation page carries its license status, its DOI, and a link back to the PSI record, so attribution travels with the data.",
+    ].join("\n"),
+    sources: sourcesFor([...cc0.map((record) => record.id), ...unspecified.map((record) => record.id)]),
+    confidence: "high",
+    limitations: [
+      "A license not stated is not a license granted.",
+      "License status belongs to the source record and may change after the snapshot date.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** How many raw files exist and what was done with them. */
+function rawFilesAnswer(): ChatAnswer {
+  return {
+    answer: [
+      `The 24 Combustion Science investigations hold ${formatNumber(stats.rawFiles)} raw file entries, and none of them were downloaded.`,
+      "",
+      "The ingestion script walks the public PSI file tree and counts and indexes every entry — path, size, category, version — but it only downloads the experimental summary tables and the report text. The raw folders run to petabytes per investigation; several individual campaigns exceed two terabytes.",
+      "",
+      "That is a deliberate scope decision. Raw instrument files would not be normalized evidence, and the claim this project makes is about what the published tables and reports support.",
+    ].join("\n"),
+    sources: sourcesFor(["PSI-25", "PSI-10"]),
+    confidence: "high",
+    limitations: [
+      "Raw files are indexed as metadata only.",
+      "File counts come from the PSI file tree, not from a checksum of the contents.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** Flame shape in reduced gravity. */
+function flameShapeAnswer(): ChatAnswer {
+  return {
+    answer: [
+      "In microgravity a flame stops being a teardrop and becomes a sphere.",
+      "",
+      "At 1 g, buoyancy stretches the flame into a tall teardrop: hot combustion products rise, cool, and the flame stretches upward. With buoyancy removed, the flame is spherical, because surface tension balances the other forces with no preferred direction.",
+      "",
+      "PSI is the source for the measurements behind that shape change: BASS-II (PSI-25) and the SAFFIRE series (PSI-98, PSI-99, PSI-100) burned solid samples in microgravity, and CFI (PSI-39), CFI-G (PSI-159) and s-Flame (PSI-23) measured gaseous and droplet flames in the same regime.",
+      "",
+      "What the archive does not contain is the same flame measured at 1/6 g or 0.38 g, so the path between a 1 g teardrop and a microgravity sphere is not measured anywhere in this snapshot.",
+    ].join("\n"),
+    sources: sourcesFor(["PSI-25", "PSI-99", "PSI-159", "PSI-39"]),
+    confidence: "high",
+    limitations: [
+      "The snapshot has no partial-gravity flame imaging, so the intermediate gravity regime is unmeasured.",
+      "Flame shape also depends on fuel, geometry, pressure and flow rate, not gravity alone.",
+      "The teardrop-to-sphere description is the documented microgravity behavior, not a value computed from these tables.",
+    ],
+    mode: "deterministic",
+  };
+}
+
+/** "Can I build a cabin at 30% oxygen from this?" */
+function designAnswer(): ChatAnswer {
+  return {
+    answer: [
+      "Not from this snapshot alone, and it is worth being precise about why.",
+      "",
+      "What the archive supports: solid-material burning and suppression in microgravity near Earth-like oxygen. BASS-II (PSI-25) covers 13.6–22.2% O₂ across 129 rows of PMMA film, fabrics and rod samples; SAFFIRE-II (PSI-99) reports 21.5–22.1% O₂ with a matched 1 g comparison.",
+      "",
+      `What it does not support: any solid-material test at or above the ≥30% O₂ lunar habitat band. The highest solid-material condition in the snapshot is ${stats.o2.solidMax.toFixed(1)}% O₂ (PSI-25). The eight table points that do reach 30% O₂ are all gaseous or droplet experiments.`,
+      "",
+      "Three observations would change that, and the site names them as missing evidence rather than as future features: one solid-material test above 30% O₂, one partial-gravity solid burn, and a matched 1 g / µg matrix.",
+    ].join("\n"),
+    sources: sourcesFor(["PSI-25", "PSI-99", "PSI-22", "PSI-100"]),
+    confidence: "high",
+    limitations: [
+      "This is a research archive, not a certification dataset or a design envelope.",
+      "Absence of a test above 30% O₂ in these 24 records is not proof that no such test exists anywhere.",
+      "The workbench is not a substitute for a qualified fire-safety review.",
     ],
     mode: "deterministic",
   };
@@ -641,12 +790,18 @@ export function answerFromEvidence(question: string): ChatAnswer {
   }
 
   // Acronym, longest first so FLEX-2 wins over FLEX and BASS-II over BASS.
+  // A word boundary plus a no-hyphen lookahead keeps "CFI" from matching
+  // inside "CFI-G".
   const acronyms = investigations
     .filter((record) => record.acronym)
     .map((record) => ({ record, acronym: record.acronym!.toLowerCase() }))
     .sort((a, b) => b.acronym.length - a.acronym.length);
   for (const { record, acronym } of acronyms) {
-    if (normalized.includes(acronym)) return recordAnswer(record);
+    const pattern = new RegExp(
+      `(^|[^\\w-])${acronym.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![-\\w])`,
+      "i",
+    );
+    if (pattern.test(normalized)) return recordAnswer(record);
   }
 
   const mentionsPartialGravity =
@@ -659,6 +814,42 @@ export function answerFromEvidence(question: string): ChatAnswer {
 
   if (/(scenario|spacecraft.*lunar|readiness|three)/.test(normalized)) {
     return scenarioAnswer();
+  }
+
+  if (/(license|licence|cc0|copyright|usage rights|redistribut)/.test(normalized)) {
+    return licenseAnswer();
+  }
+
+  if (
+    /(raw file|file entries|how many files|instrument data|petabyte|did you download|downloaded the raw)/.test(
+      normalized,
+    )
+  ) {
+    return rawFilesAnswer();
+  }
+
+  if (
+    /(which .*(tables|investigations).*(report|oxygen)|how many .*(tables|investigations)|coverage)/.test(
+      normalized,
+    )
+  ) {
+    return coverageAnswer();
+  }
+
+  if (
+    /(flame shape|shape of (a|the) flame|sphere|teardrop|how does (a|the) flame (look|behave)|what happens to a flame)/.test(
+      normalized,
+    )
+  ) {
+    return flameShapeAnswer();
+  }
+
+  if (/(can i design|can we design|design a|is it safe to|would it be safe|safe to (build|design))/i.test(normalized)) {
+    return designAnswer();
+  }
+
+  if (/(cfi-g|flame design|inverse flame|normal flame)/.test(normalized)) {
+    return highOxygenAnswer();
   }
 
   if (/(suppress|extinguish|firefight|inert|helium|co2|carbon dioxide)/.test(normalized)) {
