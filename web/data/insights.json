@@ -1,0 +1,214 @@
+[
+  {
+    "id": "partial-gravity-gap",
+    "kind": "gap",
+    "metric": "0",
+    "unit": "datasets",
+    "title": "Partial gravity is an empty lane",
+    "statement": "None of the 24 Combustion Science investigations in this PSI snapshot reports a direct lunar- or Mars-gravity combustion measurement.",
+    "detail": "Microgravity and normal-gravity results can bound behavior, but they do not measure the 1/6 g or 0.38 g regimes. E-FIELD used electric fields as a partial-gravity analog; it is not gravity data.",
+    "sources": [
+      {
+        "id": "PSI-22",
+        "label": "ACME E-FIELD Flames",
+        "title": "Advanced Combustion via Microgravity Experiments Electric-Field Effects on Laminar Diffusion Flames",
+        "doi": "10.60555/se5a-8c73",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-22"
+      },
+      {
+        "id": "PSI-25",
+        "label": "BASS-II",
+        "title": "Burning and Suppression of Solids - II",
+        "doi": "10.60555/4qc4-de67",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-25"
+      },
+      {
+        "id": "PSI-69",
+        "label": "FLEX",
+        "title": "Flame Extinguishment Experiment",
+        "doi": "10.60555/mbq8-0451",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-69"
+      }
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "solid-o2-gap",
+    "kind": "gap",
+    "metric": "22.2%",
+    "unit": "highest solid O₂",
+    "title": "Solid materials stop short of the lunar band",
+    "statement": "The highest reported initial oxygen concentration for a solid-material test is 22.2% (BASS-II). The lunar habitat target begins at 30% O₂.",
+    "detail": "BASS-II burned PMMA, SIBAL fabric, Nomex and other solids in microgravity at 13.6–22.2% O₂. No solid-material summary table in this snapshot reports a test at or above 30% O₂.",
+    "sources": [
+      {
+        "id": "PSI-25",
+        "label": "BASS-II",
+        "title": "Burning and Suppression of Solids - II",
+        "doi": "10.60555/4qc4-de67",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-25"
+      },
+      {
+        "id": "PSI-26",
+        "label": "BASS",
+        "title": "Burning and Suppression of Solids",
+        "doi": "10.60555/58h4-dy80",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-26"
+      },
+      {
+        "id": "PSI-98",
+        "label": "SAFFIRE-I",
+        "title": "Spacecraft Fire Safety Experiment-I",
+        "doi": "10.60555/0t15-1z43",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-98"
+      },
+      {
+        "id": "PSI-99",
+        "label": "SAFFIRE-II",
+        "title": "Spacecraft Fire Experiment-II",
+        "doi": "10.60555/2chp-m469",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-99"
+      }
+    ],
+    "severity": "critical"
+  },
+  {
+    "id": "gas-high-o2",
+    "kind": "insight",
+    "metric": "85%",
+    "unit": "highest gaseous O₂",
+    "title": "High-oxygen evidence is gaseous",
+    "statement": "Gaseous-fuel experiments reach 85% O₂, but they do not answer how a solid fabric or cable burns in a 30% O₂ cabin.",
+    "detail": "CFI-G inverse flames and Flame Design inverse flames extend to 85% O₂; ACME BRE tests reach 40% and s-Flame reports ~30%. Fuel phase and material geometry change the flammability question.",
+    "sources": [
+      {
+        "id": "PSI-159",
+        "label": "ACME CFI-G",
+        "title": "Advanced Combustion via Microgravity Experiments / Cool Flames Investigation with Gases",
+        "doi": "10.60555/cyt1-kh64",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-159"
+      },
+      {
+        "id": "PSI-10",
+        "label": "ACME/Flame Design",
+        "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
+        "doi": "10.60555/w4zy-bt45",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-10"
+      },
+      {
+        "id": "PSI-20",
+        "label": "ACME BRE",
+        "title": "Advanced Combustion via Microgravity Experiments - Burning Rate Emulator",
+        "doi": "10.60555/vb93-3y72",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-20"
+      },
+      {
+        "id": "PSI-23",
+        "label": "ACME s-Flame",
+        "title": "Advanced Combustion via Microgravity Experiments-Structure and Response of Spherical Diffusion Flames",
+        "doi": "10.60555/k57n-p030",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-23"
+      }
+    ],
+    "severity": "info"
+  },
+  {
+    "id": "microgravity-solid",
+    "kind": "insight",
+    "metric": "129",
+    "unit": "solid test rows",
+    "title": "Direct microgravity solid data exists",
+    "statement": "BASS-II and the SAFFIRE series provide direct microgravity burning data for solids, but at Earth-like oxygen concentrations.",
+    "detail": "The evidence is strongest for spacecraft cabin conditions (~21% O₂). Extending it to a lunar habitat requires an oxygen extrapolation and a gravity extrapolation at the same time.",
+    "sources": [
+      {
+        "id": "PSI-25",
+        "label": "BASS-II",
+        "title": "Burning and Suppression of Solids - II",
+        "doi": "10.60555/4qc4-de67",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-25"
+      },
+      {
+        "id": "PSI-98",
+        "label": "SAFFIRE-I",
+        "title": "Spacecraft Fire Safety Experiment-I",
+        "doi": "10.60555/0t15-1z43",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-98"
+      },
+      {
+        "id": "PSI-99",
+        "label": "SAFFIRE-II",
+        "title": "Spacecraft Fire Experiment-II",
+        "doi": "10.60555/2chp-m469",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-99"
+      },
+      {
+        "id": "PSI-100",
+        "label": "SAFFIRE-III",
+        "title": "Spacecraft Fire Experiment-III",
+        "doi": "10.60555/040q-4h36",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-100"
+      }
+    ],
+    "severity": "info"
+  },
+  {
+    "id": "suppression",
+    "kind": "insight",
+    "metric": "274",
+    "unit": "FLEX test rows",
+    "title": "Suppression is mapped for liquids",
+    "statement": "FLEX mapped droplet extinction across oxygen, CO₂ and helium mixtures, giving the snapshot its densest suppression dataset.",
+    "detail": "FLEX varies ambient pressure, O₂ (12–34%), CO₂ (0–70%) and He (0–45%) for methanol and heptane droplets. It is liquid-fuel evidence, not a solid-material suppression map.",
+    "sources": [
+      {
+        "id": "PSI-69",
+        "label": "FLEX",
+        "title": "Flame Extinguishment Experiment",
+        "doi": "10.60555/mbq8-0451",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-69"
+      },
+      {
+        "id": "PSI-117",
+        "label": "PSI-117",
+        "title": "Effect of External Thermo-Convective Perturbation on Cool Flame Dynamics: A Multidimensional Multi-Physics CFD Analysis",
+        "doi": "10.60555/gz0q-b577",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-117"
+      }
+    ],
+    "severity": "info"
+  },
+  {
+    "id": "raw-volume",
+    "kind": "insight",
+    "metric": "65,629",
+    "unit": "raw file entries",
+    "title": "A large archive, a thin summary layer",
+    "statement": "The snapshot contains 65,629 raw-data file entries but only 22 experimental summary tables.",
+    "detail": "The tables are the fast, structured retrieval layer. Raw videos and telemetry remain available in PSI for deeper analysis; they are not ingested here.",
+    "sources": [
+      {
+        "id": "PSI-10",
+        "label": "ACME/Flame Design",
+        "title": "Advanced Combustion via Microgravity Experiments / Flame Design",
+        "doi": "10.60555/w4zy-bt45",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-10"
+      },
+      {
+        "id": "PSI-20",
+        "label": "ACME BRE",
+        "title": "Advanced Combustion via Microgravity Experiments - Burning Rate Emulator",
+        "doi": "10.60555/vb93-3y72",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-20"
+      },
+      {
+        "id": "PSI-106",
+        "label": "SLICE",
+        "title": "Structure and Liftoff In Combustion Experiment",
+        "doi": "10.60555/pm12-rg61",
+        "url": "https://psi.nasa.gov/physci/repo/search?q=PSI-106"
+      }
+    ],
+    "severity": "info"
+  }
+]

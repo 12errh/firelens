@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Node / Next.js
+web/node_modules/
+web/.next/
+web/.vercel/
+web/out/
+
+# Secrets — never commit real keys
+.env
+.env.local
+web/.env
+web/.env.local
+api/.env
+
+# OS / editor
+.DS_Store
+*.swp
+
+# Local captures
+*.png.tmp
+/tmp/
+
+# Local reference prototypes (not part of the deployed app)
+/site-ins/
+/site-prototype/

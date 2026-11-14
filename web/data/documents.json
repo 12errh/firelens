@@ -1,0 +1,983 @@
+[
+  {
+    "id": "PSI-10-psi-10-reports-finalrpt-acmeflamedesign-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Reports FinalRpt ACMEFlameDesign",
+    "fileName": "PSI-10_Reports_FinalRpt_ACMEFlameDesign.pdf",
+    "category": "Report",
+    "sizeBytes": 4152310,
+    "path": "Reports/PSI-10_Reports_FinalRpt_ACMEFlameDesign.pdf"
+  },
+  {
+    "id": "PSI-10-psi-10-reports-taskbookrpts-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Reports TaskbookRpts",
+    "fileName": "PSI-10_Reports_TaskbookRpts.pdf",
+    "category": "Report",
+    "sizeBytes": 284417,
+    "path": "Reports/PSI-10_Reports_TaskbookRpts.pdf"
+  },
+  {
+    "id": "PSI-10-psi-10-reports-taskbookpubslist-feb2023-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Reports TaskbookPubsList Feb2023",
+    "fileName": "PSI-10_Reports_TaskbookPubsList_Feb2023.pdf",
+    "category": "Report",
+    "sizeBytes": 97986,
+    "path": "Reports/PSI-10_Reports_TaskbookPubsList_Feb2023.pdf"
+  },
+  {
+    "id": "PSI-10-psi-10-science-documents-srd-acmeflamedesign-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Science Documents SRD ACMEFlameDesign",
+    "fileName": "PSI-10_Science Documents_SRD_ACMEFlameDesign.pdf",
+    "category": "Science document",
+    "sizeBytes": 471072,
+    "path": "Science Documents/PSI-10_Science Documents_SRD_ACMEFlameDesign.pdf"
+  },
+  {
+    "id": "PSI-10-psi-10-science-documents-acme-sord-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Science Documents ACME SORD",
+    "fileName": "PSI-10_Science Documents_ACME_SORD.pdf",
+    "category": "Science document",
+    "sizeBytes": 300262,
+    "path": "Science Documents/PSI-10_Science Documents_ACME_SORD.pdf"
+  },
+  {
+    "id": "PSI-10-psi-10-science-documents-acme-isrd-pdf",
+    "investigationId": "PSI-10",
+    "title": "PSI 10 Science Documents ACME ISRD",
+    "fileName": "PSI-10_Science Documents_ACME_ISRD.pdf",
+    "category": "Science document",
+    "sizeBytes": 1860945,
+    "path": "Science Documents/PSI-10_Science Documents_ACME_ISRD.pdf"
+  },
+  {
+    "id": "PSI-100-psi-100-science-documents-saffire-iii-image-directory-nomenclature-v3-0-pdf",
+    "investigationId": "PSI-100",
+    "title": "PSI 100 Science Documents SAFFIRE III Image Directory Nomenclature v3.0",
+    "fileName": "PSI-100_Science Documents_SAFFIRE-III Image Directory Nomenclature_v3.0.pdf",
+    "category": "Science document",
+    "sizeBytes": 273485.0,
+    "path": "Science Documents/PSI-100_Science Documents_SAFFIRE-III Image Directory Nomenclature_v3.0.pdf"
+  },
+  {
+    "id": "PSI-100-psi-100-science-documents-saffire-iii-mergeresult-raw-final-xlsx",
+    "investigationId": "PSI-100",
+    "title": "PSI 100 Science Documents SAFFIRE III MergeResult raw Final.xlsx",
+    "fileName": "PSI-100_Science Documents_SAFFIRE-III_MergeResult-raw_Final.xlsx",
+    "category": "Science document",
+    "sizeBytes": 7701589.0,
+    "path": "Science Documents/PSI-100_Science Documents_SAFFIRE-III_MergeResult-raw_Final.xlsx"
+  },
+  {
+    "id": "PSI-100-psi-100-science-documents-saffire-iii-mergeresult-jpeg-final-xlsx",
+    "investigationId": "PSI-100",
+    "title": "PSI 100 Science Documents SAFFIRE III MergeResult jpeg Final.xlsx",
+    "fileName": "PSI-100_Science Documents_SAFFIRE-III_MergeResult-jpeg_Final.xlsx",
+    "category": "Science document",
+    "sizeBytes": 7879404.0,
+    "path": "Science Documents/PSI-100_Science Documents_SAFFIRE-III_MergeResult-jpeg_Final.xlsx"
+  },
+  {
+    "id": "PSI-100-psi-100-science-documents-saffire-objectives-development-and-status-pdf",
+    "investigationId": "PSI-100",
+    "title": "PSI 100 Science Documents SAFFIRE Objectives, Development and Status",
+    "fileName": "PSI-100_Science Documents_SAFFIRE Objectives, Development and Status.pdf",
+    "category": "Science document",
+    "sizeBytes": 186259.0,
+    "path": "Science Documents/PSI-100_Science Documents_SAFFIRE Objectives, Development and Status.pdf"
+  },
+  {
+    "id": "PSI-100-psi-100-science-documents-saffire-i-and-saffire-iii-readme-docx",
+    "investigationId": "PSI-100",
+    "title": "PSI 100 Science Documents SAFFIRE I and SAFFIRE III Readme",
+    "fileName": "PSI-100_Science Documents_SAFFIRE-I and SAFFIRE-III Readme.docx",
+    "category": "Science document",
+    "sizeBytes": 65426.0,
+    "path": "Science Documents/PSI-100_Science Documents_SAFFIRE-I and SAFFIRE-III Readme.docx"
+  },
+  {
+    "id": "PSI-101-psi-101-reports-same-r-final-report-pdf",
+    "investigationId": "PSI-101",
+    "title": "PSI 101 Reports SAME R Final Report",
+    "fileName": "PSI-101_Reports_SAME-R_Final Report.pdf",
+    "category": "Report",
+    "sizeBytes": 4578437.0,
+    "path": "Reports/PSI-101_Reports_SAME-R_Final Report.pdf"
+  },
+  {
+    "id": "PSI-101-psi-101-science-documents-same-baseline-concept-description-document-001-rev-a-p",
+    "investigationId": "PSI-101",
+    "title": "PSI 101 Science Documents SAME Baseline Concept Description Document 001 Rev A",
+    "fileName": "PSI-101_Science Documents_SAME_Baseline Concept Description Document_001 Rev A.pdf",
+    "category": "Science document",
+    "sizeBytes": 247315.0,
+    "path": "Science Documents/PSI-101_Science Documents_SAME_Baseline Concept Description Document_001 Rev A.pdf"
+  },
+  {
+    "id": "PSI-101-psi-101-science-documents-same-operations-manual-007-pdf",
+    "investigationId": "PSI-101",
+    "title": "PSI 101 Science Documents SAME Operations Manual 007",
+    "fileName": "PSI-101_Science Documents_SAME_Operations Manual_007.pdf",
+    "category": "Science document",
+    "sizeBytes": 699811.0,
+    "path": "Science Documents/PSI-101_Science Documents_SAME_Operations Manual_007.pdf"
+  },
+  {
+    "id": "PSI-102-psi-102-reports-same-final-science-report-pdf",
+    "investigationId": "PSI-102",
+    "title": "PSI 102 Reports SAME Final Science Report",
+    "fileName": "PSI-102_Reports_SAME_Final Science Report.pdf",
+    "category": "Report",
+    "sizeBytes": 3712845.0,
+    "path": "Reports/PSI-102_Reports_SAME_Final Science Report.pdf"
+  },
+  {
+    "id": "PSI-102-psi-102-science-documents-same-baseline-concept-description-doc-pdf",
+    "investigationId": "PSI-102",
+    "title": "PSI 102 Science Documents SAME Baseline Concept Description Doc",
+    "fileName": "PSI-102_Science Documents_SAME_Baseline Concept Description Doc.pdf",
+    "category": "Science document",
+    "sizeBytes": 247315.0,
+    "path": "Science Documents/PSI-102_Science Documents_SAME_Baseline Concept Description Doc.pdf"
+  },
+  {
+    "id": "PSI-102-psi-102-science-documents-same-operations-manual-007-pdf",
+    "investigationId": "PSI-102",
+    "title": "PSI 102 Science Documents SAME Operations Manual 007",
+    "fileName": "PSI-102_Science Documents_SAME_Operations Manual_007.pdf",
+    "category": "Science document",
+    "sizeBytes": 699811.0,
+    "path": "Science Documents/PSI-102_Science Documents_SAME_Operations Manual_007.pdf"
+  },
+  {
+    "id": "PSI-107-psi-107-reports-smoke-points-of-microgravity-and-normal-gravity-coflow-diffusion",
+    "investigationId": "PSI-107",
+    "title": "PSI 107 Reports SMOKE POINTS OF MICROGRAVITY AND  NORMAL GRAVITY COFLOW DIFFUSION  FLAMES DotsonThesis",
+    "fileName": "PSI-107_Reports_SMOKE POINTS OF MICROGRAVITY AND  NORMAL GRAVITY COFLOW DIFFUSION  FLAMES_DotsonThesis.pdf",
+    "category": "Report",
+    "sizeBytes": 2227738.0,
+    "path": "Reports/PSI-107_Reports_SMOKE POINTS OF MICROGRAVITY AND  NORMAL GRAVITY COFLOW DIFFUSION  FLAMES_DotsonThesis.pdf"
+  },
+  {
+    "id": "PSI-107-psi-107-reports-spice-30-daypostflightreport-pdf",
+    "investigationId": "PSI-107",
+    "title": "PSI 107 Reports SPICE 30 DayPostFlightReport",
+    "fileName": "PSI-107_Reports_SPICE_30-DayPostFlightReport.pdf",
+    "category": "Report",
+    "sizeBytes": 160909.0,
+    "path": "Reports/PSI-107_Reports_SPICE_30-DayPostFlightReport.pdf"
+  },
+  {
+    "id": "PSI-107-psi-107-reports-spice-finalreport-pdf",
+    "investigationId": "PSI-107",
+    "title": "PSI 107 Reports SPICE FinalReport",
+    "fileName": "PSI-107_Reports_SPICE_FinalReport.pdf",
+    "category": "Report",
+    "sizeBytes": 601754.0,
+    "path": "Reports/PSI-107_Reports_SPICE_FinalReport.pdf"
+  },
+  {
+    "id": "PSI-107-psi-107-science-documents-spice-srd-doc",
+    "investigationId": "PSI-107",
+    "title": "PSI 107 Science Documents SPICE SRD",
+    "fileName": "PSI-107_Science Documents_SPICE_SRD.doc",
+    "category": "Science document",
+    "sizeBytes": 1112064.0,
+    "path": "Science Documents/PSI-107_Science Documents_SPICE_SRD.doc"
+  },
+  {
+    "id": "PSI-115-psi-115-reports-nnx17af08a-finalreport-pdf",
+    "investigationId": "PSI-115",
+    "title": "PSI 115 Reports NNX17AF08A FinalReport",
+    "fileName": "PSI-115_Reports_NNX17AF08A_FinalReport.pdf",
+    "category": "Report",
+    "sizeBytes": 10617514.0,
+    "path": "Reports/PSI-115_Reports_NNX17AF08A_FinalReport.pdf"
+  },
+  {
+    "id": "PSI-115-psi-115-science-documents-dataorganizationdocument-pdf",
+    "investigationId": "PSI-115",
+    "title": "PSI 115 Science Documents DataOrganizationDocument",
+    "fileName": "PSI-115_Science Documents_DataOrganizationDocument.pdf",
+    "category": "Science document",
+    "sizeBytes": 96899.0,
+    "path": "Science Documents/PSI-115_Science Documents_DataOrganizationDocument.pdf"
+  },
+  {
+    "id": "PSI-117-psi-117-reports-dissertation-combustion-behavior-of-sub-millimeter-sized-oxygena",
+    "investigationId": "PSI-117",
+    "title": "PSI 117 Reports Dissertation Combustion Behavior Of Sub Millimeter Sized Oxygenated And N Alka",
+    "fileName": "PSI-117_Reports_Dissertation_Combustion Behavior Of Sub-Millimeter Sized Oxygenated And N-Alka.pdf",
+    "category": "Report",
+    "sizeBytes": 8072629,
+    "path": "Reports/PSI-117_Reports_Dissertation_Combustion Behavior Of Sub-Millimeter Sized Oxygenated And N-Alka.pdf"
+  },
+  {
+    "id": "PSI-159-psi-159-reports-finalrpt-acme-cfi-g-pdf",
+    "investigationId": "PSI-159",
+    "title": "PSI 159 Reports FinalRpt ACME.CFI G",
+    "fileName": "PSI-159_Reports_FinalRpt_ACME.CFI-G.pdf",
+    "category": "Report",
+    "sizeBytes": 3894907,
+    "path": "Reports/PSI-159_Reports_FinalRpt_ACME.CFI-G.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-reports-final-20220201-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Reports Final 20220201",
+    "fileName": "PSI-20_Reports_Final_20220201.pdf",
+    "category": "Report",
+    "sizeBytes": 5957884.0,
+    "path": "Reports/PSI-20_Reports_Final_20220201.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-reports-dissertation-pd-revised-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Reports Dissertation PD revised",
+    "fileName": "PSI-20_Reports_Dissertation-PD-revised_.pdf",
+    "category": "Report",
+    "sizeBytes": 12433641.0,
+    "path": "Reports/PSI-20_Reports_Dissertation-PD-revised_.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-bre-test-summary-docx",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME BRE Test Summary",
+    "fileName": "PSI-20_Science Documents_ACME-BRE_Test_Summary.docx",
+    "category": "Science document",
+    "sizeBytes": 127529.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME-BRE_Test_Summary.docx"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-non-imaging-data-file-description-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME non imaging data file description",
+    "fileName": "PSI-20_Science Documents_ACME_non-imaging_data_file_description.pdf",
+    "category": "Science document",
+    "sizeBytes": 377001.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_non-imaging_data_file_description.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-bre-data-interpretation-20220804-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents BRE data interpretation 20220804",
+    "fileName": "PSI-20_Science Documents_BRE_data_interpretation_20220804.pdf",
+    "category": "Science document",
+    "sizeBytes": 731305.0,
+    "path": "Science Documents/PSI-20_Science Documents_BRE_data_interpretation_20220804.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-fact-sheet-20180519-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME fact sheet 20180519",
+    "fileName": "PSI-20_Science Documents_ACME_fact_sheet_20180519.pdf",
+    "category": "Science document",
+    "sizeBytes": 437766.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_fact_sheet_20180519.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-fact-sheet-20180820-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME fact sheet 20180820",
+    "fileName": "PSI-20_Science Documents_ACME_fact_sheet_20180820.pdf",
+    "category": "Science document",
+    "sizeBytes": 1132230.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_fact_sheet_20180820.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-iss-researchers-guide-combustion-in-reduced-gravity-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ISS Researchers Guide Combustion In Reduced Gravity",
+    "fileName": "PSI-20_Science Documents_ISS_Researchers_Guide_-_Combustion_In_Reduced_Gravity.pdf",
+    "category": "Science document",
+    "sizeBytes": 1532064.0,
+    "path": "Science Documents/PSI-20_Science Documents_ISS_Researchers_Guide_-_Combustion_In_Reduced_Gravity.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-ps-00538-unlocking-mysteries-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents PS 00538 Unlocking Mysteries",
+    "fileName": "PSI-20_Science Documents_PS_00538__Unlocking_Mysteries.pdf",
+    "category": "Science document",
+    "sizeBytes": 2658200.0,
+    "path": "Science Documents/PSI-20_Science Documents_PS_00538__Unlocking_Mysteries.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-ps-01548-acme-info-sheet-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents PS 01548 ACME info sheet",
+    "fileName": "PSI-20_Science Documents_PS-01548_ACME_info_sheet.pdf",
+    "category": "Science document",
+    "sizeBytes": 874049.0,
+    "path": "Science Documents/PSI-20_Science Documents_PS-01548_ACME_info_sheet.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-ps-02788-acme-info-sheet-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents PS 02788 ACME info sheet",
+    "fileName": "PSI-20_Science Documents_PS-02788_ACME_info_sheet.pdf",
+    "category": "Science document",
+    "sizeBytes": 4839732.0,
+    "path": "Science Documents/PSI-20_Science Documents_PS-02788_ACME_info_sheet.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-ps-03055-acme-info-sheet-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents PS 03055 ACME info sheet",
+    "fileName": "PSI-20_Science Documents_PS-03055_ACME_info_sheet.pdf",
+    "category": "Science document",
+    "sizeBytes": 3782346.0,
+    "path": "Science Documents/PSI-20_Science Documents_PS-03055_ACME_info_sheet.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-ps-03403-acme-on-the-iss-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents PS 03403 ACME on the ISS",
+    "fileName": "PSI-20_Science Documents_PS-03403_ACME_on_the_ISS.pdf",
+    "category": "Science document",
+    "sizeBytes": 9090639.0,
+    "path": "Science Documents/PSI-20_Science Documents_PS-03403_ACME_on_the_ISS.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-flex-a-decisive-step-forward-in-nasas-combustion-resear",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents FLEX A Decisive Step Forward in NASAs Combustion Research Program",
+    "fileName": "PSI-20_Science Documents_FLEX A Decisive Step Forward in NASAs Combustion Research Program.pdf",
+    "category": "Science document",
+    "sizeBytes": 3693275.0,
+    "path": "Science Documents/PSI-20_Science Documents_FLEX A Decisive Step Forward in NASAs Combustion Research Program.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-integrated-science-requirements-definition-review-",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME Integrated Science Requirements Definition Review 20100505",
+    "fileName": "PSI-20_Science Documents_ACME_Integrated_Science_Requirements_Definition_Review_20100505.pdf",
+    "category": "Science document",
+    "sizeBytes": 3119886.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_Integrated_Science_Requirements_Definition_Review_20100505.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-integrated-science-requirements-revb-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME Integrated Science Requirements RevB",
+    "fileName": "PSI-20_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf",
+    "category": "Science document",
+    "sizeBytes": 1878639.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-science-operation-requirements-reva-20111018-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME Science Operation Requirements revA 20111018",
+    "fileName": "PSI-20_Science Documents_ACME_Science_Operation_Requirements_revA_20111018.pdf",
+    "category": "Science document",
+    "sizeBytes": 300262.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_Science_Operation_Requirements_revA_20111018.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-bre-science-concept-rdr-201306-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents BRE science concept RDR 201306",
+    "fileName": "PSI-20_Science Documents_BRE_science_concept_RDR_201306.pdf",
+    "category": "Science document",
+    "sizeBytes": 6096986.0,
+    "path": "Science Documents/PSI-20_Science Documents_BRE_science_concept_RDR_201306.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-bre-science-concept-scr-201208-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents BRE science concept SCR 201208",
+    "fileName": "PSI-20_Science Documents_BRE_science_concept_SCR_201208.pdf",
+    "category": "Science document",
+    "sizeBytes": 2780782.0,
+    "path": "Science Documents/PSI-20_Science Documents_BRE_science_concept_SCR_201208.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-bre-srd-201208-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents BRE SRD 201208",
+    "fileName": "PSI-20_Science Documents_BRE_SRD_201208.pdf",
+    "category": "Science document",
+    "sizeBytes": 1799909.0,
+    "path": "Science Documents/PSI-20_Science Documents_BRE_SRD_201208.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-bre-srd-201306-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents BRE SRD 201306",
+    "fileName": "PSI-20_Science Documents_BRE_SRD_201306.pdf",
+    "category": "Science document",
+    "sizeBytes": 11494240.0,
+    "path": "Science Documents/PSI-20_Science Documents_BRE_SRD_201306.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-bre-data-interpretation-zip",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME BRE Data interpretation.zip",
+    "fileName": "PSI-20_Science Documents_ACME BRE Data interpretation.zip",
+    "category": "Science document",
+    "sizeBytes": 1981506.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME BRE Data interpretation.zip"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-cdr-presentation-package-pdf",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME CDR Presentation Package",
+    "fileName": "PSI-20_Science Documents_ACME CDR Presentation Package.pdf",
+    "category": "Science document",
+    "sizeBytes": 13232481.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME CDR Presentation Package.pdf"
+  },
+  {
+    "id": "PSI-20-psi-20-science-documents-acme-bre-readme-docx",
+    "investigationId": "PSI-20",
+    "title": "PSI 20 Science Documents ACME BRE Readme",
+    "fileName": "PSI-20_Science Documents_ACME_BRE_Readme.docx",
+    "category": "Science document",
+    "sizeBytes": 134101.0,
+    "path": "Science Documents/PSI-20_Science Documents_ACME_BRE_Readme.docx"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-e-field-flames-srd-20100402-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents E FIELD Flames SRD 20100402",
+    "fileName": "PSI-22_Science Documents_E-FIELD_Flames_SRD_20100402.pdf",
+    "category": "Science document",
+    "sizeBytes": 9895960.0,
+    "path": "Science Documents/PSI-22_Science Documents_E-FIELD_Flames_SRD_20100402.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-integrated-science-requirements-revb-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME Integrated Science Requirements RevB",
+    "fileName": "PSI-22_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf",
+    "category": "Science document",
+    "sizeBytes": 1878639.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-e-field-flames-scr-200802-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents E FIELD Flames SCR 200802",
+    "fileName": "PSI-22_Science Documents_E-FIELD Flames SCR 200802.pdf",
+    "category": "Science document",
+    "sizeBytes": 2965401.0,
+    "path": "Science Documents/PSI-22_Science Documents_E-FIELD Flames SCR 200802.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-integrated-science-requirements-definition-review-",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME Integrated Science Requirements Definition Review 20100505",
+    "fileName": "PSI-22_Science Documents_ACME_Integrated_Science_Requirements_Definition_Review_20100505.pdf",
+    "category": "Science document",
+    "sizeBytes": 3119886.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME_Integrated_Science_Requirements_Definition_Review_20100505.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-science-operation-requirements-reva-20111018-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME Science Operation Requirements revA 20111018",
+    "fileName": "PSI-22_Science Documents_ACME_Science_Operation_Requirements_revA_20111018.pdf",
+    "category": "Science document",
+    "sizeBytes": 300262.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME_Science_Operation_Requirements_revA_20111018.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-iss-researchers-guide-combustion-in-reduced-gravity-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ISS Researchers Guide   Combustion In Reduced Gravity",
+    "fileName": "PSI-22_Science Documents_ISS Researchers Guide - Combustion In Reduced Gravity.pdf",
+    "category": "Science document",
+    "sizeBytes": 1532064.0,
+    "path": "Science Documents/PSI-22_Science Documents_ISS Researchers Guide - Combustion In Reduced Gravity.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-data-interpretation-zip",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME Data interpretation.zip",
+    "fileName": "PSI-22_Science Documents_ACME Data interpretation.zip",
+    "category": "Science document",
+    "sizeBytes": 1981506.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME Data interpretation.zip"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-gas-flow-zip",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME Gas flow.zip",
+    "fileName": "PSI-22_Science Documents_ACME Gas flow.zip",
+    "category": "Science document",
+    "sizeBytes": 2419266.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME Gas flow.zip"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-non-imaging-data-file-description-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME non imaging data file description",
+    "fileName": "PSI-22_Science Documents_ACME non-imaging data file description.pdf",
+    "category": "Science document",
+    "sizeBytes": 377001.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME non-imaging data file description.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-e-field-flames-data-interpretation-document-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents E FIELD Flames data interpretation document",
+    "fileName": "PSI-22_Science Documents_E-FIELD Flames data interpretation document.pdf",
+    "category": "Science document",
+    "sizeBytes": 909422.0,
+    "path": "Science Documents/PSI-22_Science Documents_E-FIELD Flames data interpretation document.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-acme-e-field-flames-dod-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents ACME E FIELD Flames DoD",
+    "fileName": "PSI-22_Science Documents_ACME E-FIELD Flames DoD.pdf",
+    "category": "Science document",
+    "sizeBytes": 168744.0,
+    "path": "Science Documents/PSI-22_Science Documents_ACME E-FIELD Flames DoD.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-e-field-flames-procedure-20200723-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents E FIELD Flames procedure 20200723",
+    "fileName": "PSI-22_Science Documents_E-FIELD_Flames_procedure_20200723.pdf",
+    "category": "Science document",
+    "sizeBytes": 747718.0,
+    "path": "Science Documents/PSI-22_Science Documents_E-FIELD_Flames_procedure_20200723.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-science-documents-e-field-flames-benefits-20200518-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Science Documents E FIELD Flames benefits 20200518",
+    "fileName": "PSI-22_Science Documents_E-FIELD_Flames_benefits_20200518.pdf",
+    "category": "Science document",
+    "sizeBytes": 144248.0,
+    "path": "Science Documents/PSI-22_Science Documents_E-FIELD_Flames_benefits_20200518.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-2018-e-field-flames-30-day-operation-accomplishments-report-for-i",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports 2018   E FIELD Flames 30 day Operation Accomplishments Report for ISS Increments 55 and 56 20181115",
+    "fileName": "PSI-22_Reports_2018 - E-FIELD Flames 30-day Operation Accomplishments Report for ISS Increments 55 and 56 20181115.pdf",
+    "category": "Report",
+    "sizeBytes": 793069.0,
+    "path": "Reports/PSI-22_Reports_2018 - E-FIELD Flames 30-day Operation Accomplishments Report for ISS Increments 55 and 56 20181115.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-2019-e-field-flames-30-day-operation-accomplishments-report-for-i",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports 2019   E FIELD Flames 30 Day Operation Accomplishments Report for ISS Increments 57 and 58 20190601",
+    "fileName": "PSI-22_Reports_2019 - E-FIELD Flames 30-Day Operation Accomplishments Report for ISS Increments 57 and 58 20190601.pdf",
+    "category": "Report",
+    "sizeBytes": 660479.0,
+    "path": "Reports/PSI-22_Reports_2019 - E-FIELD Flames 30-Day Operation Accomplishments Report for ISS Increments 57 and 58 20190601.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-acme-fact-sheet-20180820-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports ACME fact sheet 20180820",
+    "fileName": "PSI-22_Reports_ACME fact sheet 20180820.pdf",
+    "category": "Report",
+    "sizeBytes": 1132230.0,
+    "path": "Reports/PSI-22_Reports_ACME fact sheet 20180820.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-acme-fact-sheet-20180519-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports ACME fact sheet 20180519",
+    "fileName": "PSI-22_Reports_ACME fact sheet 20180519.pdf",
+    "category": "Report",
+    "sizeBytes": 437766.0,
+    "path": "Reports/PSI-22_Reports_ACME fact sheet 20180519.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-ps-02788-acme-info-sheet-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports PS 02788 ACME info sheet",
+    "fileName": "PSI-22_Reports_PS-02788 ACME info sheet.pdf",
+    "category": "Report",
+    "sizeBytes": 4839732.0,
+    "path": "Reports/PSI-22_Reports_PS-02788 ACME info sheet.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-ps-00538-unlocking-mysteries-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports PS 00538  Unlocking Mysteries",
+    "fileName": "PSI-22_Reports_PS_00538  Unlocking Mysteries.pdf",
+    "category": "Report",
+    "sizeBytes": 2658200.0,
+    "path": "Reports/PSI-22_Reports_PS_00538  Unlocking Mysteries.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-ps-03055-acme-info-sheet-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports PS 03055 ACME info sheet",
+    "fileName": "PSI-22_Reports_PS-03055 ACME info sheet.pdf",
+    "category": "Report",
+    "sizeBytes": 3782346.0,
+    "path": "Reports/PSI-22_Reports_PS-03055 ACME info sheet.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-ps-01548-acme-info-sheet-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports PS 01548 ACME info sheet",
+    "fileName": "PSI-22_Reports_PS-01548 ACME info sheet.pdf",
+    "category": "Report",
+    "sizeBytes": 874049.0,
+    "path": "Reports/PSI-22_Reports_PS-01548 ACME info sheet.pdf"
+  },
+  {
+    "id": "PSI-22-psi-22-reports-e-field-flames-final-report-pdf",
+    "investigationId": "PSI-22",
+    "title": "PSI 22 Reports E FIELD Flames Final Report",
+    "fileName": "PSI-22_Reports_E-FIELD Flames Final Report.pdf",
+    "category": "Report",
+    "sizeBytes": 3529827.0,
+    "path": "Reports/PSI-22_Reports_E-FIELD Flames Final Report.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-acme-non-imaging-data-file-description-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents ACME non imaging data file description",
+    "fileName": "PSI-23_Science Documents_ACME non-imaging data file description.pdf",
+    "category": "Science document",
+    "sizeBytes": 377001.0,
+    "path": "Science Documents/PSI-23_Science Documents_ACME non-imaging data file description.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-acme-integrated-science-requirements-revb-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents ACME Integrated Science Requirements RevB",
+    "fileName": "PSI-23_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf",
+    "category": "Science document",
+    "sizeBytes": 1878639.0,
+    "path": "Science Documents/PSI-23_Science Documents_ACME_Integrated_Science_Requirements_RevB.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-acme-science-operation-requirements-reva-20111018-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents ACME Science Operation Requirements revA 20111018",
+    "fileName": "PSI-23_Science Documents_ACME Science Operation Requirements revA 20111018.pdf",
+    "category": "Science document",
+    "sizeBytes": 300262.0,
+    "path": "Science Documents/PSI-23_Science Documents_ACME Science Operation Requirements revA 20111018.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-acme-integrated-science-requirements-definition-review-",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents ACME Integrated Science Requirements Definition Review 20100505",
+    "fileName": "PSI-23_Science Documents_ACME Integrated Science Requirements Definition Review 20100505.pdf",
+    "category": "Science document",
+    "sizeBytes": 3119886.0,
+    "path": "Science Documents/PSI-23_Science Documents_ACME Integrated Science Requirements Definition Review 20100505.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-s-flame-scr-200802-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents s Flame SCR 200802",
+    "fileName": "PSI-23_Science Documents_s-Flame SCR 200802.pdf",
+    "category": "Science document",
+    "sizeBytes": 2382728.0,
+    "path": "Science Documents/PSI-23_Science Documents_s-Flame SCR 200802.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-s-flame-srd-20100125-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents s Flame SRD 20100125",
+    "fileName": "PSI-23_Science Documents_s-Flame_SRD_20100125.pdf",
+    "category": "Science document",
+    "sizeBytes": 946359.0,
+    "path": "Science Documents/PSI-23_Science Documents_s-Flame_SRD_20100125.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-science-documents-acme-s-flame-dod-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Science Documents ACME s Flame  DoD",
+    "fileName": "PSI-23_Science Documents_ACME s-Flame  DoD.pdf",
+    "category": "Science document",
+    "sizeBytes": 801605.0,
+    "path": "Science Documents/PSI-23_Science Documents_ACME s-Flame  DoD.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-reports-s-flame-30-day-report-inc-63-20201216-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Reports s Flame 30 day report Inc 63 20201216",
+    "fileName": "PSI-23_Reports_s-Flame 30-day report Inc 63 20201216.pdf",
+    "category": "Report",
+    "sizeBytes": 301047.0,
+    "path": "Reports/PSI-23_Reports_s-Flame 30-day report Inc 63 20201216.pdf"
+  },
+  {
+    "id": "PSI-23-psi-23-reports-s-flame-final-report-20210729-pdf",
+    "investigationId": "PSI-23",
+    "title": "PSI 23 Reports s Flame final report 20210729",
+    "fileName": "PSI-23_Reports_s_Flame_final_report_20210729.pdf",
+    "category": "Report",
+    "sizeBytes": 3182281.0,
+    "path": "Reports/PSI-23_Reports_s_Flame_final_report_20210729.pdf"
+  },
+  {
+    "id": "PSI-25-psi-25-science-documents-bass-ii-test-matrices-xlsx",
+    "investigationId": "PSI-25",
+    "title": "PSI 25 Science Documents BASS II Test.Matrices.xlsx",
+    "fileName": "PSI-25_Science Documents_BASS-II_Test.Matrices.xlsx",
+    "category": "Science document",
+    "sizeBytes": 28956.0,
+    "path": "Science Documents/PSI-25_Science Documents_BASS-II_Test.Matrices.xlsx"
+  },
+  {
+    "id": "PSI-25-psi-25-science-documents-bass-ii-readme-docx",
+    "investigationId": "PSI-25",
+    "title": "PSI 25 Science Documents BASS II ReadMe",
+    "fileName": "PSI-25_Science Documents_BASS-II_ReadMe.docx",
+    "category": "Science document",
+    "sizeBytes": 21538.0,
+    "path": "Science Documents/PSI-25_Science Documents_BASS-II_ReadMe.docx"
+  },
+  {
+    "id": "PSI-25-psi-25-science-documents-bass-ii-srd-pdf",
+    "investigationId": "PSI-25",
+    "title": "PSI 25 Science Documents BASS II SRD",
+    "fileName": "PSI-25_Science Documents_BASS-II_SRD.pdf",
+    "category": "Science document",
+    "sizeBytes": 1108340.0,
+    "path": "Science Documents/PSI-25_Science Documents_BASS-II_SRD.pdf"
+  },
+  {
+    "id": "PSI-25-psi-25-reports-bass-ii-summary-report-pdf",
+    "investigationId": "PSI-25",
+    "title": "PSI 25 Reports BASS II Summary Report",
+    "fileName": "PSI-25_Reports_BASS-II Summary Report.pdf",
+    "category": "Report",
+    "sizeBytes": 48972416.0,
+    "path": "Reports/PSI-25_Reports_BASS-II Summary Report.pdf"
+  },
+  {
+    "id": "PSI-26-psi-26-science-documents-flammabilityaspectsoffabric-usnationalcombustion-2013-d",
+    "investigationId": "PSI-26",
+    "title": "PSI 26 Science Documents FlammabilityAspectsofFabric USNationalCombustion.2013",
+    "fileName": "PSI-26_Science Documents_FlammabilityAspectsofFabric_USNationalCombustion.2013.docx",
+    "category": "Science document",
+    "sizeBytes": 8837026.0,
+    "path": "Science Documents/PSI-26_Science Documents_FlammabilityAspectsofFabric_USNationalCombustion.2013.docx"
+  },
+  {
+    "id": "PSI-26-psi-26-science-documents-planned-test-matrix-xlsx",
+    "investigationId": "PSI-26",
+    "title": "PSI 26 Science Documents Planned Test Matrix.xlsx",
+    "fileName": "PSI-26_Science Documents_Planned_Test Matrix.xlsx",
+    "category": "Science document",
+    "sizeBytes": 20976.0,
+    "path": "Science Documents/PSI-26_Science Documents_Planned_Test Matrix.xlsx"
+  },
+  {
+    "id": "PSI-26-psi-26-science-documents-srd-bass-pdf",
+    "investigationId": "PSI-26",
+    "title": "PSI 26 Science Documents SRD BASS",
+    "fileName": "PSI-26_Science Documents_SRD_BASS.pdf",
+    "category": "Science document",
+    "sizeBytes": 884257.0,
+    "path": "Science Documents/PSI-26_Science Documents_SRD_BASS.pdf"
+  },
+  {
+    "id": "PSI-26-psi-26-science-documents-dld-bass-pdf",
+    "investigationId": "PSI-26",
+    "title": "PSI 26 Science Documents DLD BASS",
+    "fileName": "PSI-26_Science Documents_DLD_BASS.pdf",
+    "category": "Science document",
+    "sizeBytes": 69653.0,
+    "path": "Science Documents/PSI-26_Science Documents_DLD_BASS.pdf"
+  },
+  {
+    "id": "PSI-26-psi-26-science-documents-as-run-test-matrix-xlsx",
+    "investigationId": "PSI-26",
+    "title": "PSI 26 Science Documents As Run Test Matrix.xlsx",
+    "fileName": "PSI-26_Science Documents_As Run_Test Matrix.xlsx",
+    "category": "Science document",
+    "sizeBytes": 111886.0,
+    "path": "Science Documents/PSI-26_Science Documents_As Run_Test Matrix.xlsx"
+  },
+  {
+    "id": "PSI-39-psi-39-reports-cfi-science-final-report-pdf",
+    "investigationId": "PSI-39",
+    "title": "PSI 39 Reports CFI Science Final Report",
+    "fileName": "PSI-39_Reports_CFI Science Final Report.pdf",
+    "category": "Report",
+    "sizeBytes": 811459.0,
+    "path": "Reports/PSI-39_Reports_CFI Science Final Report.pdf"
+  },
+  {
+    "id": "PSI-39-psi-39-science-documents-cfi-datasummary-spreadsheet-jan2021-xlsx",
+    "investigationId": "PSI-39",
+    "title": "PSI 39 Science Documents CFI DataSummary Spreadsheet Jan2021.xlsx",
+    "fileName": "PSI-39_Science Documents_CFI_DataSummary_Spreadsheet_Jan2021.xlsx",
+    "category": "Science document",
+    "sizeBytes": 208743.0,
+    "path": "Science Documents/PSI-39_Science Documents_CFI_DataSummary_Spreadsheet_Jan2021.xlsx"
+  },
+  {
+    "id": "PSI-39-psi-39-science-documents-srd-cfi-pdf",
+    "investigationId": "PSI-39",
+    "title": "PSI 39 Science Documents SRD CFI",
+    "fileName": "PSI-39_Science Documents_SRD_CFI.pdf",
+    "category": "Science document",
+    "sizeBytes": 12260561.0,
+    "path": "Science Documents/PSI-39_Science Documents_SRD_CFI.pdf"
+  },
+  {
+    "id": "PSI-39-psi-39-science-documents-cfi-scr-pdf",
+    "investigationId": "PSI-39",
+    "title": "PSI 39 Science Documents CFI SCR",
+    "fileName": "PSI-39_Science Documents_CFI_SCR.pdf",
+    "category": "Science document",
+    "sizeBytes": 3630234.0,
+    "path": "Science Documents/PSI-39_Science Documents_CFI_SCR.pdf"
+  },
+  {
+    "id": "PSI-47-psi-47-reports-daft-finalreport-doc",
+    "investigationId": "PSI-47",
+    "title": "PSI 47 Reports DAFT FinalReport",
+    "fileName": "PSI-47_Reports_DAFT_FinalReport.doc",
+    "category": "Report",
+    "sizeBytes": 8844800.0,
+    "path": "Reports/PSI-47_Reports_DAFT_FinalReport.doc"
+  },
+  {
+    "id": "PSI-47-psi-47-reports-daft-30day-postflightreport-pdf",
+    "investigationId": "PSI-47",
+    "title": "PSI 47 Reports DAFT 30Day.PostFlightReport",
+    "fileName": "PSI-47_Reports_DAFT_30Day.PostFlightReport.pdf",
+    "category": "Report",
+    "sizeBytes": 185648.0,
+    "path": "Reports/PSI-47_Reports_DAFT_30Day.PostFlightReport.pdf"
+  },
+  {
+    "id": "PSI-47-psi-47-reports-daft-1yearreport-doc",
+    "investigationId": "PSI-47",
+    "title": "PSI 47 Reports DAFT 1YearReport",
+    "fileName": "PSI-47_Reports_DAFT_1YearReport.doc",
+    "category": "Report",
+    "sizeBytes": 4919296.0,
+    "path": "Reports/PSI-47_Reports_DAFT_1YearReport.doc"
+  },
+  {
+    "id": "PSI-68-psi-68-science-documents-flex-2-srd-final-no-hypertext-pdf",
+    "investigationId": "PSI-68",
+    "title": "PSI 68 Science Documents FLEX 2 SRD Final   No Hypertext",
+    "fileName": "PSI-68_Science Documents_FLEX-2 SRD Final _ No Hypertext .pdf",
+    "category": "Science document",
+    "sizeBytes": 673636.0,
+    "path": "Science Documents/PSI-68_Science Documents_FLEX-2 SRD Final _ No Hypertext .pdf"
+  },
+  {
+    "id": "PSI-68-psi-68-science-documents-flex-2-srd-final-pdf",
+    "investigationId": "PSI-68",
+    "title": "PSI 68 Science Documents FLEX 2 SRD Final",
+    "fileName": "PSI-68_Science Documents_FLEX-2 SRD Final.pdf",
+    "category": "Science document",
+    "sizeBytes": 1001814.0,
+    "path": "Science Documents/PSI-68_Science Documents_FLEX-2 SRD Final.pdf"
+  },
+  {
+    "id": "PSI-68-psi-68-science-documents-flex-2-dod-docx",
+    "investigationId": "PSI-68",
+    "title": "PSI 68 Science Documents FLEX 2 DoD",
+    "fileName": "PSI-68_Science Documents_FLEX-2 DoD.docx",
+    "category": "Science document",
+    "sizeBytes": 19354.0,
+    "path": "Science Documents/PSI-68_Science Documents_FLEX-2 DoD.docx"
+  },
+  {
+    "id": "PSI-69-psi-69-science-documents-flex-dod-docx",
+    "investigationId": "PSI-69",
+    "title": "PSI 69 Science Documents FLEX DoD",
+    "fileName": "PSI-69_Science Documents_FLEX DoD.docx",
+    "category": "Science document",
+    "sizeBytes": 18758.0,
+    "path": "Science Documents/PSI-69_Science Documents_FLEX DoD.docx"
+  },
+  {
+    "id": "PSI-69-psi-69-science-documents-flex-test-plan-pdf",
+    "investigationId": "PSI-69",
+    "title": "PSI 69 Science Documents FLEX Test Plan",
+    "fileName": "PSI-69_Science Documents_FLEX_Test_Plan.pdf",
+    "category": "Science document",
+    "sizeBytes": 185799.0,
+    "path": "Science Documents/PSI-69_Science Documents_FLEX_Test_Plan.pdf"
+  },
+  {
+    "id": "PSI-98-psi-98-science-documents-saffire-i-image-directory-nomenclature-pdf",
+    "investigationId": "PSI-98",
+    "title": "PSI 98 Science Documents SAFFIRE I Image Directory Nomenclature",
+    "fileName": "PSI-98_Science Documents_SAFFIRE-I Image Directory Nomenclature.pdf",
+    "category": "Science document",
+    "sizeBytes": 262860.0,
+    "path": "Science Documents/PSI-98_Science Documents_SAFFIRE-I Image Directory Nomenclature.pdf"
+  },
+  {
+    "id": "PSI-98-psi-98-science-documents-saffire-1-mergeresult-jpeg-update-final-v2-xlsx",
+    "investigationId": "PSI-98",
+    "title": "PSI 98 Science Documents SAFFIRE 1 MergeResult jpeg Update Final v2.xlsx",
+    "fileName": "PSI-98_Science Documents_SAFFIRE-1_MergeResult-jpeg_Update_Final_v2.xlsx",
+    "category": "Science document",
+    "sizeBytes": 12325177.0,
+    "path": "Science Documents/PSI-98_Science Documents_SAFFIRE-1_MergeResult-jpeg_Update_Final_v2.xlsx"
+  },
+  {
+    "id": "PSI-98-psi-98-science-documents-saffire-objectives-development-and-status-pdf",
+    "investigationId": "PSI-98",
+    "title": "PSI 98 Science Documents SAFFIRE Objectives, Development and Status",
+    "fileName": "PSI-98_Science Documents_SAFFIRE Objectives, Development and Status.pdf",
+    "category": "Science document",
+    "sizeBytes": 186259.0,
+    "path": "Science Documents/PSI-98_Science Documents_SAFFIRE Objectives, Development and Status.pdf"
+  },
+  {
+    "id": "PSI-98-psi-98-science-documents-saffire-i-and-saffire-iii-readme-docx",
+    "investigationId": "PSI-98",
+    "title": "PSI 98 Science Documents SAFFIRE I and SAFFIRE III Readme",
+    "fileName": "PSI-98_Science Documents_SAFFIRE-I and SAFFIRE-III Readme.docx",
+    "category": "Science document",
+    "sizeBytes": 65426.0,
+    "path": "Science Documents/PSI-98_Science Documents_SAFFIRE-I and SAFFIRE-III Readme.docx"
+  },
+  {
+    "id": "PSI-99-psi-99-science-documents-saffire-ii-image-directory-nomenclature-v3-0-pdf",
+    "investigationId": "PSI-99",
+    "title": "PSI 99 Science Documents SAFFIRE II Image Directory Nomenclature v3.0",
+    "fileName": "PSI-99_Science Documents_SAFFIRE-II_Image_Directory_Nomenclature_v3.0.pdf",
+    "category": "Science document",
+    "sizeBytes": 755236.0,
+    "path": "Science Documents/PSI-99_Science Documents_SAFFIRE-II_Image_Directory_Nomenclature_v3.0.pdf"
+  },
+  {
+    "id": "PSI-99-psi-99-science-documents-saffire-ii-mergeresult-jpeg-v5-final-xlsx",
+    "investigationId": "PSI-99",
+    "title": "PSI 99 Science Documents SAFFIRE II MergeResult jpeg v5 Final.xlsx",
+    "fileName": "PSI-99_Science Documents_SAFFIRE-II_MergeResult-jpeg_v5_Final.xlsx",
+    "category": "Science document",
+    "sizeBytes": 20820425.0,
+    "path": "Science Documents/PSI-99_Science Documents_SAFFIRE-II_MergeResult-jpeg_v5_Final.xlsx"
+  },
+  {
+    "id": "PSI-99-psi-99-science-documents-saffire-objectives-development-and-status-pdf",
+    "investigationId": "PSI-99",
+    "title": "PSI 99 Science Documents SAFFIRE Objectives, Development and Status",
+    "fileName": "PSI-99_Science Documents_SAFFIRE Objectives, Development and Status.pdf",
+    "category": "Science document",
+    "sizeBytes": 186259.0,
+    "path": "Science Documents/PSI-99_Science Documents_SAFFIRE Objectives, Development and Status.pdf"
+  },
+  {
+    "id": "PSI-99-psi-99-science-documents-saffire-ii-readme-docx",
+    "investigationId": "PSI-99",
+    "title": "PSI 99 Science Documents SAFFIRE II Readme",
+    "fileName": "PSI-99_Science Documents_SAFFIRE-II Readme.docx",
+    "category": "Science document",
+    "sizeBytes": 134425.0,
+    "path": "Science Documents/PSI-99_Science Documents_SAFFIRE-II Readme.docx"
+  }
+]

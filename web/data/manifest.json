@@ -1,0 +1,26 @@
+{
+  "name": "Flame in Freefall evidence snapshot",
+  "snapshotDate": "2026-11-14",
+  "generatedAt": "2026-11-14T07:03:24.058268+00:00",
+  "source": "NASA Physical Sciences Informatics (PSI) system",
+  "sourceSearch": "https://psi.nasa.gov/geode-py/ws/repo/search?ffield=Research%20Area&fvalue=Combustion%20Science&size=50&from=0",
+  "psiSearchPage": "https://psi.nasa.gov/physci/repo/search?q=combustion",
+  "license": "NASA PSI records are published under their individual licenses. 23 of 24 Combustion Science records are CC0 1.0; PSI-10 has no license stated.",
+  "disclaimer": "Independent project. Not affiliated with or endorsed by NASA.",
+  "counts": {
+    "investigations": 24,
+    "experimentalTables": 22,
+    "tableRows": 2870,
+    "documents": 109,
+    "evidencePoints": 14,
+    "rawFiles": 65629
+  },
+  "dataRules": [
+    "Missing values remain null; they are never replaced with zero.",
+    "Initial or ambient O2 is used as the test condition; final O2 is not.",
+    "Ranges and approximations such as '21.5 - 21.7' and '~21.5' are preserved as ranges and flagged approximate.",
+    "Malformed values (for example 3400% in the BRE table) are excluded and listed, not silently corrected.",
+    "Raw PSI data (videos, telemetry, images) is not ingested; only metadata, summary tables, documents index, publications and selected CC0 images are used.",
+    "Partial-gravity claims require direct partial-gravity data. E-FIELD is labeled an analog."
+  ]
+}

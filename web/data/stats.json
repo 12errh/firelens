@@ -1,0 +1,153 @@
+{
+  "snapshotDate": "2026-11-14",
+  "sourceSearch": "https://psi.nasa.gov/geode-py/ws/repo/search?ffield=Research%20Area&fvalue=Combustion%20Science&size=50&from=0",
+  "psiSearchPage": "https://psi.nasa.gov/physci/repo/search?q=combustion",
+  "investigations": 24,
+  "flightInvestigations": 19,
+  "groundInvestigations": 1,
+  "analysisInvestigations": 4,
+  "flightIds": [
+    "PSI-10",
+    "PSI-100",
+    "PSI-101",
+    "PSI-102",
+    "PSI-106",
+    "PSI-107",
+    "PSI-159",
+    "PSI-20",
+    "PSI-21",
+    "PSI-22",
+    "PSI-23",
+    "PSI-25",
+    "PSI-26",
+    "PSI-39",
+    "PSI-47",
+    "PSI-68",
+    "PSI-69",
+    "PSI-98",
+    "PSI-99"
+  ],
+  "groundIds": [
+    "PSI-142"
+  ],
+  "analysisIds": [
+    "PSI-115",
+    "PSI-117",
+    "PSI-60",
+    "PSI-62"
+  ],
+  "experimentalTables": 22,
+  "tablesWithO2": 12,
+  "tableRows": 2870,
+  "reports": 29,
+  "scienceDocuments": 80,
+  "documentsIndexed": 109,
+  "tabularDocuments": 109,
+  "rawFiles": 65629,
+  "publications": 352,
+  "partialGravityDatasets": 0,
+  "partialGravityAnalogInvestigations": [
+    "PSI-22"
+  ],
+  "byKind": [
+    {
+      "label": "Flight experiment",
+      "value": 19
+    },
+    {
+      "label": "Modeling & analysis",
+      "value": 4
+    },
+    {
+      "label": "Ground experiment",
+      "value": 1
+    }
+  ],
+  "bySubarea": [
+    {
+      "label": "Spacecraft Fire Safety",
+      "value": 10
+    },
+    {
+      "label": "Flames of Gaseous Fuels",
+      "value": 3
+    },
+    {
+      "label": "Unclassified",
+      "value": 1
+    },
+    {
+      "label": "Fire Safety",
+      "value": 1
+    },
+    {
+      "label": "Smoke Aerosol, Combustion Simulation",
+      "value": 1
+    },
+    {
+      "label": "Droplet",
+      "value": 1
+    },
+    {
+      "label": "Flames of gaseous fuel",
+      "value": 1
+    },
+    {
+      "label": "Laminar Flames",
+      "value": 1
+    },
+    {
+      "label": "Flames of gaseous fuels",
+      "value": 1
+    },
+    {
+      "label": "Droplets",
+      "value": 1
+    },
+    {
+      "label": "Gaseous",
+      "value": 1
+    },
+    {
+      "label": "Spacecraft Fire, Smoke Distribution",
+      "value": 1
+    },
+    {
+      "label": "Surface Combustion",
+      "value": 1
+    }
+  ],
+  "byLicense": [
+    {
+      "label": "CC0 1.0",
+      "value": 23
+    },
+    {
+      "label": "Not stated",
+      "value": 1
+    }
+  ],
+  "o2": {
+    "overallMax": 85.0,
+    "solidMax": 22.2,
+    "solidMaxId": "PSI-25",
+    "liquidMax": 34.0,
+    "liquidMaxId": "PSI-69",
+    "gasMax": 85.0,
+    "gasMaxId": "PSI-10",
+    "solidAt30Count": 0,
+    "liquidAt30Count": 2,
+    "gasAt30Count": 6,
+    "lunarBandCount": 8,
+    "lunarBandIds": [
+      "PSI-10",
+      "PSI-159",
+      "PSI-20",
+      "PSI-23",
+      "PSI-68",
+      "PSI-69"
+    ],
+    "solidMaxRows": 129
+  },
+  "evidencePoints": 14
+}

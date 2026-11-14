@@ -1,0 +1,47 @@
+[
+  {
+    "id": "spacecraft",
+    "label": "Spacecraft cabin",
+    "gravity": "Microgravity",
+    "target": "~21% O₂, 1 atm",
+    "status": "Direct evidence",
+    "statusKey": "direct",
+    "summary": "Microgravity solid-fuel tests exist, but most were run at Earth-like oxygen. Suppression and smoke data are available.",
+    "evidence": [
+      "PSI-25",
+      "PSI-98",
+      "PSI-99",
+      "PSI-69",
+      "PSI-102"
+    ]
+  },
+  {
+    "id": "lunar",
+    "label": "Lunar habitat",
+    "gravity": "1/6 g",
+    "target": "≥30% O₂, ≤10.2 psi",
+    "status": "Analogical + gap",
+    "statusKey": "gap",
+    "summary": "No lunar-gravity combustion dataset. No solid-material test in the PSI snapshot reaches the ≥30% O₂ band.",
+    "evidence": [
+      "PSI-25",
+      "PSI-159",
+      "PSI-23",
+      "PSI-22"
+    ]
+  },
+  {
+    "id": "mars",
+    "label": "Mars habitat",
+    "gravity": "0.38 g",
+    "target": "Mission-dependent",
+    "status": "Analogical + gap",
+    "statusKey": "gap",
+    "summary": "No Mars-gravity combustion dataset. Partial-gravity behavior must be bounded from microgravity and 1 g evidence.",
+    "evidence": [
+      "PSI-25",
+      "PSI-69",
+      "PSI-159"
+    ]
+  }
+]
