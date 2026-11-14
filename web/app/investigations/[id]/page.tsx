@@ -28,14 +28,9 @@ import {
 import { TablePreview } from "@/components/table-preview";
 import { InvestigationCard } from "@/components/investigation-card";
 import { Badge, DataNote, Field, SectionHeading } from "@/components/ui";
+import { PHASE_COLOR } from "@/lib/tokens";
 import { cn } from "@/lib/cn";
 
-const PHASE_COLOR: Record<string, string> = {
-  solid: "#ff8a4c",
-  liquid: "#6fd6e8",
-  gas: "#b7a6ff",
-  aerosol: "#9aa6b7",
-};
 
 const PHASE_TONE: Record<string, "flame" | "ice" | "violet" | "neutral"> = {
   solid: "flame",
@@ -139,14 +134,14 @@ function ScenarioBadge({ scenario }: { scenario: Scenario }) {
       )}
     >
       <div>
-        <div className="text-[12px] text-ink">{scenario.label}</div>
-        <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+        <div className="text-[14px] text-ink">{scenario.label}</div>
+        <div className="mt-0.5 text-[15px] text-faint">
           {scenario.gravity} · {scenario.target}
         </div>
       </div>
       <span
         className={cn(
-          "shrink-0 font-mono text-[8px] uppercase tracking-[0.08em]",
+          "shrink-0 text-[14px]",
           direct ? "text-moss" : "text-flame",
         )}
       >
@@ -197,15 +192,15 @@ export default async function InvestigationPage({
     <>
       {/* Breadcrumb */}
       <div className="border-b border-line">
-        <div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4 px-5 py-3 sm:px-8">
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between gap-4 px-6 py-3 lg:px-10">
           <Link
             href="/investigations"
-            className="inline-flex items-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-ink"
+            className="inline-flex items-center gap-2 text-[15px] text-muted transition-colors hover:text-ink"
           >
             <ArrowLeft className="h-3 w-3" strokeWidth={1.5} />
             All investigations
           </Link>
-          <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+          <span className="text-[15px] text-faint">
             {investigation.id} · {investigation.kindLabel}
           </span>
         </div>
@@ -214,7 +209,7 @@ export default async function InvestigationPage({
       {/* Hero */}
       <header className="relative border-b border-line">
         <div className="pointer-events-none absolute inset-0 grid-field opacity-40" />
-        <div className="relative mx-auto max-w-[1240px] px-5 pb-10 pt-10 sm:px-8 sm:pb-12 sm:pt-14">
+        <div className="relative mx-auto max-w-[1200px] px-6 pb-10 pt-10 lg:px-10 sm:pb-12 sm:pt-14">
           <div className="grid gap-10 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
             <div>
               <div className="flex flex-wrap items-center gap-1.5">
@@ -232,7 +227,7 @@ export default async function InvestigationPage({
                 {investigation.analog ? <Badge tone="violet">Analog</Badge> : null}
               </div>
 
-              <div className="mt-6 font-mono text-[9.5px] uppercase tracking-[0.12em] text-faint">
+              <div className="mt-6 text-[15px] text-faint">
                 {investigation.id}
                 {investigation.subResearchArea ? ` · ${investigation.subResearchArea}` : ""}
               </div>
@@ -254,38 +249,38 @@ export default async function InvestigationPage({
                 </p>
               ) : null}
 
-              <p className="mt-5 max-w-[640px] text-pretty text-[13.5px] leading-6 text-muted">
+              <p className="mt-5 max-w-[640px] text-pretty text-[14px] leading-6 text-muted">
                 {investigation.summary ??
                   "No plain-language summary is published for this record in the PSI snapshot. The research brief below is reproduced from the source metadata."}
               </p>
 
               <div className="mt-8 grid grid-cols-2 gap-px border border-line bg-line sm:grid-cols-4">
                 <div className="bg-panel px-4 py-3.5">
-                  <div className="label text-[8px]">O₂ range</div>
+                  <div className="label text-[14px]">O₂ range</div>
                   <div className="mt-1.5 font-mono text-[16px] tabular text-ink">
                     {formatO2(o2)}
                   </div>
-                  <div className="mt-1 font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                  <div className="mt-1 text-[15px] text-faint">
                     {hasO2 ? `initial · n=${o2?.n}` : "not reported"}
                   </div>
                 </div>
                 <div className="bg-panel px-4 py-3.5">
-                  <div className="label text-[8px]">Pressure</div>
+                  <div className="label text-[14px]">Pressure</div>
                   <div className="mt-1.5 font-mono text-[16px] tabular text-ink">
                     {pressure
                       ? `${pressure.min.toFixed(2)}–${pressure.max.toFixed(2)}`
                       : "—"}
                   </div>
-                  <div className="mt-1 font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                  <div className="mt-1 text-[15px] text-faint">
                     {pressure ? "atm" : "not reported"}
                   </div>
                 </div>
                 <div className="bg-panel px-4 py-3.5">
-                  <div className="label text-[8px]">Tables</div>
+                  <div className="label text-[14px]">Tables</div>
                   <div className="mt-1.5 font-mono text-[16px] tabular text-ink">
                     {investigation.tableCount}
                   </div>
-                  <div className="mt-1 font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                  <div className="mt-1 text-[15px] text-faint">
                     {formatNumber(
                       investigation.tables.reduce((sum, table) => sum + table.rowCount, 0),
                     )}{" "}
@@ -293,11 +288,11 @@ export default async function InvestigationPage({
                   </div>
                 </div>
                 <div className="bg-panel px-4 py-3.5">
-                  <div className="label text-[8px]">Publications</div>
+                  <div className="label text-[14px]">Publications</div>
                   <div className="mt-1.5 font-mono text-[16px] tabular text-ink">
                     {investigation.publicationCount}
                   </div>
-                  <div className="mt-1 font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                  <div className="mt-1 text-[15px] text-faint">
                     Metadata records
                   </div>
                 </div>
@@ -308,12 +303,12 @@ export default async function InvestigationPage({
             <div className="panel self-start overflow-hidden">
               <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
                 <div className="flex items-center gap-2">
-                  <span className="label text-[8.5px] text-ink">Oxygen envelope</span>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                  <span className="label text-[14px] text-ink">Oxygen envelope</span>
+                  <span className="text-[15px] text-faint">
                     tabulated
                   </span>
                 </div>
-                <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                <span className="text-[15px] text-faint">
                   {investigation.tables.length}{" "}
                   {investigation.tables.length === 1 ? "table" : "tables"}
                 </span>
@@ -322,23 +317,23 @@ export default async function InvestigationPage({
               <div className="space-y-5 p-4 sm:p-5">
                 {investigation.tables.length ? (
                   investigation.tables.map((table) => {
-                    const color = PHASE_COLOR[table.phase ?? "aerosol"] ?? "#9aa6b7";
+                    const color = PHASE_COLOR[table.phase ?? "aerosol"] ?? PHASE_COLOR.aerosol;
                     return (
                       <div key={table.id}>
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
-                            <div className="truncate text-[11.5px] text-ink" title={table.name}>
+                            <div className="truncate text-[14px] text-ink" title={table.name}>
                               {table.name}
                             </div>
-                            <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                            <div className="mt-0.5 text-[15px] text-faint">
                               {phaseLabel(table.phase)} · {table.rowCount} rows
                             </div>
                           </div>
-                          <span className="shrink-0 font-mono text-[11px] tabular text-ink">
+                          <span className="shrink-0 font-mono text-[14px] tabular text-ink">
                             {formatO2(table.o2)}
                           </span>
                         </div>
-                        <div className="relative mt-2.5 h-2 bg-white/[0.06]">
+                        <div className="relative mt-2.5 h-2 bg-panel-2">
                           <div
                             className="absolute top-0 z-10 h-full border-l border-dashed border-flame/80"
                             style={{ left: "30%" }}
@@ -350,12 +345,12 @@ export default async function InvestigationPage({
                               style={{
                                 left: `${table.o2.min}%`,
                                 width: `${Math.max(table.o2.max - table.o2.min, 0.8)}%`,
-                                backgroundColor: `${color}40`,
+                                backgroundColor: `color-mix(in srgb, ${color} 26%, transparent)`,
                                 borderColor: color,
                               }}
                             />
                           ) : (
-                            <div className="absolute inset-y-0 left-0 right-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_4px,rgba(255,255,255,0.04)_4px,rgba(255,255,255,0.04)_8px)]" />
+                            <div className="absolute inset-y-0 left-0 right-0 bg-[repeating-linear-gradient(135deg,transparent,transparent_4px,rgba(24,24,20,0.05)_4px,rgba(24,24,20,0.05)_8px)]" />
                           )}
                         </div>
                       </div>
@@ -364,21 +359,21 @@ export default async function InvestigationPage({
                 ) : (
                   <div className="flex flex-col items-center justify-center border border-dashed border-line px-4 py-10 text-center">
                     <FlaskConical className="h-5 w-5 text-faint" strokeWidth={1.25} />
-                    <p className="mt-3 text-[12px] text-ink">No summary table published</p>
-                    <p className="mt-1 max-w-[240px] text-[10.5px] leading-5 text-faint">
+                    <p className="mt-3 text-[14px] text-ink">No summary table published</p>
+                    <p className="mt-1 max-w-[240px] text-[14px] leading-5 text-faint">
                       This is a modeling or analysis record without a normalized
                       experimental table in the snapshot.
                     </p>
                   </div>
                 )}
 
-                <div className="flex justify-between border-t border-line pt-2.5 font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                <div className="flex justify-between border-t border-line pt-2.5 text-[15px] text-faint">
                   <span>0%</span>
                   <span className="text-flame/80">30% lunar target</span>
                   <span>100%</span>
                 </div>
 
-                <p className="text-[10.5px] leading-5 text-faint">
+                <p className="text-[14px] leading-5 text-faint">
                   Ranges reflect initial or ambient oxygen conditions. Final-oxygen readings
                   are excluded because they can reflect transient combustion products.
                 </p>
@@ -389,7 +384,7 @@ export default async function InvestigationPage({
       </header>
 
       {/* Body */}
-      <div className="mx-auto grid max-w-[1240px] gap-10 px-5 py-10 sm:px-8 sm:py-12 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-12">
+      <div className="mx-auto grid max-w-[1200px] gap-10 px-6 py-12 lg:px-10 lg:py-16 lg:grid-cols-[minmax(0,1fr)_330px] lg:gap-12">
         <div className="min-w-0">
           {investigation.image ? (
             <figure className="mb-10 overflow-hidden border border-line bg-panel">
@@ -404,7 +399,7 @@ export default async function InvestigationPage({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
               </div>
-              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 font-mono text-[8.5px] uppercase tracking-[0.1em] text-faint">
+              <figcaption className="flex flex-wrap items-center justify-between gap-2 px-3 py-2 text-[15px] text-faint">
                 <span>{investigation.image.credit}</span>
                 <span>{investigation.id} · representative image</span>
               </figcaption>
@@ -424,15 +419,15 @@ export default async function InvestigationPage({
               <div className="mt-7 space-y-7">
                 {briefs.map((brief) => (
                   <div key={brief.label} className="border-t border-line pt-4">
-                    <h3 className="label text-[9px] text-ink">{brief.label}</h3>
-                    <p className="mt-2.5 max-w-[72ch] whitespace-pre-line text-[13px] leading-6 text-muted">
+                    <h3 className="label text-[14px] text-ink">{brief.label}</h3>
+                    <p className="mt-2.5 max-w-[72ch] whitespace-pre-line text-[14px] leading-6 text-muted">
                       {brief.value}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="panel mt-7 px-5 py-8 text-[12px] leading-5 text-muted">
+              <div className="panel mt-7 px-6 py-8 text-[14px] leading-5 text-muted">
                 No narrative research brief is published for this record in the PSI
                 snapshot.
               </div>
@@ -483,9 +478,9 @@ export default async function InvestigationPage({
                     className="grid gap-2 border-b border-line py-4 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6"
                   >
                     <div>
-                      <h3 className="text-[13px] leading-5 text-ink">{publication.title}</h3>
+                      <h3 className="text-[14px] leading-5 text-ink">{publication.title}</h3>
                       {publication.authors ? (
-                        <p className="mt-1 text-[11px] leading-5 text-faint">
+                        <p className="mt-1 text-[14px] leading-5 text-faint">
                           {publication.authors}
                         </p>
                       ) : null}
@@ -496,7 +491,7 @@ export default async function InvestigationPage({
                           href={publication.doiUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 border border-line px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+                          className="inline-flex items-center gap-1 border border-line px-2 py-1.5 text-[15px] text-faint transition-colors hover:border-line-strong hover:text-ink"
                         >
                           DOI
                           <ArrowUpRight className="h-2.5 w-2.5" strokeWidth={1.5} />
@@ -506,13 +501,13 @@ export default async function InvestigationPage({
                           href={`https://pubmed.ncbi.nlm.nih.gov/${publication.pubmedId}/`}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 border border-line px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+                          className="inline-flex items-center gap-1 border border-line px-2 py-1.5 text-[15px] text-faint transition-colors hover:border-line-strong hover:text-ink"
                         >
                           PubMed
                           <ArrowUpRight className="h-2.5 w-2.5" strokeWidth={1.5} />
                         </a>
                       ) : (
-                        <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                        <span className="text-[15px] text-faint">
                           No link
                         </span>
                       )}
@@ -522,7 +517,7 @@ export default async function InvestigationPage({
 
                 {remainingPublications.length ? (
                   <details className="group">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 font-mono text-[9px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-ink">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[15px] text-muted transition-colors hover:text-ink">
                       <span>Show {remainingPublications.length} more publications</span>
                       <span className="text-faint transition-transform group-open:rotate-45">
                         +
@@ -535,11 +530,11 @@ export default async function InvestigationPage({
                           className="grid gap-2 border-b border-line py-4 sm:grid-cols-[1fr_auto] sm:items-start sm:gap-6"
                         >
                           <div>
-                            <h3 className="text-[13px] leading-5 text-ink">
+                            <h3 className="text-[14px] leading-5 text-ink">
                               {publication.title}
                             </h3>
                             {publication.authors ? (
-                              <p className="mt-1 text-[11px] leading-5 text-faint">
+                              <p className="mt-1 text-[14px] leading-5 text-faint">
                                 {publication.authors}
                               </p>
                             ) : null}
@@ -550,7 +545,7 @@ export default async function InvestigationPage({
                                 href={publication.doiUrl}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 border border-line px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+                                className="inline-flex items-center gap-1 border border-line px-2 py-1.5 text-[15px] text-faint transition-colors hover:border-line-strong hover:text-ink"
                               >
                                 DOI
                                 <ArrowUpRight className="h-2.5 w-2.5" strokeWidth={1.5} />
@@ -560,13 +555,13 @@ export default async function InvestigationPage({
                                 href={`https://pubmed.ncbi.nlm.nih.gov/${publication.pubmedId}/`}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-flex items-center gap-1 border border-line px-2 py-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+                                className="inline-flex items-center gap-1 border border-line px-2 py-1.5 text-[15px] text-faint transition-colors hover:border-line-strong hover:text-ink"
                               >
                                 PubMed
                                 <ArrowUpRight className="h-2.5 w-2.5" strokeWidth={1.5} />
                               </a>
                             ) : (
-                              <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                              <span className="text-[15px] text-faint">
                                 No link
                               </span>
                             )}
@@ -578,7 +573,7 @@ export default async function InvestigationPage({
                 ) : null}
               </div>
             ) : (
-              <div className="panel mt-7 px-5 py-8 text-[12px] leading-5 text-muted">
+              <div className="panel mt-7 px-6 py-8 text-[14px] leading-5 text-muted">
                 No publications are indexed for this record in the snapshot.
               </div>
             )}
@@ -589,8 +584,8 @@ export default async function InvestigationPage({
             <div className="flex gap-3">
               <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-flame" strokeWidth={1.5} />
               <div>
-                <h2 className="label text-[9px] text-ink">Read with care</h2>
-                <ul className="mt-2.5 space-y-2 text-[11.5px] leading-5 text-muted">
+                <h2 className="label text-[14px] text-ink">Read with care</h2>
+                <ul className="mt-2.5 space-y-2 text-[14px] leading-5 text-muted">
                   {hasO2 ? (
                     <li>
                       Reported oxygen values are table conditions, not a general
@@ -630,11 +625,11 @@ export default async function InvestigationPage({
         <aside className="space-y-4 lg:sticky lg:top-[86px] lg:self-start">
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-              <span className="flex items-center gap-2 label text-[8.5px] text-ink">
+              <span className="flex items-center gap-2 label text-[14px] text-ink">
                 <Fingerprint className="h-3 w-3 text-flame" strokeWidth={1.5} />
                 Record profile
               </span>
-              <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+              <span className="text-[15px] text-faint">
                 PSI
               </span>
             </div>
@@ -643,7 +638,7 @@ export default async function InvestigationPage({
               <Field label="Type">
                 {investigation.kindLabel}
                 {investigation.projectType ? (
-                  <span className="block text-[11px] text-faint">
+                  <span className="block text-[14px] text-faint">
                     {investigation.projectType}
                   </span>
                 ) : null}
@@ -653,7 +648,7 @@ export default async function InvestigationPage({
                   ? "Microgravity"
                   : "Normal gravity"}
                 {investigation.analog ? (
-                  <span className="block text-[11px] text-violet">
+                  <span className="block text-[14px] text-violet">
                     Partial-gravity analog
                   </span>
                 ) : null}
@@ -704,7 +699,7 @@ export default async function InvestigationPage({
                     href={investigation.doiUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 break-all font-mono text-[10.5px] text-ice transition-colors hover:text-ink"
+                    className="inline-flex items-center gap-1 break-all font-mono text-[14px] text-ice transition-colors hover:text-ink"
                   >
                     {investigation.doi}
                     <ArrowUpRight className="h-3 w-3 shrink-0" strokeWidth={1.5} />
@@ -733,11 +728,11 @@ export default async function InvestigationPage({
 
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-              <span className="flex items-center gap-2 label text-[8.5px] text-ink">
+              <span className="flex items-center gap-2 label text-[14px] text-ink">
                 <Layers className="h-3 w-3 text-flame" strokeWidth={1.5} />
                 Evidence points
               </span>
-              <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+              <span className="text-[15px] text-faint">
                 {evidence.length}
               </span>
             </div>
@@ -747,24 +742,24 @@ export default async function InvestigationPage({
                   <a
                     key={point.id}
                     href="#tables"
-                    className="flex items-start justify-between gap-3 px-4 py-3 transition-colors hover:bg-white/[0.02]"
+                    className="flex items-start justify-between gap-3 px-4 py-3 transition-colors hover:bg-panel-2"
                   >
                     <div className="min-w-0">
-                      <div className="truncate text-[11px] text-ink" title={point.label}>
+                      <div className="truncate text-[14px] text-ink" title={point.label}>
                         {point.label}
                       </div>
-                      <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                      <div className="mt-0.5 text-[15px] text-faint">
                         {point.phase ? phaseLabel(point.phase) : "Unclassified"} ·{" "}
                         {point.rows} rows
                       </div>
                     </div>
-                    <span className="shrink-0 font-mono text-[10px] tabular text-muted">
+                    <span className="shrink-0 font-mono text-[14px] tabular text-muted">
                       {formatO2(point.o2)}
                     </span>
                   </a>
                 ))
               ) : (
-                <p className="px-4 py-4 text-[11px] leading-5 text-faint">
+                <p className="px-4 py-4 text-[14px] leading-5 text-faint">
                   No normalized evidence point for this record.
                 </p>
               )}
@@ -773,7 +768,7 @@ export default async function InvestigationPage({
 
           <div className="panel overflow-hidden">
             <div className="border-b border-line px-4 py-3">
-              <span className="label text-[8.5px] text-ink">Scenario relevance</span>
+              <span className="label text-[14px] text-ink">Scenario relevance</span>
             </div>
             <div className="grid gap-1.5 p-3">
               {linkedScenarios.length ? (
@@ -781,7 +776,7 @@ export default async function InvestigationPage({
                   <ScenarioBadge key={scenario.id} scenario={scenario} />
                 ))
               ) : (
-                <p className="px-1 py-2 text-[11px] leading-5 text-faint">
+                <p className="px-1 py-2 text-[14px] leading-5 text-faint">
                   Not used as a primary scenario record in this snapshot.
                 </p>
               )}
@@ -790,11 +785,11 @@ export default async function InvestigationPage({
 
           <div className="panel overflow-hidden">
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-              <span className="flex items-center gap-2 label text-[8.5px] text-ink">
+              <span className="flex items-center gap-2 label text-[14px] text-ink">
                 <Database className="h-3 w-3 text-flame" strokeWidth={1.5} />
                 Archive
               </span>
-              <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+              <span className="text-[15px] text-faint">
                 {formatBytes(investigation.totalFileSize)}
               </span>
             </div>
@@ -804,15 +799,15 @@ export default async function InvestigationPage({
                   key={label}
                   className="flex items-center justify-between gap-3 px-4 py-2"
                 >
-                  <span className="text-[10.5px] text-muted">{label}</span>
-                  <span className="font-mono text-[10px] tabular text-ink">
+                  <span className="text-[14px] text-muted">{label}</span>
+                  <span className="font-mono text-[14px] tabular text-ink">
                     {formatNumber(count)}
                   </span>
                 </div>
               ))}
             </div>
             <div className="border-t border-line px-4 py-3">
-              <p className="text-[10px] leading-5 text-faint">
+              <p className="text-[14px] leading-5 text-faint">
                 {formatNumber(investigation.rawFileCount)} raw file entries are indexed as
                 metadata. The underlying datasets were not ingested.
               </p>
@@ -821,14 +816,14 @@ export default async function InvestigationPage({
 
           <div className="panel overflow-hidden">
             <div className="border-b border-line px-4 py-3">
-              <span className="label text-[8.5px] text-ink">Source</span>
+              <span className="label text-[14px] text-ink">Source</span>
             </div>
             <div className="grid gap-2 p-4">
               <a
                 href={investigation.psiUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between gap-3 border border-line px-3 py-2 font-mono text-[9px] uppercase tracking-[0.08em] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                className="flex items-center justify-between gap-3 border border-line px-3 py-2 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
               >
                 PSI record
                 <ArrowUpRight className="h-3 w-3" strokeWidth={1.5} />
@@ -837,12 +832,12 @@ export default async function InvestigationPage({
                 href={investigation.apiUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center justify-between gap-3 border border-line px-3 py-2 font-mono text-[9px] uppercase tracking-[0.08em] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                className="flex items-center justify-between gap-3 border border-line px-3 py-2 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
               >
                 PSI metadata API
                 <ArrowUpRight className="h-3 w-3" strokeWidth={1.5} />
               </a>
-              <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+              <p className="mt-1 text-[15px] text-faint">
                 Snapshot · {investigation.snapshotDate}
               </p>
             </div>
@@ -851,19 +846,19 @@ export default async function InvestigationPage({
           {investigation.contacts.length ? (
             <div className="panel overflow-hidden">
               <div className="border-b border-line px-4 py-3">
-                <span className="label text-[8.5px] text-ink">Contacts</span>
+                <span className="label text-[14px] text-ink">Contacts</span>
               </div>
               <div className="divide-y divide-line">
                 {investigation.contacts.map((contact) => (
                   <div key={contact.name} className="px-4 py-3">
-                    <div className="text-[11px] text-ink">{contact.name}</div>
-                    <div className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                    <div className="text-[14px] text-ink">{contact.name}</div>
+                    <div className="mt-0.5 text-[15px] text-faint">
                       {contact.roles.join(" · ")}
                     </div>
                     {contact.email ? (
                       <a
                         href={`mailto:${contact.email}`}
-                        className="mt-1.5 inline-flex items-center gap-1 break-all font-mono text-[9px] text-ice transition-colors hover:text-ink"
+                        className="mt-1.5 inline-flex items-center gap-1 break-all font-mono text-[14px] text-ice transition-colors hover:text-ink"
                       >
                         <Mail className="h-2.5 w-2.5 shrink-0" strokeWidth={1.5} />
                         {contact.email}
@@ -880,7 +875,7 @@ export default async function InvestigationPage({
       {/* Related */}
       {related.length ? (
         <section className="border-t border-line bg-panel/30">
-          <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-16">
+          <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 sm:py-16">
             <SectionHeading
               kicker="Related records"
               title="Closest context in the snapshot."
@@ -888,7 +883,7 @@ export default async function InvestigationPage({
               action={
                 <Link
                   href="/investigations"
-                  className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-ink"
+                  className="text-[15px] text-muted transition-colors hover:text-ink"
                 >
                   All investigations →
                 </Link>
@@ -908,18 +903,18 @@ export default async function InvestigationPage({
         aria-label="Investigation navigation"
         className="border-t border-line"
       >
-        <div className="mx-auto grid max-w-[1240px] gap-px bg-line sm:grid-cols-2">
+        <div className="mx-auto grid max-w-[1200px] gap-px bg-line sm:grid-cols-2">
           {previous ? (
             <Link
               href={`/investigations/${previous.id}`}
-              className="group bg-canvas px-5 py-5 transition-colors hover:bg-panel sm:px-8"
+              className="group bg-canvas px-6 py-5 transition-colors hover:bg-panel lg:px-10"
             >
-              <span className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-faint">
+              <span className="text-[15px] text-faint">
                 ← Previous
               </span>
               <span className="mt-1.5 flex items-baseline gap-2 text-[14px] text-ink">
                 {previous.acronym ?? previous.title}
-                <span className="font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                <span className="text-[15px] text-faint">
                   {previous.id}
                 </span>
               </span>
@@ -930,14 +925,14 @@ export default async function InvestigationPage({
           {next ? (
             <Link
               href={`/investigations/${next.id}`}
-              className="group bg-canvas px-5 py-5 text-right transition-colors hover:bg-panel sm:px-8"
+              className="group bg-canvas px-6 py-5 text-right transition-colors hover:bg-panel lg:px-10"
             >
-              <span className="font-mono text-[8.5px] uppercase tracking-[0.1em] text-faint">
+              <span className="text-[15px] text-faint">
                 Next →
               </span>
               <span className="mt-1.5 flex items-baseline justify-end gap-2 text-[14px] text-ink">
                 {next.acronym ?? next.title}
-                <span className="font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                <span className="text-[15px] text-faint">
                   {next.id}
                 </span>
               </span>

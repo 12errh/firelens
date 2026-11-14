@@ -35,13 +35,7 @@ export default function AssistantPage() {
     <>
       <PageIntro
         kicker="Evidence assistant · grounded mode"
-        title={
-          <>
-            Ask the snapshot.
-            <br />
-            Get the source.
-          </>
-        }
+        title="Ask the snapshot. Get the source."
         body="A research assistant for the 24 PSI combustion records behind this site. It answers from normalized tables and document metadata, cites the record behind each claim, and says “not reported” when the snapshot is silent."
         meta={
           <>
@@ -52,8 +46,8 @@ export default function AssistantPage() {
         }
       />
 
-      <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-12">
-        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+      <section className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-16">
+        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-faint">
           <span className="flex items-center gap-2">
             <StatusDot tone="moss" />
             Structured fallback available
@@ -69,7 +63,7 @@ export default function AssistantPage() {
           <aside className="space-y-4">
             <div className="panel overflow-hidden">
               <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-                <span className="flex items-center gap-2 label text-[8.5px] text-ink">
+                <span className="flex items-center gap-2 label text-[14px] text-ink">
                   <ShieldCheck className="h-3 w-3 text-flame" strokeWidth={1.5} />
                   How it answers
                 </span>
@@ -79,12 +73,12 @@ export default function AssistantPage() {
                 {STEPS.map((step, index) => (
                   <li key={step.label} className="px-4 py-3.5">
                     <div className="flex items-baseline gap-2">
-                      <span className="font-mono text-[8.5px] text-flame">
+                      <span className="font-mono text-[14px] text-flame">
                         {String(index + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-[11.5px] text-ink">{step.label}</span>
+                      <span className="text-[14px] text-ink">{step.label}</span>
                     </div>
-                    <p className="mt-1 pl-5 text-[10.5px] leading-5 text-faint">{step.body}</p>
+                    <p className="mt-1 pl-5 text-[14px] leading-5 text-faint">{step.body}</p>
                   </li>
                 ))}
               </ol>
@@ -93,9 +87,9 @@ export default function AssistantPage() {
             <div className="border border-ice/20 bg-ice/[0.035] p-4">
               <div className="flex items-center gap-2">
                 <ScanLine className="h-3.5 w-3.5 text-ice" strokeWidth={1.5} />
-                <span className="label text-[8.5px] text-ice">Numeric guard</span>
+                <span className="label text-[14px] text-ice">Numeric guard</span>
               </div>
-              <p className="mt-2 text-[11px] leading-5 text-muted">
+              <p className="mt-2 text-[14px] leading-5 text-muted">
                 A language-model draft containing a percentage that is not in the
                 normalized tables is rejected before it reaches you. The structured answer
                 is returned instead, with a note explaining why.
@@ -104,11 +98,11 @@ export default function AssistantPage() {
 
             <div className="panel overflow-hidden">
               <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-3">
-                <span className="flex items-center gap-2 label text-[8.5px] text-ink">
+                <span className="flex items-center gap-2 label text-[14px] text-ink">
                   <Database className="h-3 w-3 text-flame" strokeWidth={1.5} />
                   In scope
                 </span>
-                <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                <span className="text-[15px] text-faint">
                   Snapshot
                 </span>
               </div>
@@ -123,19 +117,19 @@ export default function AssistantPage() {
                     <div className="font-mono text-[20px] leading-none tracking-[-0.04em] text-ink">
                       {item.value}
                     </div>
-                    <div className="label mt-1.5 text-[8px]">{item.label}</div>
+                    <div className="label mt-1.5 text-[14px]">{item.label}</div>
                   </div>
                 ))}
               </div>
               <div className="border-t border-line px-4 py-3">
-                <div className="flex items-center justify-between gap-2 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                <div className="flex items-center justify-between gap-2 text-[15px] text-faint">
                   <span className="flex items-center gap-1.5">
                     <Table2 className="h-2.5 w-2.5" strokeWidth={1.5} />
                     Raw entries indexed
                   </span>
                   <span className="text-muted">{formatNumber(stats.rawFiles)}</span>
                 </div>
-                <p className="mt-2 text-[10px] leading-5 text-faint">
+                <p className="mt-2 text-[14px] leading-5 text-faint">
                   Raw datasets are not ingested. Answers come from published summary
                   tables and document metadata.
                 </p>
@@ -143,8 +137,8 @@ export default function AssistantPage() {
             </div>
 
             <div className="panel p-4">
-              <div className="label text-[8.5px] text-ink">What it will not do</div>
-              <ul className="mt-2.5 space-y-2 text-[10.5px] leading-5 text-faint">
+              <div className="label text-[14px] text-ink">What it will not do</div>
+              <ul className="mt-2.5 space-y-2 text-[14px] leading-5 text-faint">
                 <li>Treat microgravity data as lunar or Mars data.</li>
                 <li>Treat the E-FIELD analog as a gravity measurement.</li>
                 <li>Fill a missing value with an estimate or a guess.</li>
@@ -152,7 +146,7 @@ export default function AssistantPage() {
               </ul>
               <Link
                 href="/methodology"
-                className="mt-3 inline-flex items-center gap-1 font-mono text-[8.5px] uppercase tracking-[0.08em] text-muted transition-colors hover:text-flame"
+                className="mt-3 inline-flex items-center gap-1 text-[15px] text-muted transition-colors hover:text-flame"
               >
                 Read the methodology
                 <ArrowUpRight className="h-2.5 w-2.5" strokeWidth={1.5} />
@@ -161,7 +155,7 @@ export default function AssistantPage() {
           </aside>
         </div>
 
-        <div className="mt-6 border-t border-line pt-4 text-[10.5px] leading-5 text-faint">
+        <div className="mt-6 border-t border-line pt-4 text-[14px] leading-5 text-faint">
           The assistant is an interface to a dated research snapshot, not a live NASA
           system. It is independent of NASA and is not a source of mission-safety
           certification.

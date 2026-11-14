@@ -200,13 +200,7 @@ export default function MethodologyPage() {
     <>
       <PageIntro
         kicker="Methodology · snapshot and disclosure"
-        title={
-          <>
-            Show the source.
-            <br />
-            State the limit.
-          </>
-        }
+        title="Show the source. State the limit."
         body="A combustion evidence tool is only as good as its provenance. This page documents what was retrieved, how tables were normalized, how evidence was classified, what the snapshot cannot answer, and where AI is used."
         meta={
           <>
@@ -218,7 +212,7 @@ export default function MethodologyPage() {
       />
 
       {/* Provenance */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="01"
           kicker="Provenance"
@@ -231,7 +225,7 @@ export default function MethodologyPage() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <Database className="h-4 w-4 text-flame" strokeWidth={1.5} />
-                <span className="label text-[9.5px] text-ink">Source system</span>
+                <span className="label text-[14px] text-ink">Source system</span>
               </div>
               <Badge tone="moss">
                 <StatusDot tone="moss" />
@@ -241,7 +235,7 @@ export default function MethodologyPage() {
             <h3 className="mt-5 text-[22px] font-medium tracking-[-0.03em] text-ink">
               NASA Physical Sciences Informatics
             </h3>
-            <p className="mt-2 max-w-xl text-[12.5px] leading-6 text-muted">
+            <p className="mt-2 max-w-xl text-[14px] leading-6 text-muted">
               Combustion Science research area, queried through the public PSI
               repository API. The interface does not call PSI at request time; it
               serves the normalized snapshot shipped with the build.
@@ -259,8 +253,8 @@ export default function MethodologyPage() {
                 ["Evidence points", `${stats.evidencePoints}`],
               ].map(([label, value]) => (
                 <div key={label}>
-                  <dt className="label text-[8.5px] text-faint">{label}</dt>
-                  <dd className="mt-1 font-mono text-[12px] text-ink">{value}</dd>
+                  <dt className="label text-[14px] text-faint">{label}</dt>
+                  <dd className="mt-1 font-mono text-[14px] text-ink">{value}</dd>
                 </div>
               ))}
             </dl>
@@ -270,12 +264,12 @@ export default function MethodologyPage() {
                 href={stats.psiSearchPage}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 border border-line px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.1em] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                className="inline-flex items-center gap-1.5 border border-line px-2.5 py-1.5 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
               >
                 Open PSI search
                 <FileSearch className="h-3 w-3" strokeWidth={1.5} />
               </a>
-              <span className="font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+              <span className="text-[15px] text-faint">
                 No API key required · Public records
               </span>
             </div>
@@ -284,7 +278,7 @@ export default function MethodologyPage() {
           <div className="panel flex flex-col p-5 sm:p-6">
             <div className="flex items-center gap-2">
               <Scale className="h-4 w-4 text-ice" strokeWidth={1.5} />
-              <span className="label text-[9.5px] text-ink">Counts at a glance</span>
+              <span className="label text-[14px] text-ink">Counts at a glance</span>
             </div>
             <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-5">
               {[
@@ -299,11 +293,11 @@ export default function MethodologyPage() {
                   <div className="font-mono text-[24px] leading-none tracking-[-0.04em] text-ink">
                     {item.value}
                   </div>
-                  <div className="label mt-2 text-[8.5px] text-faint">{item.label}</div>
+                  <div className="label mt-2 text-[14px] text-faint">{item.label}</div>
                 </div>
               ))}
             </div>
-            <p className="mt-auto border-t border-line pt-4 text-[11px] leading-5 text-faint">
+            <p className="mt-auto border-t border-line pt-4 text-[14px] leading-5 text-faint">
               Counts are generated from the same JSON files used by the dashboard,
               explorer, and assistant. Nothing on this page is hand-typed.
             </p>
@@ -312,8 +306,8 @@ export default function MethodologyPage() {
       </section>
 
       {/* Pipeline */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="02"
             kicker="Pipeline"
@@ -325,13 +319,13 @@ export default function MethodologyPage() {
             {PIPELINE.map((item) => (
               <div key={item.step} className="bg-canvas p-5">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-[10px] text-flame">{item.step}</span>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                  <span className="font-mono text-[14px] text-flame">{item.step}</span>
+                  <span className="text-[15px] text-faint">
                     {item.output}
                   </span>
                 </div>
                 <h3 className="mt-4 text-[15px] text-ink">{item.title}</h3>
-                <p className="mt-2 text-[11.5px] leading-5 text-muted">{item.detail}</p>
+                <p className="mt-2 text-[14px] leading-5 text-muted">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -339,11 +333,11 @@ export default function MethodologyPage() {
           <div className="mt-5 grid gap-4 lg:grid-cols-2">
             <DataNote>
               The ingestion script is committed at{" "}
-              <code className="font-mono text-[10.5px] text-ink">
+              <code className="font-mono text-[14px] text-ink">
                 ingest/build_dataset.py
               </code>{" "}
               and regenerates every JSON file in{" "}
-              <code className="font-mono text-[10.5px] text-ink">web/data/</code>.
+              <code className="font-mono text-[14px] text-ink">web/data/</code>.
             </DataNote>
             <DataNote>
               The manifest records the retrieval date, source endpoint, counts, and
@@ -354,7 +348,7 @@ export default function MethodologyPage() {
       </section>
 
       {/* Normalization */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="03"
           kicker="Normalization rules"
@@ -365,11 +359,11 @@ export default function MethodologyPage() {
         <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {NORMALIZATION_RULES.map((rule, index) => (
             <article key={rule.title} className="panel flex flex-col p-5">
-              <span className="font-mono text-[9px] text-flame">
+              <span className="font-mono text-[14px] text-flame">
                 R{String(index + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-3 text-[14.5px] leading-5 text-ink">{rule.title}</h3>
-              <p className="mt-2 text-[11.5px] leading-5 text-muted">{rule.detail}</p>
+              <p className="mt-2 text-[14px] leading-5 text-muted">{rule.detail}</p>
             </article>
           ))}
         </div>
@@ -377,15 +371,15 @@ export default function MethodologyPage() {
         <div className="mt-6">
           <DataNote>
             {manifest.dataRules.length} machine-readable rules ship with the dataset in{" "}
-            <code className="font-mono text-[10.5px] text-ink">manifest.json</code>. The
+            <code className="font-mono text-[14px] text-ink">manifest.json</code>. The
             rules above summarize them; the manifest is the canonical list.
           </DataNote>
         </div>
       </section>
 
       {/* Evidence classes */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="04"
             kicker="Evidence classification"
@@ -402,7 +396,7 @@ export default function MethodologyPage() {
                 <Badge tone={item.tone} className="w-fit">
                   {item.label}
                 </Badge>
-                <p className="max-w-3xl text-[12px] leading-5 text-muted">{item.detail}</p>
+                <p className="max-w-3xl text-[14px] leading-5 text-muted">{item.detail}</p>
               </div>
             ))}
           </div>
@@ -418,7 +412,7 @@ export default function MethodologyPage() {
       </section>
 
       {/* Limits */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="05"
           kicker="Known limits"
@@ -432,11 +426,11 @@ export default function MethodologyPage() {
               key={limit.title}
               className="grid gap-2 border-b border-line py-4 sm:grid-cols-[48px_240px_1fr] sm:items-start sm:gap-6"
             >
-              <span className="font-mono text-[10px] text-faint">
+              <span className="font-mono text-[14px] text-faint">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="text-[13px] leading-5 text-ink">{limit.title}</h3>
-              <p className="text-[11.5px] leading-5 text-muted">{limit.detail}</p>
+              <h3 className="text-[14px] leading-5 text-ink">{limit.title}</h3>
+              <p className="text-[14px] leading-5 text-muted">{limit.detail}</p>
             </div>
           ))}
         </div>
@@ -445,9 +439,9 @@ export default function MethodologyPage() {
           <div className="panel border-flame/25 p-5">
             <div className="flex items-center gap-2">
               <CircleAlert className="h-4 w-4 text-flame" strokeWidth={1.5} />
-              <span className="label text-[9.5px] text-flame">Central limitation</span>
+              <span className="label text-[14px] text-flame">Central limitation</span>
             </div>
-            <p className="mt-3 text-[12.5px] leading-6 text-muted">
+            <p className="mt-3 text-[14px] leading-6 text-muted">
               The archive cannot directly predict lunar or Mars fire behavior. It
               contains microgravity measurements and one normal-gravity comparison. The
               1/6 g and 0.38 g regimes are not measured. Any extrapolation is an
@@ -457,9 +451,9 @@ export default function MethodologyPage() {
           <div className="panel p-5">
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-moss" strokeWidth={1.5} />
-              <span className="label text-[9.5px] text-ink">Why still useful</span>
+              <span className="label text-[14px] text-ink">Why still useful</span>
             </div>
-            <p className="mt-3 text-[12.5px] leading-6 text-muted">
+            <p className="mt-3 text-[14px] leading-6 text-muted">
               The snapshot is strong on what it does contain: microgravity solid,
               liquid, and gaseous combustion, suppression behavior, and oxygen
               conditions. It can support spacecraft-cabin reasoning and it can identify
@@ -470,8 +464,8 @@ export default function MethodologyPage() {
       </section>
 
       {/* Licensing */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="06"
             kicker="Licensing and attribution"
@@ -485,28 +479,28 @@ export default function MethodologyPage() {
                 <Badge tone="moss">23 of 24 · CC0 1.0</Badge>
                 <Badge tone="neutral">1 · Not stated</Badge>
               </div>
-              <p className="mt-4 text-[12px] leading-6 text-muted">
+              <p className="mt-4 text-[14px] leading-6 text-muted">
                 Nearly all Combustion Science records in this snapshot are published
                 under CC0 1.0. PSI-10 (ACME Flame Design) does not return a license in
                 its detail payload; it is shown as “license not stated” and should be
                 verified before redistribution. The interface links each record back to
                 its PSI page and DOI.
               </p>
-              <p className="mt-3 text-[12px] leading-6 text-muted">
+              <p className="mt-3 text-[14px] leading-6 text-muted">
                 Selected images are CC0 assets downloaded from PSI record galleries.
                 NASA logos, insignia, and the NASA identifier are not used.
               </p>
             </div>
             <div className="panel flex flex-col p-5">
-              <span className="label text-[9px] text-faint">Required statement</span>
-              <p className="mt-3 text-[12.5px] leading-6 text-ink">
+              <span className="label text-[14px] text-faint">Required statement</span>
+              <p className="mt-3 text-[14px] leading-6 text-ink">
                 Independent project for NASA Space Apps Challenge 2026. Not affiliated
                 with, sponsored by, or endorsed by NASA.
               </p>
               <div className="mt-auto border-t border-line pt-4">
                 <Link
                   href="/investigations/PSI-10"
-                  className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-flame"
+                  className="text-[15px] text-muted transition-colors hover:text-flame"
                 >
                   Inspect PSI-10 license →
                 </Link>
@@ -517,7 +511,7 @@ export default function MethodologyPage() {
       </section>
 
       {/* Disclosure */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="07"
           kicker="AI and SI disclosure"
@@ -530,11 +524,11 @@ export default function MethodologyPage() {
             const Icon = item.icon;
             return (
               <article key={item.title} className="panel p-5">
-                <span className="flex h-7 w-7 items-center justify-center border border-line bg-white/[0.025] text-flame">
+                <span className="flex h-7 w-7 items-center justify-center border border-line bg-panel-2 text-flame">
                   <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />
                 </span>
                 <h3 className="mt-4 text-[14px] text-ink">{item.title}</h3>
-                <p className="mt-2 text-[11.5px] leading-5 text-muted">{item.detail}</p>
+                <p className="mt-2 text-[14px] leading-5 text-muted">{item.detail}</p>
               </article>
             );
           })}
@@ -551,14 +545,14 @@ export default function MethodologyPage() {
 
       {/* Reproduce */}
       <section className="border-t border-line">
-        <div className="mx-auto max-w-[1240px] px-5 py-12 sm:px-8 sm:py-14">
+        <div className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 sm:py-14">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <div className="label text-[9px] text-flame">Regenerate the snapshot</div>
+              <div className="label text-[14px] text-flame">Regenerate the snapshot</div>
               <h2 className="mt-3 text-[24px] font-medium tracking-[-0.03em] text-ink">
                 Every number is rebuildable.
               </h2>
-              <p className="mt-2 max-w-xl text-[12px] leading-5 text-muted">
+              <p className="mt-2 max-w-xl text-[14px] leading-5 text-muted">
                 Run the Python ingestion script, then rebuild the Next.js app. The
                 generated JSON is the single source of truth for the UI and assistant.
               </p>

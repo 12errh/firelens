@@ -7,6 +7,7 @@ import type { CompactInvestigation } from "@/lib/types";
 import { formatNumber, formatO2, phaseLabel } from "@/lib/data";
 import { cn } from "@/lib/cn";
 import { Badge, DataNote } from "@/components/ui";
+import { PHASE_COLOR } from "@/lib/tokens";
 
 const KIND_FILTERS = [
   { id: "all", label: "All records" },
@@ -22,12 +23,6 @@ const PHASE_FILTERS = [
   { id: "gas", label: "Gas" },
 ] as const;
 
-const PHASE_COLOR: Record<string, string> = {
-  solid: "#ff8a4c",
-  liquid: "#6fd6e8",
-  gas: "#b7a6ff",
-  aerosol: "#9aa6b7",
-};
 
 const CURATED_ORDER = [
   "PSI-25",
@@ -132,7 +127,7 @@ export function InvestigationExplorer({
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Search a record, material, acronym, or objective…"
-            className="h-11 w-full border border-line bg-canvas pl-10 pr-10 text-[13px] text-ink placeholder:text-faint focus:border-flame/50"
+            className="h-11 w-full rounded-md border border-line bg-panel pl-10 pr-10 text-[15px] text-ink placeholder:text-faint focus:border-flame focus:outline-none focus:ring-2 focus:ring-flame/15"
           />
           {query ? (
             <button
@@ -154,14 +149,14 @@ export function InvestigationExplorer({
                 type="button"
                 onClick={() => setKind(item.id)}
                 className={cn(
-                  "border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.08em] transition-colors",
+                  "rounded-full border px-3.5 py-2 text-[14px] transition-colors",
                   kind === item.id
                     ? "border-flame/40 bg-flame/10 text-flame"
                     : "border-line text-muted hover:border-line-strong hover:text-ink",
                 )}
               >
                 {item.label}
-                <span className="ml-1.5 text-[8px] text-faint">{kindCounts[item.id] ?? 0}</span>
+                <span className="ml-1.5 text-[14px] text-faint">{kindCounts[item.id] ?? 0}</span>
               </button>
             ))}
             <span className="mx-1 hidden h-4 w-px bg-line sm:block" />
@@ -171,9 +166,9 @@ export function InvestigationExplorer({
                 type="button"
                 onClick={() => setPhase(item.id)}
                 className={cn(
-                  "flex items-center gap-1.5 border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.08em] transition-colors",
+                  "flex items-center gap-1.5 rounded-full border px-3.5 py-2 text-[14px] transition-colors",
                   phase === item.id
-                    ? "border-line-strong bg-white/[0.05] text-ink"
+                    ? "border-line-strong bg-panel-2 text-ink"
                     : "border-line text-muted hover:border-line-strong hover:text-ink",
                 )}
               >
@@ -193,7 +188,7 @@ export function InvestigationExplorer({
               type="button"
               onClick={() => setO2Only((value) => !value)}
               className={cn(
-                "flex items-center gap-2 border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.08em] transition-colors",
+                "flex items-center gap-2 rounded-full border px-3.5 py-2 text-[14px] transition-colors",
                 o2Only
                   ? "border-ice/40 bg-ice/[0.08] text-ice"
                   : "border-line text-muted hover:border-line-strong hover:text-ink",
@@ -208,12 +203,12 @@ export function InvestigationExplorer({
               />
               O₂ reported
             </button>
-            <label className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+            <label className="flex items-center gap-2 text-[15px] text-faint">
               Sort
               <select
                 value={sort}
                 onChange={(event) => setSort(event.target.value as SortKey)}
-                className="h-7 border border-line bg-canvas px-2 font-mono text-[9px] uppercase tracking-[0.08em] text-muted focus:border-flame/50"
+                className="h-9 rounded border border-line bg-panel px-3 text-[14px] text-muted focus:border-flame focus:outline-none"
               >
                 <option value="curated">Curated</option>
                 <option value="o2">O₂ max</option>
@@ -225,7 +220,7 @@ export function InvestigationExplorer({
               <button
                 type="button"
                 onClick={reset}
-                className="font-mono text-[9px] uppercase tracking-[0.08em] text-flame hover:text-ink"
+                className="text-[15px] text-flame hover:text-ink"
               >
                 Reset
               </button>
@@ -235,10 +230,10 @@ export function InvestigationExplorer({
       </div>
 
       <div className="mt-5 flex items-center justify-between gap-4 border-b border-line pb-3">
-        <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted">
+        <span className="text-[15px] text-muted">
           {filtered.length} of {records.length} records
         </span>
-        <span className="hidden font-mono text-[9px] uppercase tracking-[0.1em] text-faint sm:block">
+        <span className="hidden text-[15px] text-faint sm:block">
           O₂ range · reported test condition
         </span>
       </div>
@@ -247,13 +242,13 @@ export function InvestigationExplorer({
         <div className="panel mt-5 flex flex-col items-center justify-center px-6 py-16 text-center">
           <div className="font-mono text-[26px] text-flame">0</div>
           <h2 className="mt-3 text-[17px] text-ink">No record matches those filters.</h2>
-          <p className="mt-2 max-w-sm text-[12px] leading-5 text-muted">
+          <p className="mt-2 max-w-sm text-[14px] leading-5 text-muted">
             Try a broader search term, or reset to the full 24-record snapshot.
           </p>
           <button
             type="button"
             onClick={reset}
-            className="mt-5 border border-line px-3 py-2 font-mono text-[9px] uppercase tracking-[0.1em] text-ink hover:border-line-strong"
+            className="mt-5 border border-line px-3 py-2 text-[15px] text-ink hover:border-line-strong"
           >
             Reset filters
           </button>
@@ -262,7 +257,7 @@ export function InvestigationExplorer({
         <>
           {/* Desktop table */}
           <div className="hidden md:block">
-            <div className="grid grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_minmax(0,1.45fr)_minmax(0,0.65fr)_24px] gap-4 border-b border-line px-4 py-2 font-mono text-[8.5px] uppercase tracking-[0.1em] text-faint">
+            <div className="grid grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_minmax(0,1.45fr)_minmax(0,0.65fr)_24px] gap-4 border-b border-line px-4 py-2 text-[15px] text-faint">
               <span>Record</span>
               <span>Evidence type</span>
               <span>Environment</span>
@@ -272,35 +267,35 @@ export function InvestigationExplorer({
             </div>
             <div>
               {filtered.map((record) => {
-                const color = record.phases[0] ? PHASE_COLOR[record.phases[0]] : "#9aa6b7";
+                const color = record.phases[0] ? PHASE_COLOR[record.phases[0]] : PHASE_COLOR.aerosol;
                 return (
                   <Link
                     key={record.id}
                     href={`/investigations/${record.id}`}
-                    className="group grid grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_minmax(0,1.45fr)_minmax(0,0.65fr)_24px] items-center gap-4 border-b border-line px-4 py-4 transition-colors hover:bg-white/[0.025]"
+                    className="group grid grid-cols-[minmax(0,2.1fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_minmax(0,1.45fr)_minmax(0,0.65fr)_24px] items-center gap-4 border-b border-line px-4 py-4 transition-colors hover:bg-panel-2"
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+                        <span className="text-[15px] text-faint">
                           {record.id}
                         </span>
-                        {record.analog ? <span className="text-[8px] uppercase tracking-wider text-violet">analog</span> : null}
+                        {record.analog ? <span className="text-[15px] tracking-wider text-violet">analog</span> : null}
                       </div>
-                      <div className="mt-1 truncate text-[13.5px] text-ink">
+                      <div className="mt-1 truncate text-[14px] text-ink">
                         {record.acronym ?? record.title}
                       </div>
-                      <div className="mt-0.5 truncate text-[10.5px] text-muted">{record.title}</div>
+                      <div className="mt-0.5 truncate text-[14px] text-muted">{record.title}</div>
                     </div>
 
                     <div className="flex flex-col items-start gap-1">
                       <Badge tone={KIND_TONE[record.kind]}>{record.kindLabel}</Badge>
-                      <span className="font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                      <span className="text-[15px] text-faint">
                         {record.subResearchArea ?? "Unclassified"}
                       </span>
                     </div>
 
                     <div className="flex flex-col gap-1">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-muted">
+                      <span className="text-[15px] text-muted">
                         {record.gravity === "microgravity" ? "Microgravity" : "Normal gravity"}
                       </span>
                       <div className="flex flex-wrap gap-1">
@@ -308,13 +303,13 @@ export function InvestigationExplorer({
                           record.phases.map((item) => (
                             <span
                               key={item}
-                              className="font-mono text-[8px] uppercase tracking-[0.06em] text-faint"
+                              className="text-[15px] text-faint"
                             >
                               {phaseLabel(item)}
                             </span>
                           ))
                         ) : (
-                          <span className="font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                          <span className="text-[15px] text-faint">
                             not classified
                           </span>
                         )}
@@ -324,7 +319,7 @@ export function InvestigationExplorer({
                     <div>
                       {record.o2 ? (
                         <>
-                          <div className="relative h-1.5 max-w-[170px] bg-white/[0.07]">
+                          <div className="relative h-1.5 max-w-[170px] bg-panel-2">
                             <div
                               className="absolute inset-y-0"
                               style={{
@@ -340,27 +335,27 @@ export function InvestigationExplorer({
                             />
                           </div>
                           <div className="mt-1.5 flex items-baseline gap-2">
-                            <span className="font-mono text-[10.5px] tabular text-ink">
+                            <span className="font-mono text-[14px] tabular text-ink">
                               {formatO2(record.o2)}
                             </span>
-                            <span className="font-mono text-[8px] uppercase tracking-[0.06em] text-faint">
+                            <span className="text-[15px] text-faint">
                               n={record.o2.n}
                             </span>
                           </div>
                         </>
                       ) : (
-                        <div className="font-mono text-[9.5px] uppercase tracking-[0.06em] text-faint">
+                        <div className="text-[15px] text-faint">
                           Not reported
                         </div>
                       )}
                     </div>
 
-                    <div className="font-mono text-[10px] tabular text-muted">
+                    <div className="font-mono text-[14px] tabular text-muted">
                       {record.tableCount}
-                      <span className="ml-1 text-[8px] uppercase tracking-[0.06em] text-faint">
+                      <span className="ml-1 text-[15px] text-faint">
                         tables
                       </span>
-                      <div className="mt-1 text-[8px] uppercase tracking-[0.06em] text-faint">
+                      <div className="mt-1 text-[15px] text-faint">
                         {formatNumber(record.publicationCount)} pubs
                       </div>
                     </div>
@@ -378,7 +373,7 @@ export function InvestigationExplorer({
           {/* Mobile cards */}
           <div className="grid gap-3 pt-4 md:hidden">
             {filtered.map((record) => {
-              const color = record.phases[0] ? PHASE_COLOR[record.phases[0]] : "#9aa6b7";
+              const color = record.phases[0] ? PHASE_COLOR[record.phases[0]] : PHASE_COLOR.aerosol;
               return (
                 <Link
                   key={record.id}
@@ -387,7 +382,7 @@ export function InvestigationExplorer({
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <span className="font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                      <span className="text-[15px] text-faint">
                         {record.id}
                       </span>
                       <h3 className="mt-1 text-[15px] leading-5 text-ink">
@@ -396,19 +391,19 @@ export function InvestigationExplorer({
                     </div>
                     <Badge tone={KIND_TONE[record.kind]}>{record.kindLabel}</Badge>
                   </div>
-                  <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-muted">
+                  <p className="mt-2 line-clamp-2 text-[14px] leading-5 text-muted">
                     {record.summary ?? record.title}
                   </p>
                   <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.06em] text-faint">
+                    <span className="text-[15px] text-faint">
                       {record.gravity === "microgravity" ? "µg" : "1 g"} · {record.tableCount} tables
                     </span>
-                    <span className="font-mono text-[10px] tabular text-ink">
+                    <span className="font-mono text-[14px] tabular text-ink">
                       {record.o2 ? formatO2(record.o2) : "O₂ n/r"}
                     </span>
                   </div>
                   {record.o2 ? (
-                    <div className="relative mt-2 h-1 bg-white/[0.07]">
+                    <div className="relative mt-2 h-1 bg-panel-2">
                       <div
                         className="absolute inset-y-0"
                         style={{

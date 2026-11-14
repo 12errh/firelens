@@ -17,19 +17,19 @@ const nav = [
 
 function Mark() {
   return (
-    <svg viewBox="0 0 32 32" className="h-7 w-7" aria-hidden="true">
+    <svg viewBox="0 0 32 32" className="h-6 w-6" aria-hidden="true">
       <path
         d="M16 4.5 25 27H7L16 4.5Z"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.1"
-        className="text-line-strong"
+        strokeWidth="1.4"
+        className="text-ink"
       />
       <path
         d="M16 11.5 21.2 25H10.8L16 11.5Z"
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.1"
+        strokeWidth="1.4"
         className="text-flame"
       />
       <path d="M16 16.5 18.3 23h-4.6L16 16.5Z" className="fill-flame" />
@@ -46,17 +46,19 @@ export function SiteHeader() {
   }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-xl">
-      <div className="mx-auto flex h-[62px] max-w-[1240px] items-center justify-between gap-6 px-5 sm:px-8">
-        <Link href="/" className="group flex shrink-0 items-center gap-3" aria-label="Flame in Freefall home">
+    <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-10">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2.5"
+          aria-label="Flame in Freefall home"
+        >
           <Mark />
-          <span className="flex flex-col">
-            <span className="font-mono text-[11.5px] font-semibold tracking-[0.14em] text-ink">
-              FLAME<span className="text-flame">/</span>FREEFALL
+          <span className="flex flex-col leading-none">
+            <span className="text-[15px] font-semibold tracking-[-0.01em] text-ink">
+              Flame in Freefall
             </span>
-            <span className="font-mono text-[8px] uppercase tracking-[0.22em] text-faint">
-              PSI evidence workbench
-            </span>
+            <span className="mt-1 text-[14px] text-faint">PSI evidence workbench</span>
           </span>
         </Link>
 
@@ -69,43 +71,38 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative px-3 py-2 font-mono text-[10px] uppercase tracking-[0.1em] transition-colors",
-                  active ? "text-ink" : "text-muted hover:text-ink",
+                  "rounded px-3 py-2 text-[14px] transition-colors",
+                  active
+                    ? "font-medium text-ink"
+                    : "text-muted hover:bg-panel-2 hover:text-ink",
                 )}
               >
                 {item.label}
-                {active ? (
-                  <span className="absolute inset-x-3 -bottom-[13px] h-px bg-flame" />
-                ) : null}
               </Link>
             );
           })}
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
-          <div className="flex items-center gap-2 border border-line bg-white/[0.02] px-2.5 py-1.5">
-            <StatusDot tone="moss" pulse />
-            <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
-              PSI snapshot · 14 Nov 2026
-            </span>
-          </div>
+        <div className="hidden items-center gap-2 xl:flex">
+          <StatusDot tone="moss" />
+          <span className="text-[14px] text-faint">Snapshot 14 Nov 2026</span>
         </div>
 
         <button
           type="button"
-          className="flex h-9 w-9 items-center justify-center border border-line text-muted transition-colors hover:text-ink lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded border border-line text-muted transition-colors hover:bg-panel-2 hover:text-ink lg:hidden"
           onClick={() => setOpen((value) => !value)}
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close navigation" : "Open navigation"}
         >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-canvas lg:hidden">
-          <nav className="mx-auto grid max-w-[1240px] grid-cols-2 gap-px bg-line" aria-label="Mobile">
+        <div id="mobile-nav" className="border-t border-line bg-panel lg:hidden">
+          <nav className="mx-auto grid max-w-[1200px] gap-1 px-4 py-4" aria-label="Mobile">
             {nav.map((item) => {
               const active =
                 item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
@@ -114,8 +111,8 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "bg-canvas px-5 py-4 font-mono text-[11px] uppercase tracking-[0.1em]",
-                    active ? "text-flame" : "text-muted",
+                    "rounded px-3 py-3 text-[15px]",
+                    active ? "bg-panel-2 font-medium text-ink" : "text-muted",
                   )}
                 >
                   {item.label}

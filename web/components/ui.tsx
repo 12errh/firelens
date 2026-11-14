@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronRight, MoveHorizontal } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 export function Badge({
@@ -12,17 +12,17 @@ export function Badge({
   className?: string;
 }) {
   const tones: Record<string, string> = {
-    neutral: "border-line bg-white/[0.025] text-muted",
-    flame: "border-flame/25 bg-flame/[0.08] text-flame",
+    neutral: "border-line bg-panel-2 text-muted",
+    flame: "border-flame/25 bg-flame/[0.07] text-flame",
     ice: "border-ice/25 bg-ice/[0.07] text-ice",
     violet: "border-violet/25 bg-violet/[0.07] text-violet",
-    moss: "border-moss/25 bg-moss/[0.07] text-moss",
-    danger: "border-red-400/25 bg-red-400/[0.07] text-red-300",
+    moss: "border-moss/25 bg-moss/[0.08] text-moss",
+    danger: "border-danger/25 bg-danger/[0.06] text-danger",
   };
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-[2px] border px-2 py-1 font-mono text-[10px] uppercase leading-none tracking-[0.1em] whitespace-nowrap",
+        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[14px] leading-none whitespace-nowrap",
         tones[tone],
         className,
       )}
@@ -46,16 +46,16 @@ export function StatusDot({
     ice: "bg-ice",
   };
   return (
-    <span className="relative flex h-1.5 w-1.5 shrink-0">
+    <span className="relative flex h-2 w-2 shrink-0">
       {pulse ? (
         <span
           className={cn(
-            "absolute inline-flex h-full w-full animate-ping rounded-full opacity-40",
+            "absolute inline-flex h-full w-full animate-ping rounded-full opacity-30",
             colors[tone],
           )}
         />
       ) : null}
-      <span className={cn("relative inline-flex h-1.5 w-1.5 rounded-full", colors[tone])} />
+      <span className={cn("relative inline-flex h-2 w-2 rounded-full", colors[tone])} />
     </span>
   );
 }
@@ -78,21 +78,20 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "flex flex-col gap-5 md:flex-row md:items-end md:justify-between",
+        "flex flex-col gap-6 md:flex-row md:items-end md:justify-between",
         className,
       )}
     >
-      <div>
-        <div className="label flex items-center gap-3">
-          {index ? <span className="text-flame">{index}</span> : null}
-          <span className="h-px w-7 bg-line-strong" />
-          <span>{kicker}</span>
+      <div className="max-w-3xl">
+        <div className="text-[14px] text-faint">
+          {index ? <span className="sr-only">{index}. </span> : null}
+          {kicker}
         </div>
-        <h2 className="mt-3 max-w-3xl text-balance text-2xl font-medium tracking-[-0.025em] text-ink sm:text-[30px] sm:leading-[1.15]">
+        <h2 className="mt-2 text-balance text-[28px] font-medium leading-[1.2] tracking-[-0.025em] text-ink sm:text-[32px]">
           {title}
         </h2>
         {body ? (
-          <p className="mt-3 max-w-2xl text-pretty text-[13.5px] leading-6 text-muted">
+          <p className="mt-3 max-w-2xl text-pretty text-[16px] leading-7 text-muted">
             {body}
           </p>
         ) : null}
@@ -114,7 +113,7 @@ export function ArrowLink({
   external?: boolean;
 }) {
   const classes = cn(
-    "group inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink transition-colors hover:text-flame",
+    "group inline-flex items-center gap-1.5 text-[14px] font-medium text-ink transition-colors hover:text-flame",
     className,
   );
   if (external) {
@@ -122,8 +121,8 @@ export function ArrowLink({
       <a href={href} target="_blank" rel="noreferrer" className={classes}>
         {children}
         <ArrowUpRight
-          className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-          strokeWidth={1.5}
+          className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          strokeWidth={1.6}
         />
       </a>
     );
@@ -132,8 +131,8 @@ export function ArrowLink({
     <Link href={href} className={classes}>
       {children}
       <ChevronRight
-        className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-        strokeWidth={1.5}
+        className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+        strokeWidth={1.6}
       />
     </Link>
   );
@@ -152,22 +151,22 @@ export function ActionLink({
 }) {
   const classes = {
     primary:
-      "border-flame bg-flame text-[#1a0d06] hover:bg-[#ffa16e] hover:border-[#ffa16e]",
+      "border-flame bg-flame text-white hover:bg-flame-deep hover:border-flame-deep",
     secondary:
-      "border-line-strong bg-white/[0.025] text-ink hover:border-white/30 hover:bg-white/[0.05]",
+      "border-line-strong bg-panel text-ink hover:border-ink hover:bg-panel-2",
     ghost: "border-transparent text-muted hover:text-ink",
   };
   return (
     <Link
       href={href}
       className={cn(
-        "inline-flex h-10 items-center justify-center gap-2 rounded-[2px] border px-4 font-mono text-[10.5px] uppercase tracking-[0.12em] transition-colors",
+        "inline-flex h-11 items-center justify-center gap-2 rounded border px-6 text-[14.5px] font-medium transition-colors",
         classes[variant],
         className,
       )}
     >
       {children}
-      <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.75} />
+      <ArrowUpRight className="h-4 w-4" strokeWidth={1.7} />
     </Link>
   );
 }
@@ -182,12 +181,11 @@ export function DataNote({
   return (
     <div
       className={cn(
-        "flex gap-2.5 border-l border-flame/40 pl-3 text-[11.5px] leading-5 text-muted",
+        "rounded border border-line bg-panel px-4 py-3 text-[14px] leading-6 text-muted",
         className,
       )}
     >
-      <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-flame/70" />
-      <p>{children}</p>
+      {children}
     </div>
   );
 }
@@ -206,24 +204,22 @@ export function Metric({
   accent?: boolean;
 }) {
   return (
-    <div className="flex min-w-0 flex-col gap-1">
+    <div className="flex min-w-0 flex-col">
       <div className="flex items-baseline gap-1.5">
         <span
           className={cn(
-            "font-mono text-[30px] leading-none tracking-[-0.05em] tabular sm:text-[34px]",
+            "font-mono text-[34px] font-medium leading-none tracking-[-0.03em] tabular",
             accent ? "text-flame" : "text-ink",
           )}
         >
           {value}
         </span>
         {unit ? (
-          <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
-            {unit}
-          </span>
+          <span className="text-[14px] text-faint">{unit}</span>
         ) : null}
       </div>
-      <span className="label pt-1 text-[9.5px] text-muted">{label}</span>
-      {note ? <span className="text-[11px] leading-4 text-faint">{note}</span> : null}
+      <span className="mt-3 text-[14px] font-medium text-ink">{label}</span>
+      {note ? <span className="mt-1 text-[14px] leading-5 text-faint">{note}</span> : null}
     </div>
   );
 }
@@ -240,26 +236,22 @@ export function PageIntro({
   meta?: React.ReactNode;
 }) {
   return (
-    <header className="relative border-b border-line">
-      <div className="pointer-events-none absolute inset-0 grid-field opacity-50" />
-      <div className="relative mx-auto max-w-[1240px] px-5 pb-12 pt-14 sm:px-8 sm:pb-16 sm:pt-20">
-        <div className="label flex items-center gap-3">
-          <span className="h-1 w-1 rounded-full bg-flame" />
-          {kicker}
-        </div>
-        <div className="mt-5 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <h1 className="max-w-4xl text-balance text-[38px] font-medium leading-[1.04] tracking-[-0.04em] text-ink sm:text-[52px]">
-              {title}
-            </h1>
-            {body ? (
-              <p className="mt-5 max-w-2xl text-pretty text-[14px] leading-6 text-muted sm:text-[15px]">
-                {body}
-              </p>
-            ) : null}
+    <header className="border-b border-line bg-canvas">
+      <div className="mx-auto max-w-[1200px] px-6 pb-12 pt-12 lg:px-10 lg:pb-14 lg:pt-16">
+        <div className="text-[13px] text-faint">{kicker}</div>
+        <h1 className="mt-3 max-w-[880px] text-balance text-[34px] font-medium leading-[1.12] tracking-[-0.03em] text-ink sm:text-[44px]">
+          {title}
+        </h1>
+        {body ? (
+          <p className="mt-5 max-w-[680px] text-pretty text-[16.5px] leading-7 text-muted">
+            {body}
+          </p>
+        ) : null}
+        {meta ? (
+          <div className="mt-9 flex flex-wrap gap-x-12 gap-y-6 border-t border-line pt-7">
+            {meta}
           </div>
-          {meta ? <div className="flex flex-wrap gap-6 lg:justify-end">{meta}</div> : null}
-        </div>
+        ) : null}
       </div>
     </header>
   );
@@ -275,9 +267,33 @@ export function Field({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col gap-1.5", className)}>
-      <span className="label text-[9px]">{label}</span>
-      <div className="text-[12.5px] leading-5 text-ink">{children}</div>
+    <div className={cn("flex flex-col gap-1", className)}>
+      <span className="text-[14px] text-faint">{label}</span>
+      <div className="text-[14px] leading-6 text-ink">{children}</div>
+    </div>
+  );
+}
+
+/**
+ * Mobile-only affordance for horizontally scrollable regions. Hidden from
+ * `sm` up, where the content fits without scrolling.
+ */
+export function ScrollHint({
+  children = "Scroll sideways to see everything",
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "flex items-center gap-2 text-[12.5px] text-faint sm:hidden",
+        className,
+      )}
+    >
+      <MoveHorizontal className="h-3.5 w-3.5" strokeWidth={1.5} />
+      {children}
     </div>
   );
 }

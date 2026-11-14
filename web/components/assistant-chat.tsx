@@ -62,7 +62,7 @@ function SourceList({ sources }: { sources: ChatSource[] }) {
         <Link
           key={`${source.kind}-${source.id}`}
           href={source.url}
-          className="group inline-flex max-w-full items-center gap-1.5 border border-line bg-white/[0.02] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.07em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+          className="group inline-flex max-w-full items-center gap-1.5 rounded-full border border-line bg-panel-2 px-2.5 py-1 text-[12.5px] text-faint transition-colors hover:border-line-strong hover:text-ink"
           title={source.title}
         >
           <span className="truncate">{source.label}</span>
@@ -92,16 +92,16 @@ function AssistantMessage({ message }: { message: Message }) {
 
   return (
     <div className="flex max-w-[92%] flex-col items-start">
-      <div className="mb-1.5 flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+      <div className="mb-1.5 flex items-center gap-2 text-[12.5px] text-faint">
         <Sparkles className="h-2.5 w-2.5 text-flame" strokeWidth={1.5} />
         Evidence assistant
       </div>
       <div
         className={cn(
-          "border px-3.5 py-3 text-[12.5px] leading-6",
+          "rounded-lg border px-4 py-3.5 text-[14.5px] leading-7",
           message.error
-            ? "border-red-400/25 bg-red-400/[0.05] text-red-200"
-            : "border-flame/20 bg-flame/[0.035] text-muted",
+            ? "border-danger/25 bg-danger/[0.04] text-danger"
+            : "border-line bg-panel text-muted",
         )}
       >
         <p className="whitespace-pre-line">{message.content}</p>
@@ -118,7 +118,7 @@ function AssistantMessage({ message }: { message: Message }) {
               <button
                 type="button"
                 onClick={copy}
-                className="ml-auto inline-flex items-center gap-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:text-ink"
+                className="ml-auto inline-flex items-center gap-1 text-[14px] text-faint transition-colors hover:text-ink"
                 aria-label="Copy answer"
               >
                 {copied ? (
@@ -137,12 +137,12 @@ function AssistantMessage({ message }: { message: Message }) {
 
             {result.limitations.length ? (
               <details className="group mt-2.5">
-                <summary className="flex cursor-pointer list-none items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.08em] text-faint transition-colors hover:text-muted">
+                <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[14px] text-faint transition-colors hover:text-muted">
                   <ShieldAlert className="h-2.5 w-2.5" strokeWidth={1.5} />
                   Limitations · {result.limitations.length}
                   <span className="transition-transform group-open:rotate-45">+</span>
                 </summary>
-                <ul className="mt-2 space-y-1.5 border-l border-line pl-3 text-[10.5px] leading-5 text-faint">
+                <ul className="mt-2 space-y-1.5 border-l border-line pl-3 text-[14px] leading-5 text-faint">
                   {result.limitations.map((limitation) => (
                     <li key={limitation}>{limitation}</li>
                   ))}
@@ -235,11 +235,11 @@ export function AssistantChat() {
   return (
     <div className="panel overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-4 py-3">
-        <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+        <div className="flex items-center gap-2 text-[15px] text-faint">
           <StatusDot tone="moss" pulse />
           Evidence assistant · grounded mode
         </div>
-        <div className="flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+        <div className="flex items-center gap-2 text-[15px] text-faint">
           <span>PSI snapshot</span>
           <span className="h-2.5 w-px bg-line" />
           <span>No web access</span>
@@ -255,10 +255,10 @@ export function AssistantChat() {
         {messages.map((message) =>
           message.role === "user" ? (
             <div key={message.id} className="flex flex-col items-end">
-              <div className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+              <div className="mb-1.5 text-[12.5px] text-faint">
                 You
               </div>
-              <div className="max-w-[88%] border border-line bg-white/[0.035] px-3.5 py-2.5 text-[12.5px] leading-6 text-ink">
+              <div className="max-w-[88%] rounded-lg border border-line bg-panel-2 px-4 py-2.5 text-[14.5px] leading-7 text-ink">
                 {message.content}
               </div>
             </div>
@@ -269,16 +269,16 @@ export function AssistantChat() {
 
         {loading ? (
           <div className="flex max-w-[92%] flex-col items-start">
-            <div className="mb-1.5 flex items-center gap-2 font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+            <div className="mb-1.5 flex items-center gap-2 text-[12.5px] text-faint">
               <Loader2 className="h-2.5 w-2.5 animate-spin text-flame" strokeWidth={1.5} />
               Querying structured evidence
             </div>
-            <div className="border border-line bg-white/[0.02] px-3.5 py-2.5">
+            <div className="rounded-lg border border-line bg-panel-2 px-4 py-3">
               <div className="flex items-center gap-1.5">
                 <span className="h-1 w-1 animate-pulse rounded-full bg-flame" />
                 <span className="h-1 w-1 animate-pulse rounded-full bg-flame [animation-delay:120ms]" />
                 <span className="h-1 w-1 animate-pulse rounded-full bg-flame [animation-delay:240ms]" />
-                <span className="ml-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                <span className="ml-1 text-[15px] text-faint">
                   checking tables, not the internet
                 </span>
               </div>
@@ -288,7 +288,7 @@ export function AssistantChat() {
 
         {messages.length === 1 && !loading ? (
           <div className="border-t border-line pt-4">
-            <div className="font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+            <div className="text-[15px] text-faint">
               Start with a question
             </div>
             <div className="mt-2.5 flex flex-wrap gap-1.5">
@@ -297,7 +297,7 @@ export function AssistantChat() {
                   key={suggestion}
                   type="button"
                   onClick={() => ask(suggestion)}
-                  className="max-w-full border border-line px-2.5 py-1.5 text-left text-[10.5px] leading-4 text-muted transition-colors hover:border-line-strong hover:text-ink"
+                  className="max-w-full rounded-full border border-line px-3 py-1.5 text-left text-[14px] leading-5 text-muted transition-colors hover:border-line-strong hover:text-ink"
                 >
                   {suggestion}
                 </button>
@@ -319,11 +319,10 @@ export function AssistantChat() {
         </label>
         <div
           className={cn(
-            "flex items-center gap-2 border bg-white/[0.02] px-3 py-2 transition-colors focus-within:border-line-strong",
-            error ? "border-red-400/30" : "border-line",
+            "flex items-center gap-2 rounded-md border bg-panel px-3 py-2.5 transition-colors focus-within:border-flame focus-within:ring-2 focus-within:ring-flame/15",
+            error ? "border-danger/30" : "border-line",
           )}
         >
-          <span className="font-mono text-[10px] text-flame">&gt;</span>
           <input
             ref={inputRef}
             id="assistant-question"
@@ -331,7 +330,7 @@ export function AssistantChat() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Ask about oxygen, gravity, materials, suppression, or a PSI record…"
-            className="min-w-0 flex-1 bg-transparent text-[12.5px] text-ink outline-none placeholder:text-faint/80"
+            className="min-w-0 flex-1 bg-transparent text-[14px] text-ink outline-none placeholder:text-faint/80"
             maxLength={800}
             disabled={loading}
             autoComplete="off"
@@ -339,7 +338,7 @@ export function AssistantChat() {
           <button
             type="submit"
             disabled={loading || !input.trim()}
-            className="flex h-7 w-7 shrink-0 items-center justify-center border border-line text-muted transition-colors hover:border-flame/40 hover:text-flame disabled:cursor-not-allowed disabled:opacity-35"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-line text-muted transition-colors hover:border-flame/40 hover:text-flame disabled:cursor-not-allowed disabled:opacity-35"
             aria-label="Send question"
           >
             {loading ? (
@@ -349,7 +348,7 @@ export function AssistantChat() {
             )}
           </button>
         </div>
-        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+        <div className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[12.5px] text-faint">
           <span className="flex items-center gap-1.5">
             <CornerDownLeft className="h-2.5 w-2.5" strokeWidth={1.5} />
             Enter to send · 800 character limit

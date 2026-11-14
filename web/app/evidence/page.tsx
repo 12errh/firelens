@@ -18,6 +18,7 @@ import {
 import { EvidenceMap } from "@/components/evidence-map";
 import { EvidenceInventory } from "@/components/evidence-inventory";
 import { Badge, DataNote, Metric, PageIntro, SectionHeading, StatusDot } from "@/components/ui";
+import { PHASE_COLOR } from "@/lib/tokens";
 import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
@@ -105,9 +106,7 @@ export default function EvidencePage() {
         kicker="Evidence map · 14 normalized points"
         title={
           <>
-            Every test has an oxygen number.
-            <br />
-            Almost none has the right gravity.
+            Every test has an oxygen number. Almost none has the right gravity.
           </>
         }
         body="This map plots every experimental summary table in the PSI combustion snapshot by reported oxygen concentration and gravity environment. Ranges are test conditions, not flammability limits. The partial-gravity lane is empty."
@@ -120,8 +119,8 @@ export default function EvidencePage() {
         }
       />
 
-      <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-12">
-        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+      <section className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-16">
+        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-faint">
           <span className="flex items-center gap-2">
             <StatusDot tone="flame" />
             Partial-gravity lane · 0
@@ -135,7 +134,7 @@ export default function EvidencePage() {
           <EvidenceMap points={evidencePoints} />
         </div>
 
-        <div className="mt-px grid border-x border-b border-line sm:grid-cols-3">
+        <div className="mt-4 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
           {[
             {
               metric: `${stats.o2.lunarBandCount}`,
@@ -158,13 +157,13 @@ export default function EvidencePage() {
           ].map((item, index) => (
             <div
               key={item.label}
-              className={`p-5 ${index > 0 ? "border-t border-line sm:border-l sm:border-t-0" : ""}`}
+              className="bg-panel p-6"
             >
               <div className={`font-mono text-[26px] leading-none tracking-[-0.04em] ${item.tone}`}>
                 {item.metric}
               </div>
-              <div className="label mt-3 text-[9.5px] text-ink">{item.label}</div>
-              <p className="mt-2 text-[11.5px] leading-5 text-faint">{item.note}</p>
+              <div className="mt-3 text-[14px] font-medium text-ink">{item.label}</div>
+              <p className="mt-2 text-[14px] leading-5 text-faint">{item.note}</p>
             </div>
           ))}
         </div>
@@ -179,8 +178,8 @@ export default function EvidencePage() {
       </section>
 
       {/* Evidence classes */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="01"
             kicker="Evidence classes"
@@ -232,11 +231,11 @@ export default function EvidencePage() {
                     >
                       {item.count}
                     </div>
-                    <div className="mt-1.5 font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                    <div className="mt-1.5 text-[15px] text-faint">
                       {item.detail}
                     </div>
                   </div>
-                  <p className="mt-4 text-[11.5px] leading-5 text-muted">{item.body}</p>
+                  <p className="mt-4 text-[14px] leading-5 text-muted">{item.body}</p>
                 </article>
               );
             })}
@@ -245,7 +244,7 @@ export default function EvidencePage() {
       </section>
 
       {/* Inventory */}
-      <section id="inventory" className="mx-auto max-w-[1240px] scroll-mt-24 px-5 py-14 sm:px-8 sm:py-16">
+      <section id="inventory" className="mx-auto max-w-[1200px] scroll-mt-24 px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="02"
           kicker="Point inventory"
@@ -254,7 +253,7 @@ export default function EvidencePage() {
           action={
             <Link
               href="/investigations"
-              className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-ink"
+              className="text-[15px] text-muted transition-colors hover:text-ink"
             >
               Browse all 24 records →
             </Link>
@@ -269,31 +268,24 @@ export default function EvidencePage() {
           {(["solid", "liquid", "gas"] as const).map((phase) => (
             <span
               key={phase}
-              className="inline-flex items-center gap-1.5 border border-line px-2 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint"
+              className="inline-flex items-center gap-1.5 border border-line px-2 py-1 text-[15px] text-faint"
             >
               <span
                 className="h-1.5 w-1.5 rounded-full"
-                style={{
-                  backgroundColor:
-                    phase === "solid"
-                      ? "#ff8a4c"
-                      : phase === "liquid"
-                        ? "#6fd6e8"
-                        : "#b7a6ff",
-                }}
+                style={{ backgroundColor: PHASE_COLOR[phase] }}
               />
               {phaseLabel(phase)}
             </span>
           ))}
-          <span className="font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+          <span className="text-[15px] text-faint">
             {formatNumber(stats.tableRows)} normalized rows · 22 experimental tables
           </span>
         </div>
       </section>
 
       {/* What would change the answer */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="03"
             kicker="Falsifiability"
@@ -307,12 +299,12 @@ export default function EvidencePage() {
                 key={condition.title}
                 className="grid gap-3 border-b border-line py-5 sm:grid-cols-[48px_1fr_150px] sm:items-start sm:gap-6"
               >
-                <span className="font-mono text-[10px] text-flame">
+                <span className="font-mono text-[14px] text-flame">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <h3 className="text-[14px] text-ink">{condition.title}</h3>
-                  <p className="mt-1.5 max-w-3xl text-[11.5px] leading-5 text-muted">
+                  <p className="mt-1.5 max-w-3xl text-[14px] leading-5 text-muted">
                     {condition.detail}
                   </p>
                 </div>
@@ -336,7 +328,7 @@ export default function EvidencePage() {
       </section>
 
       {/* Scenarios */}
-      <section className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-16">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
           index="04"
           kicker="Scenario readiness"
@@ -357,7 +349,7 @@ export default function EvidencePage() {
                 )}
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="label text-[9px]">{scenario.gravity}</span>
+                  <span className="label text-[14px]">{scenario.gravity}</span>
                   <Badge tone={direct ? "moss" : "flame"}>
                     <StatusDot tone={direct ? "moss" : "flame"} />
                     {scenario.status}
@@ -366,10 +358,10 @@ export default function EvidencePage() {
                 <h3 className="mt-5 text-[24px] font-medium leading-7 tracking-[-0.03em] text-ink">
                   {scenario.label}
                 </h3>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-faint">
+                <div className="mt-2 text-[15px] text-faint">
                   Target · {scenario.target}
                 </div>
-                <p className="mt-4 text-[12px] leading-5 text-muted">{scenario.summary}</p>
+                <p className="mt-4 text-[14px] leading-5 text-muted">{scenario.summary}</p>
                 <div className="mt-5 flex flex-wrap gap-1.5 border-t border-line pt-4">
                   {scenario.evidence.slice(0, 5).map((id) => {
                     const record = getInvestigation(id);
@@ -377,7 +369,7 @@ export default function EvidencePage() {
                       <Link
                         key={id}
                         href={`/investigations/${id}`}
-                        className="border border-line px-1.5 py-1 font-mono text-[8.5px] uppercase tracking-[0.08em] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                        className="border border-line px-1.5 py-1 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
                       >
                         {record?.acronym ?? id}
                       </Link>
@@ -390,14 +382,14 @@ export default function EvidencePage() {
         </div>
 
         <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
-          <p className="max-w-2xl text-[11.5px] leading-5 text-faint">
+          <p className="max-w-2xl text-[14px] leading-5 text-faint">
             Lunar and Mars statuses are classified as analogical plus gap because no
             direct partial-gravity combustion measurement exists in this snapshot. That is
             a property of the evidence, not a UI hedge.
           </p>
           <Link
             href="/methodology"
-            className="inline-flex items-center gap-1 font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted transition-colors hover:text-flame"
+            className="inline-flex items-center gap-1 text-[15px] text-muted transition-colors hover:text-flame"
           >
             Read the methodology
             <ArrowUpRight className="h-3 w-3" strokeWidth={1.5} />

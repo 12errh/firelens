@@ -23,12 +23,8 @@ import {
   SectionHeading,
   StatusDot,
 } from "@/components/ui";
+import { PHASE_COLOR } from "@/lib/tokens";
 
-const PHASE_COLOR: Record<string, string> = {
-  solid: "#ff8a4c",
-  liquid: "#6fd6e8",
-  gas: "#b7a6ff",
-};
 
 export default function Home() {
   const mapPoints = evidencePoints.filter(
@@ -60,31 +56,28 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden border-b border-line">
-        <div className="pointer-events-none absolute inset-0 grid-field opacity-70" />
-        <div className="relative mx-auto max-w-[1240px] px-5 pb-10 pt-12 sm:px-8 sm:pb-14 sm:pt-16">
-          <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-[1200px] px-6 pb-16 pt-14 lg:px-10 lg:pb-24 lg:pt-20">
+          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="reveal">
-              <div className="label flex flex-wrap items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2 text-[14px] text-muted">
                 <span className="flex items-center gap-1.5 text-flame">
-                  <Flame className="h-3 w-3" strokeWidth={1.75} />
+                  <Flame className="h-3.5 w-3.5" strokeWidth={1.75} />
                   NASA Space Apps 2026
                 </span>
-                <span className="h-3 w-px bg-line-strong" />
-                <span>Challenge: Flame in Freefall</span>
+                <span className="text-line-strong">/</span>
+                <span>Flame in Freefall challenge</span>
               </div>
 
-              <h1 className="mt-6 max-w-[720px] text-balance text-[45px] font-medium leading-[0.98] tracking-[-0.045em] text-ink sm:text-[64px] lg:text-[70px]">
-                Fire doesn&apos;t fall
-                <br />
-                the same way twice.
+              <h1 className="mt-5 max-w-[620px] text-balance text-[42px] font-medium leading-[1.04] tracking-[-0.035em] text-ink sm:text-[54px] lg:text-[60px]">
+                Fire doesn&apos;t fall the same way twice.
               </h1>
 
-              <p className="mt-6 max-w-xl text-pretty text-[14.5px] leading-7 text-muted">
+              <p className="mt-6 max-w-[560px] text-pretty text-[17px] leading-8 text-muted">
                 An evidence workbench for combustion in reduced gravity. We normalized{" "}
                 <span className="text-ink">24 NASA PSI investigations</span> and{" "}
                 <span className="text-ink">22 experimental tables</span>, then mapped what
-                they can — and cannot — say about spacecraft, lunar, and Mars fire safety.
+                they can, and cannot, say about spacecraft, lunar, and Mars fire safety.
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -94,10 +87,10 @@ export default function Home() {
                 </ActionLink>
               </div>
 
-              <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-5 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+              <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-5 text-[14px] text-faint">
                 <span className="flex items-center gap-2">
                   <StatusDot tone="moss" />
-                  PSI snapshot · 14 Nov 2026
+                  PSI snapshot 14 Nov 2026
                 </span>
                 <span>No invented values</span>
                 <span>Every number cited</span>
@@ -105,61 +98,51 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="reveal reveal-delay-1">
-              <figure className="relative border border-line bg-panel p-2">
-                <div className="flex items-center justify-between px-1 pb-2 font-mono text-[9px] uppercase tracking-[0.12em] text-faint">
-                  <span>Specimen 01 · BASS-II</span>
-                  <span className="text-flame">µg / ISS</span>
-                </div>
-                <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                  <Image
-                    src="/images/bass-ii.jpg"
-                    alt="A solid-fuel flame burning in microgravity during the BASS-II investigation"
-                    width={1200}
-                    height={797}
-                    priority
-                    className="h-full w-full object-cover"
-                    sizes="(max-width: 1024px) 100vw, 46vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/10" />
-                  <div className="absolute left-3 top-3 border border-white/15 bg-black/45 px-2 py-1 backdrop-blur">
-                    <span className="font-mono text-[8.5px] uppercase tracking-[0.14em] text-white/75">
-                      Solid-fuel flame spread
-                    </span>
-                  </div>
-                  <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-3">
-                    <div>
-                      <div className="font-mono text-[8.5px] uppercase tracking-[0.14em] text-white/55">
-                        PMMA film · microgravity
-                      </div>
-                      <div className="mt-1 font-mono text-[22px] leading-none tracking-[-0.04em] text-white">
-                        13.6–22.2% <span className="text-[11px] text-white/60">O₂</span>
-                      </div>
+            <figure className="reveal reveal-delay-1">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ink">
+                <Image
+                  src="/images/bass-ii.jpg"
+                  alt="A solid-fuel flame burning in microgravity during the BASS-II investigation"
+                  width={1200}
+                  height={797}
+                  priority
+                  className="h-full w-full object-cover"
+                  sizes="(max-width: 1024px) 100vw, 48vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
+                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-4">
+                  <div>
+                    <div className="text-[12.5px] text-white/75">
+                      PMMA film, microgravity
                     </div>
-                    <span className="border border-flame/40 bg-flame/15 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.1em] text-flame">
-                      Solid ceiling
-                    </span>
+                    <div className="mt-1 font-mono text-[26px] leading-none tracking-[-0.03em] text-white">
+                      13.6–22.2%{" "}
+                      <span className="text-[14px] text-white/70">O₂</span>
+                    </div>
                   </div>
+                  <span className="rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[12.5px] text-white">
+                    Solid ceiling
+                  </span>
                 </div>
-                <figcaption className="flex items-center justify-between px-1 pt-2 font-mono text-[8.5px] uppercase tracking-[0.1em] text-faint">
-                  <span>NASA PSI / BASS-II · CC0 1.0</span>
-                  <a
-                    href="https://psi.nasa.gov/physci/repo/search?q=PSI-25"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1 hover:text-ink"
-                  >
-                    Source <ArrowUpRight className="h-2.5 w-2.5" />
-                  </a>
-                </figcaption>
-              </figure>
-            </div>
+              </div>
+              <figcaption className="mt-3 flex items-center justify-between text-[12.5px] text-faint">
+                <span>NASA PSI · BASS-II · CC0 1.0</span>
+                <a
+                  href="https://psi.nasa.gov/physci/repo/search?q=PSI-25"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 hover:text-ink"
+                >
+                  Source <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </figcaption>
+            </figure>
           </div>
         </div>
 
         {/* KPI strip */}
-        <div className="relative border-t border-line bg-canvas/50">
-          <div className="mx-auto grid max-w-[1240px] grid-cols-2 border-x border-line sm:grid-cols-4">
+        <div className="border-t border-line bg-panel">
+          <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-px bg-line lg:grid-cols-4">
             {[
               {
                 value: stats.investigations,
@@ -187,10 +170,7 @@ export default function Home() {
                 accent: true,
               },
             ].map((item) => (
-              <div
-                key={item.label}
-                className="border-b border-line px-5 py-5 last:border-b-0 sm:border-b-0 sm:border-l sm:first:border-l-0 sm:px-6"
-              >
+              <div key={item.label} className="bg-panel px-6 py-7">
                 <Metric
                   value={item.value}
                   unit={item.unit}
@@ -205,7 +185,7 @@ export default function Home() {
       </section>
 
       {/* Evidence map */}
-      <section className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
         <SectionHeading
           index="01"
           kicker="The evidence gap"
@@ -218,7 +198,7 @@ export default function Home() {
           <EvidenceMap points={evidencePoints} />
         </div>
 
-        <div className="mt-px grid border-x border-b border-line sm:grid-cols-3">
+        <div className="mt-4 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
           {[
             {
               metric: `${stats.o2.solidMax.toFixed(1)}%`,
@@ -241,13 +221,13 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={item.label}
-              className={`p-5 ${index > 0 ? "border-t border-line sm:border-l sm:border-t-0" : ""}`}
+              className="bg-panel p-6"
             >
-              <div className={`font-mono text-[26px] leading-none tracking-[-0.04em] ${item.tone}`}>
+              <div className={`font-mono text-[28px] font-medium leading-none tracking-[-0.03em] ${item.tone}`}>
                 {item.metric}
               </div>
-              <div className="label mt-3 text-[9.5px] text-ink">{item.label}</div>
-              <p className="mt-2 text-[11.5px] leading-5 text-faint">{item.note}</p>
+              <div className="mt-3 text-[14px] font-medium text-ink">{item.label}</div>
+              <p className="mt-2 text-[14px] leading-5 text-faint">{item.note}</p>
             </div>
           ))}
         </div>
@@ -262,8 +242,8 @@ export default function Home() {
       </section>
 
       {/* Insights */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
           <SectionHeading
             index="02"
             kicker="What the data says"
@@ -280,7 +260,7 @@ export default function Home() {
                     <span className="font-mono text-[34px] leading-none tracking-[-0.05em] text-flame">
                       {insight.metric}
                     </span>
-                    <span className="max-w-[90px] font-mono text-[8.5px] uppercase leading-3 tracking-[0.08em] text-faint">
+                    <span className="max-w-[90px] text-[15px] leading-3 text-faint">
                       {insight.unit}
                     </span>
                   </div>
@@ -291,13 +271,13 @@ export default function Home() {
                 <h3 className="mt-5 text-[16px] font-medium leading-6 tracking-[-0.01em] text-ink">
                   {insight.title}
                 </h3>
-                <p className="mt-2 text-[12px] leading-5 text-muted">{insight.statement}</p>
+                <p className="mt-2 text-[14px] leading-5 text-muted">{insight.statement}</p>
                 <div className="mt-auto flex flex-wrap gap-1.5 border-t border-line pt-4">
                   {insight.sources.slice(0, 3).map((source) => (
                     <Link
                       key={source.id}
                       href={`/investigations/${source.id}`}
-                      className="border border-line px-1.5 py-1 font-mono text-[8.5px] uppercase tracking-[0.08em] text-faint transition-colors hover:border-line-strong hover:text-ink"
+                      className="border border-line px-1.5 py-1 text-[15px] text-faint transition-colors hover:border-line-strong hover:text-ink"
                     >
                       {source.label}
                     </Link>
@@ -315,17 +295,17 @@ export default function Home() {
               >
                 <div className="font-mono text-[18px] tracking-[-0.03em] text-ink">
                   {insight.metric}
-                  <span className="ml-1 text-[8.5px] uppercase tracking-[0.08em] text-faint">
+                  <span className="ml-1 text-[15px] text-faint">
                     {insight.unit}
                   </span>
                 </div>
                 <div>
-                  <div className="text-[13px] text-ink">{insight.title}</div>
-                  <p className="mt-0.5 text-[11px] leading-5 text-faint">{insight.statement}</p>
+                  <div className="text-[14px] text-ink">{insight.title}</div>
+                  <p className="mt-0.5 text-[14px] leading-5 text-faint">{insight.statement}</p>
                 </div>
                 <Link
                   href={`/investigations/${insight.sources[0]?.id ?? "PSI-25"}`}
-                  className="hidden font-mono text-[9px] uppercase tracking-[0.1em] text-muted hover:text-flame sm:block"
+                  className="hidden text-[15px] text-muted hover:text-flame sm:block"
                 >
                   Source →
                 </Link>
@@ -336,7 +316,7 @@ export default function Home() {
       </section>
 
       {/* Scenarios */}
-      <section className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
         <SectionHeading
           index="03"
           kicker="Scenario readiness"
@@ -353,7 +333,7 @@ export default function Home() {
                 className={`panel flex flex-col p-5 ${direct ? "border-moss/25" : "border-flame/20"}`}
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span className="label text-[9px]">{scenario.gravity}</span>
+                  <span className="label text-[14px]">{scenario.gravity}</span>
                   <Badge tone={direct ? "moss" : "flame"}>
                     <StatusDot tone={direct ? "moss" : "flame"} />
                     {scenario.status}
@@ -362,19 +342,19 @@ export default function Home() {
                 <h3 className="mt-5 text-[24px] font-medium leading-7 tracking-[-0.03em] text-ink">
                   {scenario.label}
                 </h3>
-                <div className="mt-2 font-mono text-[10px] uppercase tracking-[0.08em] text-faint">
+                <div className="mt-2 text-[15px] text-faint">
                   Target · {scenario.target}
                 </div>
-                <p className="mt-4 text-[12px] leading-5 text-muted">{scenario.summary}</p>
+                <p className="mt-4 text-[14px] leading-5 text-muted">{scenario.summary}</p>
 
                 <div className="mt-auto border-t border-line pt-4">
-                  <div className="label text-[8.5px]">Evidence base</div>
+                  <div className="label text-[14px]">Evidence base</div>
                   <div className="mt-2.5 flex flex-wrap gap-1.5">
                     {scenario.records.slice(0, 5).map((record) => (
                       <Link
                         key={record.id}
                         href={`/investigations/${record.id}`}
-                        className="border border-line px-1.5 py-1 font-mono text-[8.5px] uppercase tracking-[0.08em] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                        className="border border-line px-1.5 py-1 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
                       >
                         {record.acronym ?? record.id}
                       </Link>
@@ -388,8 +368,8 @@ export default function Home() {
       </section>
 
       {/* Coverage */}
-      <section className="border-y border-line bg-panel/35">
-        <div className="mx-auto grid max-w-[1240px] gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-20 lg:px-10 lg:py-28 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
             <SectionHeading
               index="04"
@@ -405,16 +385,16 @@ export default function Home() {
                   <div key={item.phase}>
                     <div className="flex items-end justify-between gap-4">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-[13px] text-ink">{phaseLabel(item.phase)}</span>
-                        <span className="font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+                        <span className="text-[14px] text-ink">{phaseLabel(item.phase)}</span>
+                        <span className="text-[15px] text-faint">
                           {item.investigations} investigations · {item.rows} rows
                         </span>
                       </div>
-                      <span className="font-mono text-[12px] tabular text-ink">
+                      <span className="font-mono text-[14px] tabular text-ink">
                         {item.min.toFixed(1)}–{item.max.toFixed(1)}%
                       </span>
                     </div>
-                    <div className="relative mt-2.5 h-7 border border-line bg-white/[0.02]">
+                    <div className="relative mt-2.5 h-7 border border-line bg-panel-2">
                       <div
                         className="absolute inset-y-0 border-x"
                         style={{
@@ -434,7 +414,7 @@ export default function Home() {
                         style={{ left: `calc(${item.max}% - 4px)`, backgroundColor: color }}
                       />
                     </div>
-                    <div className="relative mt-1.5 h-3 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                    <div className="relative mt-1.5 h-3 text-[15px] text-faint">
                       <span className="absolute left-0">0%</span>
                       <span
                         className="absolute -translate-x-1/2 text-flame/80"
@@ -472,11 +452,11 @@ export default function Home() {
                   <div className="font-mono text-[24px] leading-none tracking-[-0.04em] text-ink">
                     {formatNumber(item.value)}
                   </div>
-                  <div className="label mt-2 text-[8.5px]">{item.label}</div>
+                  <div className="label mt-2 text-[14px]">{item.label}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-5 space-y-3 text-[11.5px] leading-5 text-muted">
+            <div className="mt-5 space-y-3 text-[14px] leading-5 text-muted">
               <p>
                 The searchable evidence layer is deliberately thin: {stats.experimentalTables}{" "}
                 summary tables across {stats.investigations} investigations, backed by{" "}
@@ -496,7 +476,7 @@ export default function Home() {
       </section>
 
       {/* Featured records */}
-      <section className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 sm:py-20">
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
         <SectionHeading
           index="05"
           kicker="Starting points"
@@ -513,7 +493,7 @@ export default function Home() {
 
       {/* Assistant CTA */}
       <section className="border-t border-line">
-        <div className="mx-auto grid max-w-[1240px] items-center gap-10 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-20 lg:px-10 lg:py-28 lg:grid-cols-2">
           <div>
             <div className="label flex items-center gap-2.5 text-flame">
               <ShieldCheck className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -522,7 +502,7 @@ export default function Home() {
             <h2 className="mt-4 max-w-xl text-balance text-[30px] font-medium leading-[1.1] tracking-[-0.03em] text-ink sm:text-[38px]">
               Ask the evidence, not the internet.
             </h2>
-            <p className="mt-4 max-w-lg text-[13px] leading-6 text-muted">
+            <p className="mt-4 max-w-lg text-[14px] leading-6 text-muted">
               The assistant queries structured PSI tables first, then document metadata. It
               cites the investigation and table behind each number — and says “not
               reported” when the data is silent. A deterministic fallback keeps it useful
@@ -538,19 +518,19 @@ export default function Home() {
 
           <div className="panel p-1.5">
             <div className="flex items-center justify-between border-b border-line px-3 py-2.5">
-              <div className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.12em] text-faint">
+              <div className="flex items-center gap-2 text-[15px] text-faint">
                 <StatusDot tone="moss" />
                 Evidence assistant · grounded mode
               </div>
-              <span className="font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+              <span className="text-[15px] text-faint">
                 PSI snapshot
               </span>
             </div>
             <div className="space-y-3 p-4">
-              <div className="ml-auto max-w-[88%] border border-line bg-white/[0.03] px-3 py-2 text-[11.5px] leading-5 text-ink">
+              <div className="ml-auto max-w-[88%] border border-line bg-panel-2 px-3 py-2 text-[14px] leading-5 text-ink">
                 Is there partial-gravity combustion data for a lunar habitat?
               </div>
-              <div className="max-w-[94%] border border-flame/20 bg-flame/[0.045] px-3 py-3 text-[11.5px] leading-5 text-muted">
+              <div className="max-w-[94%] border border-flame/20 bg-flame/[0.045] px-3 py-3 text-[14px] leading-5 text-muted">
                 <p>
                   <span className="text-flame">No.</span> None of the 24 PSI combustion
                   investigations in this snapshot reports a direct lunar- or Mars-gravity
@@ -558,19 +538,19 @@ export default function Home() {
                   but it is not gravity data.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  <span className="border border-line px-1.5 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                  <span className="border border-line px-1.5 py-1 text-[15px] text-faint">
                     PSI-22 · analog
                   </span>
-                  <span className="border border-line px-1.5 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                  <span className="border border-line px-1.5 py-1 text-[15px] text-faint">
                     0 datasets
                   </span>
-                  <span className="border border-line px-1.5 py-1 font-mono text-[8px] uppercase tracking-[0.08em] text-faint">
+                  <span className="border border-line px-1.5 py-1 text-[15px] text-faint">
                     Confidence · high
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 border border-line bg-white/[0.02] px-3 py-2.5">
-                <span className="flex-1 font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+              <div className="flex items-center gap-2 border border-line bg-panel-2 px-3 py-2.5">
+                <span className="flex-1 text-[15px] text-faint">
                   Ask about oxygen, materials, suppression…
                 </span>
                 <span className="flex h-6 w-6 items-center justify-center border border-line text-faint">
@@ -584,7 +564,7 @@ export default function Home() {
 
       {/* Provenance strip */}
       <section className="border-t border-line">
-        <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-5 py-6 font-mono text-[9px] uppercase tracking-[0.1em] text-faint sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="mx-auto flex max-w-[1200px] flex-col gap-3 px-6 py-6 text-[15px] text-faint sm:flex-row sm:items-center sm:justify-between lg:px-10">
           <span>Source · NASA Physical Sciences Informatics · public snapshot</span>
           <span>24 investigations · 22 tables · 0 partial-gravity datasets</span>
           <Link href="/methodology" className="text-muted hover:text-flame">

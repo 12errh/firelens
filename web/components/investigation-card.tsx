@@ -22,7 +22,7 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
       href={`/investigations/${investigation.id}`}
       className="group panel panel-hover flex flex-col overflow-hidden"
     >
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#080b11]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-ink">
         {image ? (
           <Image
             src={image.src}
@@ -35,7 +35,7 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
           />
         ) : (
           <div className="flex h-full items-center justify-center">
-            <span className="font-mono text-[52px] tracking-[-0.06em] text-white/[0.06]">
+            <span className="font-mono text-[52px] tracking-[-0.06em] text-white/15">
               {investigation.acronym ?? investigation.id}
             </span>
           </div>
@@ -48,11 +48,11 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
           </Badge>
         </div>
         {primaryTable?.o2 ? (
-          <div className="absolute bottom-3 right-3 border border-line bg-canvas/85 px-2 py-1 backdrop-blur">
-            <span className="font-mono text-[11px] tabular text-ink">
+          <div className="absolute bottom-3 right-3 rounded-full border border-line bg-panel/90 px-2.5 py-1 backdrop-blur">
+            <span className="font-mono text-[14px] tabular text-ink">
               {formatO2(primaryTable.o2)}
             </span>
-            <span className="ml-1.5 font-mono text-[8px] uppercase tracking-[0.1em] text-faint">
+            <span className="ml-1.5 text-[15px] text-faint">
               O₂
             </span>
           </div>
@@ -61,7 +61,7 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
 
       <div className="flex flex-1 flex-col p-4">
         <div className="flex items-center justify-between gap-3">
-          <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-faint">
+          <span className="text-[15px] text-faint">
             {investigation.id} · {investigation.kindLabel}
           </span>
           <ArrowUpRight
@@ -69,13 +69,13 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
             strokeWidth={1.5}
           />
         </div>
-        <h3 className="mt-2.5 text-[17px] font-medium leading-6 tracking-[-0.015em] text-ink">
+        <h3 className="mt-2.5 text-[18px] font-medium leading-6 tracking-[-0.015em] text-ink">
           {investigation.acronym ?? investigation.title}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[11.5px] leading-5 text-muted">
+        <p className="mt-1.5 line-clamp-2 text-[14.5px] leading-6 text-muted">
           {investigation.summary ?? investigation.title}
         </p>
-        <div className="mt-4 flex items-center gap-3 border-t border-line pt-3 font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+        <div className="mt-4 flex items-center gap-3 border-t border-line pt-3 text-[15px] text-faint">
           <span>{investigation.tableCount} tables</span>
           <span className="h-2.5 w-px bg-line" />
           <span>{investigation.publicationCount} publications</span>

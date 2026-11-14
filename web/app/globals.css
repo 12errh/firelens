@@ -1,19 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --canvas: #06080c;
-  --panel: #0b0f16;
-  --panel-2: #0e141e;
-  --line: rgba(255, 255, 255, 0.09);
-  --line-strong: rgba(255, 255, 255, 0.16);
-  --ink: #eef2f6;
-  --muted: #98a4b5;
-  --faint: #687486;
-  --flame: #ff8a4c;
-  --flame-deep: #c95a2c;
-  --ice: #6fd6e8;
-  --violet: #b7a6ff;
-  --moss: #a9c98f;
+  --canvas: #f7f7f4;
+  --panel: #ffffff;
+  --panel-2: #f0f0ea;
+  --line: #e3e2da;
+  --line-strong: #c9c8be;
+  --ink: #181814;
+  --muted: #5f5f57;
+  --faint: #8b8a80;
+  --flame: #c2410c;
+  --flame-deep: #9a3412;
+  --ice: #0e7490;
+  --violet: #6d28d9;
+  --moss: #4d7c0f;
+  --danger: #b91c1c;
 }
 
 @theme inline {
@@ -30,8 +31,9 @@
   --color-ice: var(--ice);
   --color-violet: var(--violet);
   --color-moss: var(--moss);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 * {
@@ -43,18 +45,18 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(1100px 620px at 82% -8%, rgba(255, 138, 76, 0.075), transparent 62%),
-    radial-gradient(900px 520px at -5% 8%, rgba(111, 214, 232, 0.04), transparent 60%),
-    var(--canvas);
+  background: var(--canvas);
   color: var(--ink);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgba(255, 138, 76, 0.3);
-  color: #fff;
+  background: rgba(194, 65, 12, 0.18);
+  color: var(--ink);
 }
 
 a,
@@ -71,48 +73,53 @@ input:focus-visible,
 select:focus-visible,
 summary:focus-visible {
   outline: 2px solid var(--flame);
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
+/* Small supporting text. Sentence case, never a tracked all-caps label. */
 .label {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 10px;
-  line-height: 1.4;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
   color: var(--muted);
+}
+
+.meta {
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.5;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--faint);
 }
 
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
+/* Retained for layout compatibility; no decorative grid in this system. */
 .grid-field {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 92%);
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 92%);
+  background-image: none;
 }
 
 .panel {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 45%),
-    var(--panel);
+  background: var(--panel);
   border: 1px solid var(--line);
+  border-radius: 8px;
 }
 
 .panel-hover {
   transition:
-    border-color 180ms ease,
-    background-color 180ms ease,
-    transform 180ms ease;
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
 .panel-hover:hover {
   border-color: var(--line-strong);
-  background-color: var(--panel-2);
+  background-color: #fcfcfa;
 }
 
 .hairline {
@@ -121,43 +128,41 @@ summary:focus-visible {
 
 .scroll-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  scrollbar-color: var(--line-strong) transparent;
 }
 
 .scroll-thin::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 8px;
+  width: 8px;
 }
 
 .scroll-thin::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--line-strong);
   border-radius: 99px;
 }
 
 .reveal {
-  animation: reveal 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: reveal 420ms ease-out both;
 }
 
 .reveal-delay-1 {
-  animation-delay: 90ms;
+  animation-delay: 60ms;
 }
 
 .reveal-delay-2 {
-  animation-delay: 180ms;
+  animation-delay: 120ms;
 }
 
 .reveal-delay-3 {
-  animation-delay: 270ms;
+  animation-delay: 180ms;
 }
 
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(12px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -178,7 +183,7 @@ summary:focus-visible {
 }
 
 .prose-tight p {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.9rem;
 }
 
 .prose-tight p:last-child {
@@ -186,13 +191,13 @@ summary:focus-visible {
 }
 
 .prose-tight ul {
-  margin: 0.5rem 0 0.9rem;
-  padding-left: 1.1rem;
-  list-style: square;
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.15rem;
+  list-style: disc;
 }
 
 .prose-tight li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
   padding-left: 0.2rem;
 }
 

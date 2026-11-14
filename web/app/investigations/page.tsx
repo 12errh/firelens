@@ -18,9 +18,7 @@ export default function InvestigationsPage() {
         kicker="Investigation explorer · 24 records"
         title={
           <>
-            Read the conditions,
-            <br />
-            not the headline.
+            Read the conditions, not the headline.
           </>
         }
         body="Search titles, acronyms, objectives, hardware, and fuels. Filter by evidence type and material phase. Oxygen ranges come from experimental summary tables; if PSI does not report a value, it stays “not reported.”"
@@ -33,8 +31,8 @@ export default function InvestigationsPage() {
         }
       />
 
-      <section className="mx-auto max-w-[1240px] px-5 py-10 sm:px-8 sm:py-12">
-        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[9px] uppercase tracking-[0.1em] text-faint">
+      <section className="mx-auto max-w-[1200px] px-6 py-12 lg:px-10 lg:py-16">
+        <div className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[15px] text-faint">
           <span className="flex items-center gap-2">
             <StatusDot tone="moss" />
             Snapshot complete · 24 / 24
