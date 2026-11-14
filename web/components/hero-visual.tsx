@@ -1,41 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Flame } from "lucide-react";
+import { CombustionBenchFigure } from "@/components/figures/combustion-bench/figure";
 
 /**
- * The hero visual. It is the one place on the site that shows a flame rather
- * than a number, and it carries the headline finding: the solid-material
- * oxygen ceiling.
+ * The hero visual: an isometric combustion bench whose flame morphs from a 1 g
+ * teardrop to a microgravity sphere as the gravity knob is turned. It is the
+ * premise of the whole project drawn as one instrument.
  */
 export function HeroVisual({ priority = false }: { priority?: boolean }) {
   return (
     <figure className="reveal reveal-delay-1">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ink">
-        <Image
-          src="/images/bass-ii.jpg"
-          alt="A solid-fuel flame burning in microgravity during the BASS-II investigation"
-          width={1200}
-          height={797}
-          priority={priority}
-          className="h-full w-full object-cover"
-          sizes="(max-width: 1024px) 100vw, 48vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/5 to-transparent" />
-        <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-4">
-          <div>
-            <div className="text-[12.5px] text-white/75">PMMA film, microgravity</div>
-            <div className="mt-1 font-mono text-[26px] leading-none tracking-[-0.03em] text-white">
-              13.6–22.2%{" "}
-              <span className="text-[14px] text-white/70">O₂</span>
-            </div>
+      <div className="overflow-hidden rounded-lg border border-line bg-panel">
+        <CombustionBenchFigure className="px-2 pt-3 sm:px-4" />
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line px-4 py-3">
+          <div className="text-[13px] leading-5 text-muted">
+            Turn the knob: the flame falls to a sphere as gravity reaches zero.
           </div>
-          <span className="rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[12.5px] text-white">
-            Solid ceiling
+          <span className="font-mono text-[13px] tabular text-ink">
+            13.6–22.2%{" "}
+            <span className="text-faint">O₂ solid ceiling</span>
           </span>
         </div>
       </div>
       <figcaption className="mt-3 flex items-center justify-between text-[12.5px] text-faint">
-        <span>NASA PSI · BASS-II · CC0 1.0</span>
+        <span>Drawn from the archive · BASS-II, PSI-25 · CC0 1.0</span>
         <a
           href="https://psi.nasa.gov/physci/repo/search?q=PSI-25"
           target="_blank"
@@ -52,39 +41,38 @@ export function HeroVisual({ priority = false }: { priority?: boolean }) {
 /** Small diagrams used in the feature grid. */
 export function MapGlyph() {
   return (
-    <svg viewBox="0 0 240 96" className="h-24 w-full" role="img" aria-hidden="true">
-      <rect x="0" y="0" width="240" height="96" fill="none" />
-      {[18, 42, 66, 90].map((y) => (
+    <svg viewBox="0 0 240 110" className="h-full w-full" role="img" aria-hidden="true">
+      {[26, 50, 74].map((y) => (
         <line
           key={y}
           x1="76"
           y1={y}
-          x2="232"
+          x2="228"
           y2={y}
           stroke="var(--line)"
           strokeWidth="1"
           strokeDasharray="2 5"
         />
       ))}
-      <rect x="166" y="8" width="66" height="80" fill="rgba(194,65,12,0.05)" />
+      <rect x="160" y="14" width="68" height="72" fill="rgba(194,65,12,0.05)" />
       <line
-        x1="166"
-        y1="4"
-        x2="166"
-        y2="92"
+        x1="160"
+        y1="10"
+        x2="160"
+        y2="90"
         stroke="var(--flame)"
         strokeWidth="1"
         strokeDasharray="3 4"
       />
-      <rect x="96" y="13" width="26" height="6" rx="3" fill="#B45309" />
-      <rect x="86" y="38" width="40" height="6" rx="3" fill="#0E7490" />
-      <rect x="92" y="61" width="66" height="6" rx="3" fill="#6D28D9" />
-      <circle cx="96" cy="16" r="2.4" fill="#B45309" />
-      <circle cx="92" cy="41" r="2.4" fill="#0E7490" />
-      <circle cx="92" cy="64" r="2.4" fill="#6D28D9" />
+      <rect x="94" y="21" width="26" height="6" rx="3" fill="#B45309" />
+      <rect x="84" y="45" width="40" height="6" rx="3" fill="#0E7490" />
+      <rect x="90" y="68" width="66" height="6" rx="3" fill="#6D28D9" />
+      <circle cx="94" cy="24" r="2.4" fill="#B45309" />
+      <circle cx="84" cy="48" r="2.4" fill="#0E7490" />
+      <circle cx="90" cy="71" r="2.4" fill="#6D28D9" />
       <text
-        x="166"
-        y="90"
+        x="160"
+        y="102"
         textAnchor="middle"
         fill="var(--flame)"
         fontSize="8"
@@ -98,18 +86,18 @@ export function MapGlyph() {
 
 export function ExplorerGlyph() {
   return (
-    <svg viewBox="0 0 240 96" className="h-24 w-full" role="img" aria-hidden="true">
-      {[14, 38, 62, 86].map((y) => (
+    <svg viewBox="0 0 240 110" className="h-full w-full" role="img" aria-hidden="true">
+      {[22, 48, 74, 100].map((y) => (
         <rect key={y} x="0" y={y} width="240" height="1" fill="var(--line)" />
       ))}
       {[52, 108, 164, 214].map((x) => (
-        <rect key={x} x={x} y="8" width="1" height="80" fill="var(--line)" />
+        <rect key={x} x={x} y="14" width="1" height="88" fill="var(--line)" />
       ))}
-      <rect x="6" y="18" width="42" height="4" rx="2" fill="var(--line-strong)" />
-      <rect x="58" y="18" width="44" height="4" rx="2" fill="var(--line-strong)" />
-      <rect x="114" y="18" width="44" height="4" rx="2" fill="var(--line-strong)" />
-      <rect x="170" y="18" width="38" height="4" rx="2" fill="var(--line-strong)" />
-      {[42, 66].map((y) => (
+      <rect x="6" y="27" width="42" height="4" rx="2" fill="var(--line-strong)" />
+      <rect x="58" y="27" width="44" height="4" rx="2" fill="var(--line-strong)" />
+      <rect x="114" y="27" width="44" height="4" rx="2" fill="var(--line-strong)" />
+      <rect x="170" y="27" width="38" height="4" rx="2" fill="var(--line-strong)" />
+      {[53, 79].map((y) => (
         <g key={y}>
           <rect x="6" y={y} width="30" height="4" rx="2" fill="var(--ink)" opacity="0.7" />
           <rect x="58" y={y} width="26" height="4" rx="2" fill="var(--ink)" opacity="0.35" />
@@ -117,40 +105,40 @@ export function ExplorerGlyph() {
           <rect x="170" y={y} width="30" height="4" rx="2" fill="var(--ink)" opacity="0.35" />
         </g>
       ))}
-      <circle cx="192" cy="44" r="5" fill="var(--flame)" opacity="0.9" />
+      <circle cx="192" cy="55" r="5" fill="var(--flame)" opacity="0.9" />
     </svg>
   );
 }
 
 export function ChatGlyph() {
   return (
-    <svg viewBox="0 0 240 96" className="h-24 w-full" role="img" aria-hidden="true">
-      <rect x="84" y="8" width="150" height="26" rx="5" fill="var(--panel-2)" stroke="var(--line)" />
-      <rect x="8" y="42" width="186" height="44" rx="5" fill="none" stroke="var(--line)" />
-      <rect x="16" y="52" width="118" height="4" rx="2" fill="var(--ink)" opacity="0.55" />
-      <rect x="16" y="62" width="160" height="4" rx="2" fill="var(--ink)" opacity="0.3" />
-      <rect x="16" y="72" width="96" height="4" rx="2" fill="var(--ink)" opacity="0.3" />
-      <circle cx="16" cy="20" r="4" fill="var(--flame)" />
+    <svg viewBox="0 0 240 110" className="h-full w-full" role="img" aria-hidden="true">
+      <rect x="84" y="12" width="150" height="26" rx="5" fill="var(--panel-2)" stroke="var(--line)" />
+      <rect x="8" y="48" width="186" height="46" rx="5" fill="none" stroke="var(--line)" />
+      <rect x="16" y="58" width="118" height="4" rx="2" fill="var(--ink)" opacity="0.55" />
+      <rect x="16" y="68" width="160" height="4" rx="2" fill="var(--ink)" opacity="0.3" />
+      <rect x="16" y="78" width="96" height="4" rx="2" fill="var(--ink)" opacity="0.3" />
+      <circle cx="16" cy="25" r="4" fill="var(--flame)" />
     </svg>
   );
 }
 
 export function ScaleGlyph() {
   return (
-    <svg viewBox="0 0 240 96" className="h-24 w-full" role="img" aria-hidden="true">
-      <rect x="0" y="52" width="240" height="1" fill="var(--line-strong)" />
+    <svg viewBox="0 0 240 110" className="h-full w-full" role="img" aria-hidden="true">
+      <rect x="0" y="62" width="240" height="1" fill="var(--line-strong)" />
       {Array.from({ length: 30 }).map((_, index) => (
         <rect
           key={index}
           x={index * 8}
-          y={index % 5 === 0 ? 40 : 47}
+          y={index % 5 === 0 ? 48 : 56}
           width="1"
-          height={index % 5 === 0 ? 12 : 5}
+          height={index % 5 === 0 ? 14 : 6}
           fill={index % 5 === 0 ? "var(--line-strong)" : "var(--line)"}
         />
       ))}
-      <rect x="120" y="30" width="2" height="22" fill="var(--flame)" />
-      <circle cx="121" cy="28" r="4" fill="var(--flame)" />
+      <rect x="120" y="30" width="2" height="26" fill="var(--flame)" />
+      <circle cx="121" cy="28" r="4.5" fill="var(--flame)" />
     </svg>
   );
 }

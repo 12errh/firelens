@@ -831,8 +831,9 @@ NON-NEGOTIABLE RULES:
 
 STYLE:
 - Plain text, no markdown headings or tables.
-- At most 170 words. Short paragraphs or hyphen bullets.
-- Cite retrieved passages as [PSI-25, p.9] and records as [PSI-25]. Put the citation right after the claim it supports.
+- At most 220 words. Short paragraphs or hyphen bullets.
+- Cite like this: [PSI-25, p.9] for a document passage, [PSI-25] for a record. Put the citation immediately after the claim it supports, and never list citations at the end.
+- Never end mid-sentence. If you are running out of room, stop after a complete sentence.
 - End with one sentence naming the main limitation.
 - Be direct. If the answer is "no", start with "No."`;
 
@@ -858,7 +859,7 @@ async function callGroq(
       body: JSON.stringify({
         model,
         temperature: 0.15,
-        max_tokens: 480,
+        max_tokens: 900,
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           {

@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { StatusDot, TickRule } from "@/components/ui";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { FlameLogo } from "@/components/flame-logo";
 
 const nav = [
   { href: "/", label: "Overview" },
@@ -16,25 +18,7 @@ const nav = [
 ];
 
 function Mark() {
-  return (
-    <svg viewBox="0 0 32 32" className="h-6 w-6" aria-hidden="true">
-      <path
-        d="M16 4.5 25 27H7L16 4.5Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        className="text-ink"
-      />
-      <path
-        d="M16 11.5 21.2 25H10.8L16 11.5Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        className="text-flame"
-      />
-      <path d="M16 16.5 18.3 23h-4.6L16 16.5Z" className="fill-flame" />
-    </svg>
-  );
+  return <FlameLogo className="h-7 w-7" />;
 }
 
 export function SiteHeader() {
@@ -87,16 +71,20 @@ export function SiteHeader() {
           <span className="text-[14px] text-faint">Snapshot 14 Nov 2026</span>
         </div>
 
-        <button
-          type="button"
-          className="flex h-10 w-10 items-center justify-center rounded border border-line text-muted transition-colors hover:bg-panel-2 hover:text-ink lg:hidden"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close navigation" : "Open navigation"}
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded border border-line text-muted transition-colors hover:bg-panel-2 hover:text-ink lg:hidden"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close navigation" : "Open navigation"}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       <TickRule className="opacity-70" />

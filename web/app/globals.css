@@ -36,6 +36,38 @@
   --font-mono: var(--font-plex-mono);
 }
 
+/*
+ * Dark mode. A cool NASA palette: deep space navy, a slightly lifted panel,
+ * and a blue accent in place of the warm one. The combustion accent still
+ * reads warm inside the charts, where the colour carries data meaning.
+ */
+html[data-theme="dark"] {
+  --canvas: #080c15;
+  --panel: #101726;
+  --panel-2: #172034;
+  --line: #212e46;
+  --line-strong: #33455f;
+  --ink: #e7edf8;
+  --muted: #a3b3cc;
+  --faint: #71839d;
+  --flame: #5aa9f0;
+  --flame-deep: #3d87d6;
+  --ice: #4fc3f7;
+  --violet: #a78bfa;
+  --moss: #8ecb3a;
+  --danger: #f87171;
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] ::selection {
+  background: rgba(90, 169, 240, 0.26);
+  color: var(--ink);
+}
+
+html[data-theme="dark"] .panel-hover:hover {
+  background: #141d2e;
+}
+
 * {
   border-color: var(--line);
 }
@@ -192,6 +224,22 @@ summary:focus-visible {
   animation: reveal 420ms ease-out both;
 }
 
+/* A slow settle on the isometric vignettes. */
+.iso-float {
+  animation: iso-float 7s ease-in-out infinite;
+  transform-origin: 50% 60%;
+}
+
+@keyframes iso-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-0.35deg);
+  }
+}
+
 .reveal-delay-1 {
   animation-delay: 60ms;
 }
@@ -220,7 +268,8 @@ summary:focus-visible {
   .reveal,
   .reveal-delay-1,
   .reveal-delay-2,
-  .reveal-delay-3 {
+  .reveal-delay-3,
+  .iso-float {
     animation: none;
   }
   * {

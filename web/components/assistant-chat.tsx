@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Check,
+  ChevronRight,
   Clipboard,
   CornerDownLeft,
   FileText,
@@ -94,7 +95,7 @@ function ExcerptList({ excerpts }: { excerpts: ChatExcerpt[] }) {
       <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[13.5px] text-muted transition-colors hover:text-ink">
         <FileText className="h-3 w-3" strokeWidth={1.5} />
         Document excerpts · {excerpts.length}
-        <span className="transition-transform group-open:rotate-45">+</span>
+        <ChevronRight className="h-3 w-3 transition-transform group-open:rotate-90" strokeWidth={1.5} />
       </summary>
       <ul className="mt-2.5 space-y-2.5 border-l border-line pl-3">
         {excerpts.map((excerpt) => (
@@ -180,7 +181,7 @@ function AssistantMessage({ message }: { message: Message }) {
                   <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[13.5px] text-faint transition-colors hover:text-muted">
                     <ShieldAlert className="h-3 w-3" strokeWidth={1.5} />
                     Limitations · {result.limitations.length}
-                    <span className="transition-transform group-open:rotate-45">+</span>
+                    <ChevronRight className="h-3 w-3 transition-transform group-open:rotate-90" strokeWidth={1.5} />
                   </summary>
                   <ul className="mt-2 space-y-1.5 border-l border-line pl-3 text-[13.5px] leading-5 text-faint">
                     {result.limitations.map((limitation) => (

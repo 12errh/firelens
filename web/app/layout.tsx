@@ -40,12 +40,18 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME_BOOT = `(function(){try{var t=localStorage.getItem("fif-theme")||"light";document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme="light";}})();`;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
+      </head>
       <body className="flex min-h-full flex-col bg-canvas text-ink">
         <a
           href="#main"

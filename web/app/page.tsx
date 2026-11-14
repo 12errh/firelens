@@ -63,7 +63,6 @@ const FEATURES = [
     glyph: ScaleGlyph,
   },
 ];
-
 export default function Home() {
   const mapPoints = evidencePoints.filter(
     (point) => point.o2 && point.gravity !== "partial_gravity_analog",
@@ -191,7 +190,7 @@ export default function Home() {
             const Glyph = feature.glyph;
             return (
               <article key={feature.title} className="flex flex-col bg-panel p-6 sm:p-8">
-                <div className="rounded border border-line bg-canvas p-4">
+                <div className="h-32 overflow-hidden rounded border border-line bg-canvas p-2">
                   <Glyph />
                 </div>
                 <h3 className="mt-6 text-[19px] font-medium tracking-[-0.02em] text-ink">

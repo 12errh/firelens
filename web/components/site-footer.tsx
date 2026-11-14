@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { FlameLogo } from "@/components/flame-logo";
 
 export function SiteFooter() {
   return (
@@ -8,23 +9,7 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-[1.6fr_1fr_1.2fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <svg viewBox="0 0 32 32" className="h-6 w-6" aria-hidden="true">
-                <path
-                  d="M16 4.5 25 27H7L16 4.5Z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  className="text-ink"
-                />
-                <path
-                  d="M16 11.5 21.2 25H10.8L16 11.5Z"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  className="text-flame"
-                />
-                <path d="M16 16.5 18.3 23h-4.6L16 16.5Z" className="fill-flame" />
-              </svg>
+              <FlameLogo className="h-7 w-7" />
               <span className="text-[15px] font-semibold text-ink">Flame in Freefall</span>
             </div>
             <p className="mt-5 max-w-sm text-[14px] leading-6 text-muted">
