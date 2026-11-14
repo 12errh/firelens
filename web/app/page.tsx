@@ -87,7 +87,7 @@ export default function Home() {
                 </ActionLink>
               </div>
 
-              <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-5 text-[14px] text-faint">
+              <div className="mt-10 grid grid-cols-1 gap-x-5 gap-y-2.5 border-t border-line pt-5 text-[14px] text-faint sm:grid-cols-2">
                 <span className="flex items-center gap-2">
                   <StatusDot tone="moss" />
                   PSI snapshot 14 Nov 2026
