@@ -9,6 +9,7 @@ import {
   stats,
 } from "@/lib/data";
 import type { Investigation } from "@/lib/types";
+import { groundedPercentages, retrieve, type RagHit } from "@/lib/rag";
 
 export type AnswerMode = "rag" | "groq" | "deterministic";
 export type Confidence = "high" | "medium" | "low";
@@ -22,12 +23,23 @@ export interface ChatSource {
   doi?: string | null;
 }
 
+/** A verbatim excerpt of a NASA PSI document, with the page it came from. */
+export interface ChatExcerpt {
+  id: string;
+  investigationId: string;
+  title: string;
+  page: number;
+  category: string;
+  excerpt: string;
+}
+
 export interface ChatAnswer {
   answer: string;
   sources: ChatSource[];
   confidence: Confidence;
   limitations: string[];
   mode: AnswerMode;
+  excerpts?: ChatExcerpt[];
 }
 
 export interface ChatRequest {
@@ -79,6 +91,41 @@ const EVIDENCE_SOURCE: ChatSource = {
   kind: "evidence",
   url: "/evidence",
 };
+
+/**
+ * Retrieved passages become quotable excerpts. The excerpt is trimmed to a
+ * readable window around the strongest sentence, but it is never rewritten.
+ */
+function toExcerpt(hit: RagHit): ChatExcerpt {
+  const text = hit.text.replace(/\s+/g, " ").trim();
+  return {
+    id: hit.id,
+    investigationId: hit.investigationId,
+    title: hit.title,
+    page: hit.page,
+    category: hit.category,
+    excerpt: text.length > 420 ? `${text.slice(0, 417)}…` : text,
+  };
+}
+
+function documentSources(hits: RagHit[]): ChatSource[] {
+  const seen = new Set<string>();
+  const sources: ChatSource[] = [];
+  for (const hit of hits) {
+    if (seen.has(hit.investigationId)) continue;
+    seen.add(hit.investigationId);
+    const record = investigationById.get(hit.investigationId);
+    sources.push({
+      id: `doc-${hit.investigationId}`,
+      label: `${hit.investigationId} · ${hit.title}`,
+      title: `${hit.title} — page ${hit.page}`,
+      kind: "document",
+      url: record ? `/investigations/${record.id}` : "/evidence",
+      doi: record?.doi ?? null,
+    });
+  }
+  return sources;
+}
 
 function o2For(record: Investigation): string {
   const withO2 = record.tables.filter((table) => table.o2);
@@ -334,7 +381,7 @@ function smokeAnswer(): ChatAnswer {
     confidence: "high",
     limitations: [
       "None of the smoke/aerosol summary tables reports oxygen concentration.",
-      "Reports and science documents are indexed as metadata, not full-text ingested.",
+      "Smoke behavior is carried mainly by the report corpus, not by oxygen-indexed tables.",
       "Document presence does not mean the underlying raw data were normalized here.",
     ],
     mode: "deterministic",
@@ -374,7 +421,7 @@ function methodAnswer(): ChatAnswer {
     confidence: "high",
     limitations: [
       "This is a dated snapshot, not a live PSI mirror.",
-      "Document metadata is indexed, but full text was not ingested.",
+      "Report text is retrieved verbatim and quoted with page numbers; it is never summarized into a number.",
       "The normalization layer is deliberately thin relative to the raw archive.",
     ],
     mode: "deterministic",
@@ -394,7 +441,7 @@ function publicationAnswer(): ChatAnswer {
     confidence: "high",
     limitations: [
       "Publication counts are metadata counts, not a measure of evidence quality.",
-      "Full text was not retrieved for this snapshot.",
+      "Retrieved document text is quoted verbatim, not interpreted into a new number.",
       "Raw data entries are not normalized evidence.",
     ],
     mode: "deterministic",
@@ -709,16 +756,20 @@ function allowedPercentages(): Set<number> {
 
 const ALLOWED_PERCENTAGES = allowedPercentages();
 
-function hasGroundedPercentages(answer: string): boolean {
+function hasGroundedPercentages(
+  answer: string,
+  extra: Set<number> = new Set(),
+): boolean {
   const matches = answer.matchAll(/(\d+(?:\.\d+)?)\s*%/g);
   for (const match of matches) {
     const value = Number(match[1]);
-    if (!ALLOWED_PERCENTAGES.has(Number(value.toFixed(2)))) return false;
+    const rounded = Number(value.toFixed(2));
+    if (!ALLOWED_PERCENTAGES.has(rounded) && !extra.has(rounded)) return false;
   }
   return true;
 }
 
-function contextFor(question: string): string {
+function contextFor(question: string, hits: RagHit[] = []): string {
   const matches = searchRecords(question);
   const lines = [
     `SNAPSHOT: ${stats.investigations} NASA PSI Combustion Science investigations, ${stats.experimentalTables} experimental summary tables, ${stats.tableRows} normalized rows, ${stats.documentsIndexed} reports/science documents, ${stats.rawFiles} raw file entries indexed but not ingested. Snapshot date ${stats.snapshotDate}.`,
@@ -745,6 +796,20 @@ function contextFor(question: string): string {
     }
   }
 
+  if (hits.length) {
+    lines.push(
+      "RETRIEVED DOCUMENT PASSAGES (verbatim from the PSI report corpus — quote them, cite the page):",
+    );
+    for (const hit of hits) {
+      lines.push(
+        `- [${hit.investigationId}, p.${hit.page}] ${hit.title}: ${hit.text.replace(
+          /\s+/g,
+          " ",
+        )}`,
+      );
+    }
+  }
+
   lines.push(
     "RELEVANT COMPUTED FINDINGS:",
     ...insights.map((insight) => `- ${insight.title}: ${insight.statement}`),
@@ -767,15 +832,19 @@ NON-NEGOTIABLE RULES:
 STYLE:
 - Plain text, no markdown headings or tables.
 - At most 170 words. Short paragraphs or hyphen bullets.
+- Cite retrieved passages as [PSI-25, p.9] and records as [PSI-25]. Put the citation right after the claim it supports.
 - End with one sentence naming the main limitation.
 - Be direct. If the answer is "no", start with "No."`;
 
-async function callGroq(question: string): Promise<ChatAnswer | null> {
+async function callGroq(
+  question: string,
+  hits: RagHit[] = [],
+): Promise<ChatAnswer | null> {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) return null;
 
   const model = process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL;
-  const context = contextFor(question);
+  const context = contextFor(question, hits);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
 
@@ -809,12 +878,16 @@ async function callGroq(question: string): Promise<ChatAnswer | null> {
     if (!draft) return null;
 
     const baseline = answerFromEvidence(question);
-    if (!hasGroundedPercentages(draft)) {
+    // A percentage is acceptable if it is in the normalized tables or if it
+    // literally appears in a retrieved NASA passage. Anything else is invented.
+    const allowed = groundedPercentages(hits);
+    if (!hasGroundedPercentages(draft, allowed)) {
       return {
         ...baseline,
+        excerpts: hits.length ? hits.map(toExcerpt) : undefined,
         limitations: [
           ...baseline.limitations,
-          "A language-model draft was rejected by the numeric grounding check because it contained a percentage not present in the normalized tables.",
+          "A language-model draft was rejected by the numeric grounding check because it contained a percentage that appears in neither the normalized tables nor the retrieved passages.",
         ],
       };
     }
@@ -823,6 +896,10 @@ async function callGroq(question: string): Promise<ChatAnswer | null> {
       ...baseline,
       answer: draft,
       mode: "groq",
+      excerpts: hits.length ? hits.map(toExcerpt) : undefined,
+      sources: hits.length
+        ? [...baseline.sources, ...documentSources(hits)].slice(0, 10)
+        : baseline.sources,
       limitations: [
         ...baseline.limitations,
         "Drafted by a language model from retrieved context; verify the cited PSI tables.",
@@ -935,12 +1012,39 @@ async function callRag(question: string): Promise<ChatAnswer | null> {
 }
 
 export async function answerQuestion(question: string): Promise<ChatAnswer> {
-  const rag = await callRag(question);
-  if (rag) return rag;
+  const baseline = answerFromEvidence(question);
 
-  const deterministic = answerFromEvidence(question);
-  if (/psi[\s-]?\d{1,3}/i.test(question)) return deterministic;
+  // Retrieval over the real PSI report corpus. It runs on every question, so
+  // the answer always carries document provenance even with no model key.
+  const hits = retrieve(question, { limit: 5 });
+  const excerpts = hits.length ? hits.map(toExcerpt) : undefined;
 
-  const groq = await callGroq(question);
-  return groq ?? deterministic;
+  const external = await callRag(question);
+  if (external) {
+    return {
+      ...external,
+      excerpts: excerpts ?? external.excerpts,
+    };
+  }
+
+  if (/psi[\s-]?\d{1,3}/i.test(question)) {
+    return { ...baseline, excerpts };
+  }
+
+  const groq = await callGroq(question, hits);
+  if (groq) return groq;
+
+  return {
+    ...baseline,
+    excerpts,
+    sources: hits.length
+      ? [...baseline.sources, ...documentSources(hits)].slice(0, 10)
+      : baseline.sources,
+    limitations: hits.length
+      ? [
+          ...baseline.limitations,
+          `${hits.length} passage${hits.length === 1 ? "" : "s"} retrieved from the PSI report corpus; quoted verbatim with page numbers.`,
+        ]
+      : baseline.limitations,
+  };
 }

@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Flame in Freefall — NASA Space Apps 2026</title>
+    <meta
+      name="description"
+      content="An evidence workbench for NASA microgravity combustion research. Team R1: Rehan and Ayesh Wadoode Khan."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --canvas: #f7f7f4;
+        --panel: #ffffff;
+        --panel-2: #f0f0ea;
+        --line: #e3e2da;
+        --line-strong: #c9c8be;
+        --ink: #181814;
+        --muted: #5f5f57;
+        --faint: #8b8a80;
+        --flame: #c2410c;
+        --flame-soft: rgba(194, 65, 12, 0.07);
+        --moss: #4d7c0f;
+        --ice: #0e7490;
+        --violet: #6d28d9;
+        --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+        --mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: #eceae3;
+        color: var(--ink);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .stage {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+      }
+
+      .deck {
+        position: relative;
+        width: 1280px;
+        height: 720px;
+        transform-origin: center center;
+        background: var(--canvas);
+        box-shadow: 0 24px 70px rgba(24, 24, 20, 0.16);
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: none;
+        flex-direction: column;
+        padding: 56px 64px;
+        background: var(--canvas);
+      }
+
+      .slide.is-active {
+        display: flex;
+      }
+
+      .slide.split {
+        display: none;
+      }
+
+      .slide.split.is-active {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: center;
+      }
+
+      .kicker {
+        font-size: 15px;
+        color: var(--faint);
+        letter-spacing: 0;
+      }
+
+      h1 {
+        margin: 18px 0 0;
+        font-size: 58px;
+        font-weight: 500;
+        line-height: 1.04;
+        letter-spacing: -0.035em;
+      }
+
+      h2 {
+        margin: 14px 0 0;
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1.14;
+        letter-spacing: -0.028em;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 19px;
+        font-weight: 500;
+        line-height: 1.3;
+      }
+
+      .lede {
+        margin: 20px 0 0;
+        max-width: 900px;
+        font-size: 20px;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      .rule {
+        height: 1px;
+        background: var(--line);
+        border: 0;
+        margin: 0;
+      }
+
+      .mono {
+        font-family: var(--mono);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .flame {
+        color: var(--flame);
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .faint {
+        color: var(--faint);
+      }
+
+      .cols {
+        display: grid;
+        gap: 28px;
+      }
+
+      .cols-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .grow {
+        flex: 1;
+        min-height: 0;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px 24px;
+      }
+
+      .card h3 {
+        margin-bottom: 8px;
+      }
+
+      .card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .stat {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 20px 22px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+
+      .stat .n {
+        font-family: var(--mono);
+        font-size: 40px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.035em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .stat .l {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 11px;
+        font-size: 13px;
+        color: var(--muted);
+        background: var(--panel);
+      }
+
+      .tag.flame {
+        border-color: rgba(194, 65, 12, 0.28);
+        background: var(--flame-soft);
+        color: var(--flame);
+      }
+
+      .tag.ice {
+        border-color: rgba(14, 116, 144, 0.26);
+        background: rgba(14, 116, 144, 0.07);
+        color: var(--ice);
+      }
+
+      .tag.violet {
+        border-color: rgba(109, 40, 217, 0.24);
+        background: rgba(109, 40, 217, 0.06);
+        color: var(--violet);
+      }
+
+      .tag.moss {
+        border-color: rgba(77, 124, 15, 0.26);
+        background: rgba(77, 124, 15, 0.07);
+        color: var(--moss);
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: currentColor;
+        display: inline-block;
+      }
+
+      ul.clean {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      ul.clean li {
+        position: relative;
+        padding-left: 22px;
+        margin-bottom: 10px;
+        font-size: 16px;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      ul.clean li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 10px;
+        height: 1px;
+        background: var(--flame);
+      }
+
+      .foot {
+        position: absolute;
+        left: 64px;
+        right: 64px;
+        bottom: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        color: var(--faint);
+        border-top: 1px solid var(--line);
+        padding-top: 12px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand strong {
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .brand span {
+        display: block;
+        font-size: 13px;
+        color: var(--faint);
+        margin-top: 1px;
+      }
+
+      .map-wrap {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px 20px;
+      }
+
+      .map-wrap svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .shot {
+        width: 100%;
+        display: block;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .quote {
+        border-left: 2px solid var(--flame);
+        padding-left: 18px;
+        font-size: 17px;
+        line-height: 1.6;
+        color: var(--muted);
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: 1fr 34px 1fr 34px 1fr;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .arrow {
+        display: grid;
+        place-items: center;
+        color: var(--line-strong);
+        font-size: 20px;
+      }
+
+      .links a {
+        color: var(--ink);
+        text-decoration: none;
+        border-bottom: 1px solid var(--line-strong);
+      }
+
+      .links a:hover {
+        color: var(--flame);
+        border-color: var(--flame);
+      }
+
+      /* Navigation */
+      .nav {
+        position: fixed;
+        right: 18px;
+        bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 20;
+        font-family: var(--sans);
+      }
+
+      .nav button {
+        width: 34px;
+        height: 34px;
+        border-radius: 6px;
+        border: 1px solid var(--line-strong);
+        background: var(--panel);
+        color: var(--muted);
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .nav button:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+
+      .nav .count {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        padding: 0 6px;
+      }
+
+      .progress {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        background: var(--flame);
+        z-index: 21;
+        transition: width 220ms ease;
+      }
+
+      @media print {
+        html,
+        body {
+          background: #fff;
+        }
+        .stage {
+          position: static;
+          display: block;
+        }
+        .deck {
+          width: 1280px;
+          height: auto;
+          transform: none !important;
+          box-shadow: none;
+        }
+        .slide,
+        .slide.split {
+          display: flex !important;
+          position: relative;
+          width: 1280px;
+          height: 720px;
+          page-break-after: always;
+          break-after: page;
+        }
+        .slide.split {
+          display: grid !important;
+        }
+        .nav,
+        .progress {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div class="deck" id="deck">
+        <!-- 1 — Title -->
+        <section class="slide is-active" data-title="Title">
+          <div class="grow" style="display: flex; flex-direction: column; justify-content: center">
+            <div class="kicker">
+              NASA Space Apps 2026 · Challenge: Flame in Freefall · Team R1, Lahore
+            </div>
+            <h1>
+              Fire doesn&rsquo;t fall<br />
+              the same way twice.
+            </h1>
+            <p class="lede" style="max-width: 780px">
+              <strong style="color: var(--ink); font-weight: 500">Flame in Freefall</strong>
+              is an evidence workbench for NASA&rsquo;s microgravity combustion research. We
+              normalized 24 PSI investigations and 22 experimental tables, then mapped what
+              they can &mdash; and cannot &mdash; say about spacecraft, lunar, and Mars fire
+              safety.
+            </p>
+            <div style="display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap">
+              <span class="tag flame">Rehan</span>
+              <span class="tag flame">Ayesh Wadoode Khan</span>
+              <span class="tag">Independent project · not NASA endorsed</span>
+            </div>
+          </div>
+          <div class="foot">
+            <span class="links">
+              <a href="https://firelens-chi.vercel.app">firelens-chi.vercel.app</a>
+              &nbsp;·&nbsp;
+              <a href="https://github.com/12errh/firelens">github.com/12errh/firelens</a>
+            </span>
+            <span>1 / 7</span>
+          </div>
+        </section>
+
+        <!-- 2 — Why it matters -->
+        <section class="slide" data-title="Why it matters">
+          <div class="kicker">The question</div>
+          <h2>
+            A lunar habitat runs at <span class="flame">30% oxygen or more</span>. Earth runs
+            at 21%.
+          </h2>
+          <p class="lede">
+            More oxygen means easier ignition and faster flame spread. NASA has decades of
+            microgravity combustion research &mdash; BASS, FLEX, ACME, SAFFIRE, SAME &mdash;
+            and almost none of it was run at lunar oxygen levels.
+          </p>
+          <div class="rule" style="margin: 30px 0 24px"></div>
+          <div class="cols cols-3" style="align-content: start">
+            <div class="card">
+              <h3>The archive is large</h3>
+              <p>
+                24 Combustion Science investigations, 22 experimental summary tables, 2,870
+                normalized rows, 352 publications, 109 reports and science documents.
+              </p>
+            </div>
+            <div class="card">
+              <h3>The archive is uneven</h3>
+              <p>
+                Only 12 of 22 tables report oxygen. Pressure is missing from most solid-material
+                campaigns. Missing stays missing &mdash; never estimated.
+              </p>
+            </div>
+            <div class="card" style="border-color: rgba(194, 65, 12, 0.3)">
+              <h3>The archive has a hole</h3>
+              <p>
+                Every tabulated combustion test in PSI ran in microgravity or at 1 g.
+                <strong style="color: var(--ink)">Zero</strong> ran at lunar or Mars gravity.
+              </p>
+            </div>
+          </div>
+          <div class="grow" style="display: flex; align-items: flex-end; padding: 22px 0 30px">
+            <blockquote class="quote" style="margin: 0; max-width: 1020px">
+              &ldquo;The intermediate oxygen concentration used on the Moon will likely be 30% or
+              greater&hellip; Compared to Earth&rsquo;s atmosphere, that&rsquo;s more than a 40% increase in
+              the oxygen concentration making materials much more flammable.&rdquo;
+              <div class="faint" style="margin-top: 8px; font-size: 13px">
+                NASA Space Apps 2026 &mdash; Flame in Freefall challenge brief
+              </div>
+            </blockquote>
+          </div>
+          <div class="foot">
+            <span>Source: NASA Physical Sciences Informatics, snapshot 14 Nov 2026</span>
+            <span>2 / 7</span>
+          </div>
+        </section>
+
+        <!-- 3 — The evidence map -->
+        <section class="slide" data-title="The evidence map">
+          <div class="kicker">The flagship view &mdash; Oxygen × Gravity</div>
+          <h2 style="font-size: 34px">Every test has an oxygen number. Almost none has the right gravity.</h2>
+          <div class="grow" style="display: grid; grid-template-columns: 1fr 268px; gap: 22px; margin-top: 20px; align-items: start">
+            <div class="map-wrap">
+              <img
+                src="assets/evidence-map.svg"
+                alt="Oxygen concentration against gravity environment for NASA PSI combustion experiments. The partial gravity lane is empty."
+                style="width: 100%; display: block"
+              />
+            </div>
+            <div class="cols" style="gap: 12px">
+              <div class="stat" style="border-color: rgba(194, 65, 12, 0.3)">
+                <div class="n flame">0</div>
+                <div class="l">direct partial-gravity datasets in the entire snapshot</div>
+              </div>
+              <div class="stat">
+                <div class="n">22.2%</div>
+                <div class="l">highest solid-material O₂ &mdash; BASS-II, below the ≥30% lunar band</div>
+              </div>
+              <div class="stat">
+                <div class="n">8</div>
+                <div class="l">table points at or above 30% O₂ &mdash; all gaseous or droplet</div>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <span>13 plotted datasets · 1 analog (E-FIELD) excluded from the gravity axis</span>
+            <span>3 / 7</span>
+          </div>
+        </section>
+
+        <!-- 4 — What we built -->
+        <section class="slide" data-title="What we built">
+          <div class="kicker">The product</div>
+          <h2 style="font-size: 36px">An evidence workbench, not a chatbot.</h2>
+          <div class="grow" style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; margin-top: 20px; align-items: start">
+            <div>
+              <img class="shot" src="assets/workbench.png" alt="The Flame in Freefall dashboard" />
+            </div>
+            <div class="cols" style="gap: 12px">
+              <div class="card" style="padding: 16px 18px">
+                <h3>Evidence map</h3>
+                <p style="font-size: 14px">
+                  Every summary table plotted by reported oxygen and gravity. The empty lane is
+                  the finding, so it is drawn, not hidden.
+                </p>
+              </div>
+              <div class="card" style="padding: 16px 18px">
+                <h3>Investigation explorer</h3>
+                <p style="font-size: 14px">
+                  24 records filtered by gravity class, material phase and data availability,
+                  with the normalized conditions behind each number.
+                </p>
+              </div>
+              <div class="card" style="padding: 16px 18px">
+                <h3>Grounded assistant</h3>
+                <p style="font-size: 14px">
+                  Answers from the tables and the report corpus, cites the record and page, and
+                  says &ldquo;not reported&rdquo; when the snapshot is silent.
+                </p>
+              </div>
+              <div class="card" style="padding: 16px 18px">
+                <h3>Methodology &amp; limits</h3>
+                <p style="font-size: 14px">
+                  Six normalization rules, four evidence classes, and the questions this
+                  snapshot cannot answer.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <span>Next.js 16 · TypeScript · Tailwind v4 · Python ingestion · FastAPI mirror</span>
+            <span>4 / 7</span>
+          </div>
+        </section>
+
+        <!-- 5 — The assistant -->
+        <section class="slide" data-title="The assistant">
+          <div class="kicker">How the assistant refuses to guess</div>
+          <h2 style="font-size: 36px">Retrieval first. A numeric guard last. A deterministic fallback underneath.</h2>
+          <div class="grow" style="display: flex; flex-direction: column; gap: 22px; margin-top: 18px">
+            <div class="flow">
+              <div class="card">
+                <span class="tag ice">1 · Retrieve</span>
+                <h3 style="margin-top: 12px">Real NASA documents</h3>
+                <p style="font-size: 14px">
+                  Reports and science documents downloaded from the public PSI repository,
+                  split into page-stamped passages, ranked with BM25.
+                </p>
+              </div>
+              <div class="arrow">→</div>
+              <div class="card">
+                <span class="tag violet">2 · Answer</span>
+                <h3 style="margin-top: 12px">Model, strictly grounded</h3>
+                <p style="font-size: 14px">
+                  A Groq-hosted model may only use the retrieved context. No context, no
+                  answer &mdash; the structured table answer is returned instead.
+                </p>
+              </div>
+              <div class="arrow">→</div>
+              <div class="card">
+                <span class="tag flame">3 · Verify</span>
+                <h3 style="margin-top: 12px">Numeric guard</h3>
+                <p style="font-size: 14px">
+                  Any percentage that is not in the normalized tables or the cited passages is
+                  rejected and the deterministic answer is served instead.
+                </p>
+              </div>
+            </div>
+            <div class="cols cols-3">
+              <div class="quote">
+                &ldquo;If the snapshot is silent, the answer is <strong style="color: var(--ink)">not
+                reported</strong> &mdash; never an estimate.&rdquo;
+              </div>
+              <div class="quote">
+                &ldquo;Microgravity results are never presented as lunar or Mars
+                <strong style="color: var(--ink)">measurements</strong>.&rdquo;
+              </div>
+              <div class="quote">
+                &ldquo;Every answer cites the PSI record, the table, and the
+                <strong style="color: var(--ink)">page</strong>.&rdquo;
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <span>Deterministic path works with no API key · model lane is optional and validated</span>
+            <span>5 / 7</span>
+          </div>
+        </section>
+
+        <!-- 6 — Honesty / impact -->
+        <section class="slide" data-title="Impact and limits">
+          <div class="kicker">Evidence classes and honest limits</div>
+          <h2 style="font-size: 36px">Four kinds of support. Only one is a measurement.</h2>
+          <div class="grow" style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 34px; margin-top: 22px; align-items: start">
+            <div class="cols cols-2" style="gap: 12px">
+              <div class="card" style="border-color: rgba(77, 124, 15, 0.28)">
+                <span class="tag moss"><span class="dot"></span> Direct &mdash; 12 points</span>
+                <p style="margin-top: 10px; font-size: 14px">
+                  Microgravity measurements from flight experiments. Real, but nearly all sit at
+                  Earth-like oxygen.
+                </p>
+              </div>
+              <div class="card" style="border-color: rgba(14, 116, 144, 0.26)">
+                <span class="tag ice"><span class="dot"></span> 1 g comparison &mdash; 1 point</span>
+                <p style="margin-top: 10px; font-size: 14px">
+                  SAFFIRE-II reports one matched normal-gravity column. It bounds gravity
+                  sensitivity for one material set, nothing more.
+                </p>
+              </div>
+              <div class="card" style="border-color: rgba(109, 40, 217, 0.24)">
+                <span class="tag violet"><span class="dot"></span> Analog only &mdash; 1 record</span>
+                <p style="margin-top: 10px; font-size: 14px">
+                  E-FIELD mimics buoyancy-free behavior with electric fields. Useful, explicitly
+                  not a gravity measurement.
+                </p>
+              </div>
+              <div class="card" style="border-color: rgba(194, 65, 12, 0.3)">
+                <span class="tag flame"><span class="dot"></span> Absent &mdash; 0 datasets</span>
+                <p style="margin-top: 10px; font-size: 14px">
+                  Lunar and Mars gravity. The gap is in the archive, not only in our interface.
+                </p>
+              </div>
+            </div>
+            <div>
+              <h3 style="margin-bottom: 12px">Who this is for</h3>
+              <ul class="clean">
+                <li>Fire-safety engineers sizing a materials envelope before a design review.</li>
+                <li>Mission designers comparing a spacecraft cabin with a lunar habitat.</li>
+                <li>Researchers finding which PSI record answers their question &mdash; and which does not.</li>
+                <li>Students who need the real archive, not a summary of a summary.</li>
+              </ul>
+              <div class="card" style="margin-top: 18px; background: var(--panel-2); border-color: var(--line)">
+                <p style="font-size: 14px">
+                  <strong style="color: var(--ink)">What would change the answer:</strong> one
+                  solid-material test above 30% O₂, one partial-gravity solid burn, and a
+                  matched 1 g / µg matrix. All three are named on the site as missing
+                  observations, not as future features.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="foot">
+            <span>Absence of evidence in this snapshot is not proof that no such experiment exists anywhere</span>
+            <span>6 / 7</span>
+          </div>
+        </section>
+
+        <!-- 7 — Links / team / next -->
+        <section class="slide" data-title="Links">
+          <div class="grow" style="display: flex; flex-direction: column; justify-content: center">
+            <div class="kicker">Try it, read it, extend it</div>
+            <h2 style="font-size: 46px">The gap is real. The tool is open.</h2>
+            <p class="lede" style="max-width: 820px">
+              Everything is public: the live workbench, the ingestion script that rebuilds the
+              dataset from the NASA PSI API, and the normalized JSON it produces. If the
+              archive changes, re-run the script and the site rebuilds itself.
+            </p>
+            <div class="cols cols-2" style="margin-top: 30px; max-width: 900px">
+              <div class="card">
+                <h3>Live site</h3>
+                <p class="links" style="margin-top: 6px">
+                  <a href="https://firelens-chi.vercel.app">firelens-chi.vercel.app</a>
+                </p>
+                <p style="margin-top: 8px">
+                  Open the evidence map, then ask the assistant about partial gravity.
+                </p>
+              </div>
+              <div class="card">
+                <h3>Code</h3>
+                <p class="links" style="margin-top: 6px">
+                  <a href="https://github.com/12errh/firelens">github.com/12errh/firelens</a>
+                </p>
+                <p style="margin-top: 8px">
+                  Ingestion, normalization rules, the retrieval index, and this deck.
+                </p>
+              </div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; align-items: center">
+              <span class="tag flame">Rehan</span>
+              <span class="tag flame">Ayesh Wadoode Khan</span>
+              <span class="tag">Team R1 · Lahore</span>
+              <span class="tag">Built on NASA PSI open data</span>
+            </div>
+          </div>
+          <div class="foot">
+            <span>Independent project. Not affiliated with or endorsed by NASA. AI-assisted development; all data from the NASA PSI snapshot.</span>
+            <span>7 / 7</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button id="prev" aria-label="Previous slide">←</button>
+      <span class="count"><span id="current">1</span> / <span id="total">7</span></span>
+      <button id="next" aria-label="Next slide">→</button>
+    </div>
+    <div class="progress" id="progress" style="width: 14.28%"></div>
+
+    <script>
+      (function () {
+        var slides = Array.prototype.slice.call(
+          document.querySelectorAll(".slide"),
+        );
+        var index = 0;
+        var deck = document.getElementById("deck");
+        var current = document.getElementById("current");
+        var progress = document.getElementById("progress");
+
+        current.textContent = slides.length;
+
+        function show(next) {
+          index = Math.max(0, Math.min(slides.length - 1, next));
+          slides.forEach(function (slide, i) {
+            slide.classList.toggle("is-active", i === index);
+          });
+          current.textContent = String(index + 1);
+          progress.style.width = ((index + 1) / slides.length) * 100 + "%";
+          if (location.hash !== "#" + (index + 1)) {
+            history.replaceState(null, "", "#" + (index + 1));
+          }
+        }
+
+        function fit() {
+          var scale = Math.min(
+            window.innerWidth / 1280,
+            (window.innerHeight - 56) / 720,
+          );
+          deck.style.transform = "scale(" + scale + ")";
+        }
+
+        document.getElementById("next").addEventListener("click", function () {
+          show(index + 1);
+        });
+        document.getElementById("prev").addEventListener("click", function () {
+          show(index - 1);
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+            show(index + 1);
+            event.preventDefault();
+          } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
+            show(index - 1);
+            event.preventDefault();
+          } else if (event.key === "Home") {
+            show(0);
+          } else if (event.key === "End") {
+            show(slides.length - 1);
+          }
+        });
+
+        window.addEventListener("resize", fit);
+        fit();
+
+        var hash = parseInt(location.hash.replace("#", ""), 10);
+        if (hash >= 1 && hash <= slides.length) {
+          show(hash - 1);
+        }
+      })();
+    </script>
+  </body>
+</html>

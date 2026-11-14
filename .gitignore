@@ -24,6 +24,13 @@ api/.env
 *.png.tmp
 /tmp/
 
+# Local agent session transcripts and video-tool scratch output
+/session.md
+/brag-output/
+
+# Downloaded PSI documents (rebuild with ingest/fetch_documents.py)
+ingest/cache/
+
 # Local reference prototypes (not part of the deployed app)
 /site-ins/
 /site-prototype/

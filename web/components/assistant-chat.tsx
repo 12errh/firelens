@@ -7,12 +7,13 @@ import {
   Check,
   Clipboard,
   CornerDownLeft,
+  FileText,
   Loader2,
   Send,
   ShieldAlert,
   Sparkles,
 } from "lucide-react";
-import type { ChatAnswer, ChatSource } from "@/lib/assistant";
+import type { ChatAnswer, ChatExcerpt, ChatSource } from "@/lib/assistant";
 import { cn } from "@/lib/cn";
 import { Badge, StatusDot } from "@/components/ui";
 
@@ -76,6 +77,29 @@ function SourceList({ sources }: { sources: ChatSource[] }) {
   );
 }
 
+function ExcerptList({ excerpts }: { excerpts: ChatExcerpt[] }) {
+  if (!excerpts.length) return null;
+  return (
+    <details className="group mt-3">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 text-[14px] text-muted transition-colors hover:text-ink">
+        <FileText className="h-3 w-3" strokeWidth={1.5} />
+        Document excerpts · {excerpts.length}
+        <span className="transition-transform group-open:rotate-45">+</span>
+      </summary>
+      <ul className="mt-2.5 space-y-2.5 border-l border-line pl-3">
+        {excerpts.map((excerpt) => (
+          <li key={excerpt.id}>
+            <div className="text-[12.5px] text-faint">
+              {excerpt.investigationId} · {excerpt.title} · p.{excerpt.page}
+            </div>
+            <p className="mt-1 text-[14px] leading-6 text-muted">{excerpt.excerpt}</p>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
 function AssistantMessage({ message }: { message: Message }) {
   const [copied, setCopied] = useState(false);
   const result = message.result;
@@ -110,8 +134,15 @@ function AssistantMessage({ message }: { message: Message }) {
           <>
             <SourceList sources={result.sources} />
 
+            {result.excerpts?.length ? (
+              <ExcerptList excerpts={result.excerpts} />
+            ) : null}
+
             <div className="mt-3 flex flex-wrap items-center gap-1.5 border-t border-line pt-2.5">
               <Badge tone={MODE_TONE[result.mode]}>{MODE_LABEL[result.mode]}</Badge>
+              {result.excerpts?.length ? (
+                <Badge tone="neutral">PSI corpus · {result.excerpts.length} passages</Badge>
+              ) : null}
               <Badge tone={CONFIDENCE_TONE[result.confidence]}>
                 Confidence · {result.confidence}
               </Badge>

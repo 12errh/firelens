@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Database, ScanLine, ShieldCheck, Table2 } from "lucide-react";
 import { formatNumber, stats } from "@/lib/data";
+import { corpusDocumentCount, corpusPassageCount } from "@/lib/rag-stats";
 import { AssistantChat } from "@/components/assistant-chat";
 import { Badge, Metric, PageIntro, StatusDot } from "@/components/ui";
 
@@ -17,16 +18,16 @@ const STEPS = [
     body: "The question is matched against normalized tables, computed findings, and investigation metadata — not a generic web index.",
   },
   {
-    label: "Document RAG if configured",
-    body: "If the research team's RAG endpoint is available, its cited document answer is used before any language model.",
+    label: "Document retrieval, always on",
+    body: "Every question is ranked against 2,583 page-stamped passages from 91 downloaded NASA reports. The matching passages are quoted verbatim with their page number.",
   },
   {
-    label: "Groq with a numeric guard",
-    body: "A Groq draft is accepted only if every percentage it mentions appears in the normalized tables. Otherwise it is rejected.",
+    label: "Model, strictly grounded",
+    body: "A Groq draft may only use the retrieved context. If the research team's own RAG endpoint is configured, its cited answer is preferred.",
   },
   {
     label: "Deterministic fallback",
-    body: "With no RAG endpoint and no Groq key, the assistant still answers from structured evidence. It never needs an LLM to be useful.",
+    body: "With no model key, the assistant still answers from structured evidence and the document corpus. It never needs an LLM to be useful.",
   },
 ];
 
@@ -36,7 +37,7 @@ export default function AssistantPage() {
       <PageIntro
         kicker="Evidence assistant · grounded mode"
         title="Ask the snapshot. Get the source."
-        body="A research assistant for the 24 PSI combustion records behind this site. It answers from normalized tables and document metadata, cites the record behind each claim, and says “not reported” when the snapshot is silent."
+        body="A research assistant for the 24 PSI combustion records behind this site. It answers from normalized tables and from the text of real NASA reports, quotes the passage and page behind each claim, and says “not reported” when the snapshot is silent."
         meta={
           <>
             <Metric value={stats.experimentalTables} label="Tables in scope" />
@@ -90,9 +91,10 @@ export default function AssistantPage() {
                 <span className="label text-[14px] text-ice">Numeric guard</span>
               </div>
               <p className="mt-2 text-[14px] leading-5 text-muted">
-                A language-model draft containing a percentage that is not in the
-                normalized tables is rejected before it reaches you. The structured answer
-                is returned instead, with a note explaining why.
+                A language-model draft is rejected before it reaches you if it contains a
+                percentage that appears in neither the normalized tables nor the retrieved
+                passages. The structured answer is returned instead, with a note explaining
+                why.
               </p>
             </div>
 
@@ -111,7 +113,7 @@ export default function AssistantPage() {
                   { value: stats.investigations, label: "Investigations" },
                   { value: stats.experimentalTables, label: "Tables" },
                   { value: formatNumber(stats.tableRows), label: "Normalized rows" },
-                  { value: stats.documentsIndexed, label: "Documents" },
+                  { value: corpusDocumentCount, label: "Documents downloaded" },
                 ].map((item) => (
                   <div key={item.label} className="bg-panel px-3.5 py-3">
                     <div className="font-mono text-[20px] leading-none tracking-[-0.04em] text-ink">
@@ -131,7 +133,8 @@ export default function AssistantPage() {
                 </div>
                 <p className="mt-2 text-[14px] leading-5 text-faint">
                   Raw datasets are not ingested. Answers come from published summary
-                  tables and document metadata.
+                  tables and from downloaded report text, quoted verbatim with a page
+                  number.
                 </p>
               </div>
             </div>

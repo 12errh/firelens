@@ -61,6 +61,17 @@ export function SiteFooter() {
                   Sources and methodology
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://12errh.github.io/firelens/deck/"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-ink"
+                >
+                  Project deck
+                  <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+                </a>
+              </li>
             </ul>
           </div>
 

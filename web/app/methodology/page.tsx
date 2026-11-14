@@ -17,6 +17,7 @@ import {
   manifest,
   stats,
 } from "@/lib/data";
+import { corpusDocumentCount, corpusPassageCount } from "@/lib/rag-stats";
 import {
   ActionLink,
   Badge,
@@ -135,9 +136,8 @@ const LIMITS = [
     detail: `Retrieved ${stats.snapshotDate}. Records, tables, or DOIs may change after that date. The interface does not poll PSI at request time.`,
   },
   {
-    title: "Metadata and tables, not full text",
-    detail:
-      "109 reports and science documents are indexed by metadata. Their full text is not embedded in this app, so document-level claims are pointers to the source, not extracted conclusions.",
+    title: "Document text is retrieved verbatim, not summarized",
+    detail: `${stats.documentsIndexed} reports and science documents are indexed by metadata. ${corpusDocumentCount} of them were downloaded and split into ${corpusPassageCount} page-stamped passages that the assistant retrieves and quotes verbatim, with the page number. Nothing is paraphrased into a number.`,
   },
   {
     title: "Coverage is uneven",
@@ -296,6 +296,21 @@ export default function MethodologyPage() {
                   <div className="label mt-2 text-[14px] text-faint">{item.label}</div>
                 </div>
               ))}
+            </div>
+            <div className="mt-6 border-t border-line pt-4">
+              <div className="flex items-baseline gap-2">
+                <span className="font-mono text-[24px] leading-none tracking-[-0.04em] text-flame">
+                  {corpusPassageCount.toLocaleString("en-US")}
+                </span>
+                <span className="text-[14px] text-muted">
+                  passages from {corpusDocumentCount} downloaded documents
+                </span>
+              </div>
+              <p className="mt-3 text-[14px] leading-5 text-faint">
+                Report and science-document text is split into overlapping page-stamped
+                passages and ranked with BM25 for every question. Passages are quoted
+                verbatim with their page number; they are never paraphrased into a number.
+              </p>
             </div>
             <p className="mt-auto border-t border-line pt-4 text-[14px] leading-5 text-faint">
               Counts are generated from the same JSON files used by the dashboard,
