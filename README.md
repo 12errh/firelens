@@ -1,6 +1,6 @@
 # Flame in Freefall
 
-Live: <https://firelens-chi.vercel.app> · Code: <https://github.com/12errh/firelens>
+Live: <https://firelens-chi.vercel.app> · API: <https://firelens-api.vercel.app/api/health> · Code: <https://github.com/12errh/firelens>
 
 **An evidence workbench for combustion in reduced gravity.**
 Built for NASA Space Apps Challenge 2026 from the public NASA Physical Sciences Informatics (PSI) Combustion Science snapshot.

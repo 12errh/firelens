@@ -37,7 +37,9 @@ npx vercel --prod
 
 ## 2. API mirror
 
-### Vercel (no billing required)
+### Vercel (deployed)
+
+Live: <https://firelens-api.vercel.app> · health: `/api/health`
 
 The `firelens-api` project deploys `api/` with the FastAPI preset. Build command:
 
@@ -45,17 +47,17 @@ The `firelens-api` project deploys `api/` with the FastAPI preset. Build command
 pip install -r requirements.txt && cp -r ../web/data ./data
 ```
 
-Set `ALLOWED_ORIGINS=https://firelens-chi.vercel.app`.
+`ALLOWED_ORIGINS=https://firelens-chi.vercel.app` is set on the project.
+The API runs as a serverless Python function, so expect a cold start after idle.
 
-### Render (requires payment verification)
+### Render (optional alternative)
 
-Render returns `402 Payment information is required` for new services on this account.
-If a card is added, the steps below still apply.
+Render returned `402 Payment information is required` when creating this service,
+so the Vercel deployment is the active mirror. If a card is added:
 
 1. Open <https://dashboard.render.com/blueprints> and connect `12errh/firelens`.
 2. Render reads `render.yaml` and creates `flame-in-freefall-api`.
-3. Set `ALLOWED_ORIGINS` to the Vercel production URL, for example
-   `https://firelens.vercel.app`. Multiple origins can be comma-separated.
+3. Set `ALLOWED_ORIGINS` to the Vercel production URL.
 4. Deploy. Health check: `https://<service>.onrender.com/api/health`.
 
 Endpoints: `/api/manifest`, `/api/statistics`, `/api/investigations`,
