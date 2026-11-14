@@ -25,6 +25,7 @@ import {
   Metric,
   PageIntro,
   SectionHeading,
+  TickRule,
   StatusDot,
 } from "@/components/ui";
 
@@ -321,7 +322,8 @@ export default function MethodologyPage() {
       </section>
 
       {/* Pipeline */}
-      <section className="border-y border-line bg-panel">
+      <section className="border-b border-line bg-panel">
+        <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="02"
@@ -371,9 +373,9 @@ export default function MethodologyPage() {
           body="Every rule exists because a source table broke an assumption. The goal is to make the failure visible, not to smooth it away."
         />
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
           {NORMALIZATION_RULES.map((rule, index) => (
-            <article key={rule.title} className="panel flex flex-col p-5">
+            <article key={rule.title} className="flex flex-col bg-panel p-5">
               <span className="font-mono text-[14px] text-flame">
                 R{String(index + 1).padStart(2, "0")}
               </span>
@@ -393,7 +395,8 @@ export default function MethodologyPage() {
       </section>
 
       {/* Evidence classes */}
-      <section className="border-y border-line bg-panel">
+      <section className="border-b border-line bg-panel">
+        <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="04"
@@ -450,8 +453,8 @@ export default function MethodologyPage() {
           ))}
         </div>
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-2">
-          <div className="panel border-flame/25 p-5">
+        <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-2">
+          <div className="bg-panel p-5">
             <div className="flex items-center gap-2">
               <CircleAlert className="h-4 w-4 text-flame" strokeWidth={1.5} />
               <span className="label text-[14px] text-flame">Central limitation</span>
@@ -463,7 +466,7 @@ export default function MethodologyPage() {
               inference that the snapshot cannot validate.
             </p>
           </div>
-          <div className="panel p-5">
+          <div className="bg-panel p-5">
             <div className="flex items-center gap-2">
               <ShieldCheck className="h-4 w-4 text-moss" strokeWidth={1.5} />
               <span className="label text-[14px] text-ink">Why still useful</span>
@@ -479,7 +482,8 @@ export default function MethodologyPage() {
       </section>
 
       {/* Licensing */}
-      <section className="border-y border-line bg-panel">
+      <section className="border-b border-line bg-panel">
+        <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="06"
@@ -488,8 +492,8 @@ export default function MethodologyPage() {
             body="Inclusion in this interface does not change the license of the underlying record. Attribution and license status travel with every investigation."
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            <div className="panel p-5 md:col-span-2">
+          <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3">
+            <div className="bg-panel p-5 md:col-span-2">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge tone="moss">23 of 24 · CC0 1.0</Badge>
                 <Badge tone="neutral">1 · Not stated</Badge>
@@ -506,7 +510,7 @@ export default function MethodologyPage() {
                 NASA logos, insignia, and the NASA identifier are not used.
               </p>
             </div>
-            <div className="panel flex flex-col p-5">
+            <div className="flex flex-col bg-panel p-5">
               <span className="label text-[14px] text-faint">Required statement</span>
               <p className="mt-3 text-[14px] leading-6 text-ink">
                 Independent project for NASA Space Apps Challenge 2026. Not affiliated
@@ -534,11 +538,11 @@ export default function MethodologyPage() {
           body="Space Apps requires disclosure of AI and significant support. This is the full account for this project."
         />
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 xl:grid-cols-3">
           {DISCLOSURE.map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title} className="panel p-5">
+              <article key={item.title} className="bg-panel p-5">
                 <span className="flex h-7 w-7 items-center justify-center border border-line bg-panel-2 text-flame">
                   <Icon className="h-3.5 w-3.5" strokeWidth={1.5} />
                 </span>

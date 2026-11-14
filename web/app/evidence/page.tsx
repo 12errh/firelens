@@ -17,7 +17,7 @@ import {
 } from "@/lib/data";
 import { EvidenceMap } from "@/components/evidence-map";
 import { EvidenceInventory } from "@/components/evidence-inventory";
-import { Badge, DataNote, Metric, PageIntro, SectionHeading, StatusDot } from "@/components/ui";
+import { Badge, DataNote, Metric, PageIntro, SectionHeading, StatusDot, TickRule } from "@/components/ui";
 import { PHASE_COLOR } from "@/lib/tokens";
 import { cn } from "@/lib/cn";
 
@@ -178,7 +178,8 @@ export default function EvidencePage() {
       </section>
 
       {/* Evidence classes */}
-      <section className="border-y border-line bg-panel">
+      <section className="border-b border-line bg-panel">
+        <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="01"
@@ -187,16 +188,15 @@ export default function EvidencePage() {
             body="A source can be direct evidence, a normal-gravity comparison, an analog, or simply absent. Collapsing those categories is how an unsupported claim gets made."
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2 xl:grid-cols-4">
             {CLASSES.map((item) => {
               const Icon = item.icon;
               return (
                 <article
                   key={item.key}
                   className={cn(
-                    "panel flex flex-col p-5",
-                    item.key === "gap" ? "border-flame/30" : "",
-                    item.key === "analog" ? "border-violet/20" : "",
+                    "flex flex-col bg-panel p-5",
+                    item.key === "gap" ? "bg-flame/[0.02]" : "",
                   )}
                 >
                   <div className="flex items-center justify-between gap-3">
@@ -284,7 +284,8 @@ export default function EvidencePage() {
       </section>
 
       {/* What would change the answer */}
-      <section className="border-y border-line bg-panel">
+      <section className="border-b border-line bg-panel">
+        <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="03"
@@ -336,7 +337,7 @@ export default function EvidencePage() {
           body="The same archive supports a spacecraft-cabin question differently than a lunar-habitat question. Each scenario carries its own evidence class."
         />
 
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+        <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-3">
           {scenarios.map((scenario) => {
             const direct = scenario.statusKey === "direct";
             return (
@@ -344,8 +345,8 @@ export default function EvidencePage() {
                 key={scenario.id}
                 id={scenario.id}
                 className={cn(
-                  "panel scroll-mt-24 p-5",
-                  direct ? "border-moss/25" : "border-flame/20",
+                  "scroll-mt-24 bg-panel p-5",
+                  direct ? "" : "bg-flame/[0.02]",
                 )}
               >
                 <div className="flex items-center justify-between gap-3">

@@ -253,6 +253,7 @@ export function PageIntro({
           </div>
         ) : null}
       </div>
+      <TickRule />
     </header>
   );
 }
