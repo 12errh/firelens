@@ -6,7 +6,7 @@
 
 ## Team
 
-**Team R1 (Lahore) — Rehan, Ayesh Wadoode Khan**
+**Team R1 (Lahore) — Rehan, Ayesha Khan**
 
 ## High-level project summary
 
