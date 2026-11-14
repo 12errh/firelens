@@ -141,6 +141,53 @@ summary:focus-visible {
   border-radius: 99px;
 }
 
+/*
+ * A measured rule. Major ticks every 40 units, minor every 8, hanging from a
+ * hairline. It is the separator this site uses between major bands, so a
+ * long page reads like a scale rather than a stack of cards.
+ */
+.tick-rule {
+  height: 11px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--line-strong) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px);
+  background-size: 100% 11px, 100% 5px;
+  background-position: left top, left bottom;
+  background-repeat: repeat-x;
+}
+
+/* The same rule, but the ticks stand on top of the line. */
+.tick-rule-up {
+  height: 11px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      var(--line-strong) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 8px);
+  background-size: 100% 11px, 100% 5px;
+  background-position: left bottom, left top;
+  background-repeat: repeat-x;
+}
+
+/* A short scale used inside panels, next to a label. */
+.tick-edge {
+  height: 7px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--line-strong) 0 1px,
+    transparent 1px 12px
+  );
+  background-size: 100% 7px;
+  background-position: left bottom;
+  background-repeat: repeat-x;
+}
+
 .reveal {
   animation: reveal 420ms ease-out both;
 }

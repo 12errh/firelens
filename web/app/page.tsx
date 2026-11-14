@@ -1,13 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, CornerDownLeft, Flame, ShieldCheck } from "lucide-react";
+import { CornerDownLeft, ShieldCheck } from "lucide-react";
 import {
   evidencePoints,
   formatNumber,
   getInvestigation,
   insights,
   investigationById,
-  investigations,
   phaseLabel,
   scenarios,
   stats,
@@ -21,10 +19,50 @@ import {
   DataNote,
   Metric,
   SectionHeading,
+  SectionIntro,
   StatusDot,
+  TickRule,
 } from "@/components/ui";
+import {
+  ChatGlyph,
+  ExplorerGlyph,
+  HeroKicker,
+  HeroVisual,
+  MapGlyph,
+  ScaleGlyph,
+} from "@/components/hero-visual";
 import { PHASE_COLOR } from "@/lib/tokens";
 
+const FEATURES = [
+  {
+    title: "Evidence map",
+    body: "Every tabulated test condition plotted by oxygen concentration and gravity environment. The lunar habitat band is shaded and the partial-gravity lane is left empty, because it is.",
+    href: "/evidence",
+    link: "Open the evidence map",
+    glyph: MapGlyph,
+  },
+  {
+    title: "Investigation explorer",
+    body: "All 24 records filtered by gravity class, material phase and data availability, with the normalized conditions and the source table behind every number.",
+    href: "/investigations",
+    link: "Browse 24 records",
+    glyph: ExplorerGlyph,
+  },
+  {
+    title: "Grounded assistant",
+    body: "Retrieves passages from 91 real NASA reports, quotes them verbatim with a page number, and rejects any percentage that appears in neither the tables nor the cited passages.",
+    href: "/assistant",
+    link: "Ask the assistant",
+    glyph: ChatGlyph,
+  },
+  {
+    title: "Methodology and limits",
+    body: "Six normalization rules, four evidence classes, and an explicit list of the questions this snapshot cannot answer. Nothing on the site is hand-typed.",
+    href: "/methodology",
+    link: "Read the methodology",
+    glyph: ScaleGlyph,
+  },
+];
 
 export default function Home() {
   const mapPoints = evidencePoints.filter(
@@ -37,7 +75,6 @@ export default function Home() {
       min: Math.min(...points.map((point) => point.o2!.min)),
       max: Math.max(...points.map((point) => point.o2!.max)),
       investigations: new Set(points.map((point) => point.investigationId)).size,
-      points: points.length,
       rows: points.reduce((sum, point) => sum + point.rows, 0),
     };
   });
@@ -55,19 +92,12 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero */}
+      {/* Hero — text left, visual right */}
       <section className="border-b border-line">
-        <div className="mx-auto max-w-[1200px] px-6 pb-16 pt-14 lg:px-10 lg:pb-24 lg:pt-20">
+        <div className="mx-auto max-w-[1200px] px-6 pb-16 pt-14 lg:px-10 lg:pb-20 lg:pt-20">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div className="reveal">
-              <div className="flex flex-wrap items-center gap-2 text-[14px] text-muted">
-                <span className="flex items-center gap-1.5 text-flame">
-                  <Flame className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  NASA Space Apps 2026
-                </span>
-                <span className="text-line-strong">/</span>
-                <span>Flame in Freefall challenge</span>
-              </div>
+              <HeroKicker />
 
               <h1 className="mt-5 max-w-[620px] text-balance text-[42px] font-medium leading-[1.04] tracking-[-0.035em] text-ink sm:text-[54px] lg:text-[60px]">
                 Fire doesn&apos;t fall the same way twice.
@@ -98,152 +128,194 @@ export default function Home() {
               </div>
             </div>
 
-            <figure className="reveal reveal-delay-1">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-ink">
-                <Image
-                  src="/images/bass-ii.jpg"
-                  alt="A solid-fuel flame burning in microgravity during the BASS-II investigation"
-                  width={1200}
-                  height={797}
-                  priority
-                  className="h-full w-full object-cover"
-                  sizes="(max-width: 1024px) 100vw, 48vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-transparent" />
-                <div className="absolute inset-x-4 bottom-4 flex items-end justify-between gap-4">
-                  <div>
-                    <div className="text-[12.5px] text-white/75">
-                      PMMA film, microgravity
-                    </div>
-                    <div className="mt-1 font-mono text-[26px] leading-none tracking-[-0.03em] text-white">
-                      13.6–22.2%{" "}
-                      <span className="text-[14px] text-white/70">O₂</span>
-                    </div>
-                  </div>
-                  <span className="rounded-full border border-white/20 bg-black/35 px-3 py-1 text-[12.5px] text-white">
-                    Solid ceiling
-                  </span>
-                </div>
-              </div>
-              <figcaption className="mt-3 flex items-center justify-between text-[12.5px] text-faint">
-                <span>NASA PSI · BASS-II · CC0 1.0</span>
-                <a
-                  href="https://psi.nasa.gov/physci/repo/search?q=PSI-25"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1 hover:text-ink"
-                >
-                  Source <ArrowUpRight className="h-3.5 w-3.5" />
-                </a>
-              </figcaption>
-            </figure>
+            <HeroVisual priority />
           </div>
         </div>
 
-        {/* KPI strip */}
-        <div className="border-t border-line bg-panel">
-          <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-px bg-line lg:grid-cols-4">
-            {[
-              {
-                value: stats.investigations,
-                unit: "records",
-                label: "PSI investigations",
-                note: "19 flight · 4 analysis · 1 ground",
-              },
-              {
-                value: stats.experimentalTables,
-                unit: "tables",
-                label: "Experimental summaries",
-                note: `${formatNumber(stats.tableRows)} normalized test rows`,
-              },
-              {
-                value: formatNumber(stats.rawFiles),
-                unit: "files",
-                label: "Raw data entries indexed",
-                note: "Not ingested · metadata only",
-              },
-              {
-                value: "0",
-                unit: "datasets",
-                label: "Direct partial-gravity data",
-                note: "Moon / Mars gravity absent",
-                accent: true,
-              },
-            ].map((item) => (
-              <div key={item.label} className="bg-panel px-6 py-7">
-                <Metric
-                  value={item.value}
-                  unit={item.unit}
-                  label={item.label}
-                  note={item.note}
-                  accent={item.accent}
-                />
-              </div>
-            ))}
-          </div>
+        <TickRule />
+      </section>
+
+      {/* Snapshot strip */}
+      <div className="border-b border-line bg-panel">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-px bg-line lg:grid-cols-4">
+          {[
+            {
+              value: stats.investigations,
+              unit: "records",
+              label: "PSI investigations",
+              note: "19 flight · 4 analysis · 1 ground",
+            },
+            {
+              value: stats.experimentalTables,
+              unit: "tables",
+              label: "Experimental summaries",
+              note: `${formatNumber(stats.tableRows)} normalized test rows`,
+            },
+            {
+              value: formatNumber(stats.rawFiles),
+              unit: "files",
+              label: "Raw data entries indexed",
+              note: "Not ingested · metadata only",
+            },
+            {
+              value: "0",
+              unit: "datasets",
+              label: "Direct partial-gravity data",
+              note: "Moon / Mars gravity absent",
+              accent: true,
+            },
+          ].map((item) => (
+            <div key={item.label} className="bg-panel px-6 py-7">
+              <Metric
+                value={item.value}
+                unit={item.unit}
+                label={item.label}
+                note={item.note}
+                accent={item.accent}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* What it does — 2x2 hairline grid */}
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
+        <SectionIntro
+          kicker="The workbench"
+          title="Four surfaces, one snapshot, no invented numbers."
+          body="Every view on this site reads the same normalized JSON. There is no second dataset and no hand-typed figure, so two parts of the site can never disagree."
+        />
+
+        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+          {FEATURES.map((feature) => {
+            const Glyph = feature.glyph;
+            return (
+              <article key={feature.title} className="flex flex-col bg-panel p-6 sm:p-8">
+                <div className="rounded border border-line bg-canvas p-4">
+                  <Glyph />
+                </div>
+                <h3 className="mt-6 text-[19px] font-medium tracking-[-0.02em] text-ink">
+                  {feature.title}
+                </h3>
+                <p className="mt-2.5 max-w-md text-[14px] leading-6 text-muted">
+                  {feature.body}
+                </p>
+                <div className="mt-5">
+                  <ArrowLink href={feature.href}>{feature.link}</ArrowLink>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
       {/* Evidence map */}
-      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
-        <SectionHeading
-          index="01"
-          kicker="The evidence gap"
-          title="Oxygen is the variable. Gravity is the missing axis."
-          body="Every tabulated test condition in the PSI combustion snapshot, plotted by oxygen concentration and gravity environment. The lunar habitat band is shaded. The partial-gravity lane is empty."
-          action={<ArrowLink href="/evidence">Full evidence map</ArrowLink>}
+      <section className="border-y border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
+          <SectionHeading
+            index="01"
+            kicker="The evidence gap"
+            title="Oxygen is the variable. Gravity is the missing axis."
+            body="Every tabulated test condition in the PSI combustion snapshot, plotted by oxygen concentration and gravity environment. The lunar habitat band is shaded. The partial-gravity lane is empty."
+            action={<ArrowLink href="/evidence">Full evidence map</ArrowLink>}
+          />
+
+          <div className="mt-8 rounded-lg border border-line bg-canvas p-4 sm:p-6">
+            <EvidenceMap points={evidencePoints} />
+          </div>
+
+          <div className="mt-4 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
+            {[
+              {
+                metric: `${stats.o2.solidMax.toFixed(1)}%`,
+                label: "Highest solid-material O₂",
+                note: "BASS-II initial test condition. The lunar habitat target begins at 30%.",
+                tone: "text-flame",
+              },
+              {
+                metric: `${stats.o2.gasMax.toFixed(0)}%`,
+                label: "Highest gaseous O₂",
+                note: "CFI-G and Flame Design inverse flames. Fuel phase changes the flammability question.",
+                tone: "text-violet",
+              },
+              {
+                metric: "0",
+                label: "Partial-gravity datasets",
+                note: "No lunar- or Mars-gravity measurement exists in this snapshot.",
+                tone: "text-ink",
+              },
+            ].map((item) => (
+              <div key={item.label} className="bg-panel p-6">
+                <div
+                  className={`font-mono text-[28px] font-medium leading-none tracking-[-0.03em] ${item.tone}`}
+                >
+                  {item.metric}
+                </div>
+                <div className="mt-3 text-[14px] font-medium text-ink">{item.label}</div>
+                <p className="mt-2 text-[14px] leading-5 text-faint">{item.note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5">
+            <DataNote>
+              The nearest high-oxygen evidence is gaseous or droplet-based. No solid-material
+              summary table in this snapshot reports a test at or above 30% O₂ — the closest
+              solid ceiling is <span className="text-ink">22.2%</span>.
+            </DataNote>
+          </div>
+        </div>
+      </section>
+
+      {/* Scenarios */}
+      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
+        <SectionIntro
+          kicker="Scenario readiness"
+          title="The same data, three different confidence levels."
+          body="A fire-safety decision in microgravity has direct evidence behind it. A lunar habitat decision does not. The interface says so before it shows a number."
         />
 
-        <div className="panel mt-8 p-4 sm:p-6">
-          <EvidenceMap points={evidencePoints} />
-        </div>
+        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line lg:grid-cols-3">
+          {scenarioEvidence.map((scenario) => {
+            const direct = scenario.statusKey === "direct";
+            return (
+              <article key={scenario.id} className="flex flex-col bg-panel p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="label text-[14px]">{scenario.gravity}</span>
+                  <Badge tone={direct ? "moss" : "flame"}>
+                    <StatusDot tone={direct ? "moss" : "flame"} />
+                    {scenario.status}
+                  </Badge>
+                </div>
+                <h3 className="mt-5 text-[24px] font-medium leading-7 tracking-[-0.03em] text-ink">
+                  {scenario.label}
+                </h3>
+                <div className="mt-2 text-[15px] text-faint">Target · {scenario.target}</div>
+                <p className="mt-4 text-[14px] leading-5 text-muted">{scenario.summary}</p>
 
-        <div className="mt-4 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-3">
-          {[
-            {
-              metric: `${stats.o2.solidMax.toFixed(1)}%`,
-              label: "Highest solid-material O₂",
-              note: "BASS-II initial test condition. The lunar habitat target begins at 30%.",
-              tone: "text-flame",
-            },
-            {
-              metric: `${stats.o2.gasMax.toFixed(0)}%`,
-              label: "Highest gaseous O₂",
-              note: "CFI-G and Flame Design inverse flames. Fuel phase changes the flammability question.",
-              tone: "text-violet",
-            },
-            {
-              metric: "0",
-              label: "Partial-gravity datasets",
-              note: "No lunar- or Mars-gravity measurement exists in this snapshot.",
-              tone: "text-ink",
-            },
-          ].map((item, index) => (
-            <div
-              key={item.label}
-              className="bg-panel p-6"
-            >
-              <div className={`font-mono text-[28px] font-medium leading-none tracking-[-0.03em] ${item.tone}`}>
-                {item.metric}
-              </div>
-              <div className="mt-3 text-[14px] font-medium text-ink">{item.label}</div>
-              <p className="mt-2 text-[14px] leading-5 text-faint">{item.note}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-5">
-          <DataNote>
-            The nearest high-oxygen evidence is gaseous or droplet-based. No solid-material
-            summary table in this snapshot reports a test at or above 30% O₂ — the closest
-            solid ceiling is <span className="text-ink">22.2%</span>.
-          </DataNote>
+                <div className="mt-auto border-t border-line pt-4">
+                  <div className="label text-[14px]">Evidence base</div>
+                  <div className="mt-2.5 flex flex-wrap gap-1.5">
+                    {scenario.records.slice(0, 5).map((record) => (
+                      <Link
+                        key={record.id}
+                        href={`/investigations/${record.id}`}
+                        className="border border-line px-1.5 py-1 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
+                      >
+                        {record.acronym ?? record.id}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
       {/* Insights */}
       <section className="border-y border-line bg-panel">
-        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="02"
             kicker="What the data says"
@@ -252,9 +324,9 @@ export default function Home() {
             action={<ArrowLink href="/methodology">How we computed this</ArrowLink>}
           />
 
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
+          <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3">
             {insights.slice(0, 3).map((insight) => (
-              <article key={insight.id} className="panel flex flex-col p-5">
+              <article key={insight.id} className="flex flex-col bg-panel p-6">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-baseline gap-1.5">
                     <span className="font-mono text-[34px] leading-none tracking-[-0.05em] text-flame">
@@ -295,9 +367,7 @@ export default function Home() {
               >
                 <div className="font-mono text-[18px] tracking-[-0.03em] text-ink">
                   {insight.metric}
-                  <span className="ml-1 text-[15px] text-faint">
-                    {insight.unit}
-                  </span>
+                  <span className="ml-1 text-[15px] text-faint">{insight.unit}</span>
                 </div>
                 <div>
                   <div className="text-[14px] text-ink">{insight.title}</div>
@@ -315,185 +385,129 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Scenarios */}
-      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
-        <SectionHeading
-          index="03"
-          kicker="Scenario readiness"
-          title="The same data, three different confidence levels."
-          body="A fire-safety decision in microgravity has direct evidence behind it. A lunar habitat decision does not. The interface says so before it shows a number."
-        />
-
-        <div className="mt-8 grid gap-4 lg:grid-cols-3">
-          {scenarioEvidence.map((scenario) => {
-            const direct = scenario.statusKey === "direct";
-            return (
-              <article
-                key={scenario.id}
-                className={`panel flex flex-col p-5 ${direct ? "border-moss/25" : "border-flame/20"}`}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="label text-[14px]">{scenario.gravity}</span>
-                  <Badge tone={direct ? "moss" : "flame"}>
-                    <StatusDot tone={direct ? "moss" : "flame"} />
-                    {scenario.status}
-                  </Badge>
-                </div>
-                <h3 className="mt-5 text-[24px] font-medium leading-7 tracking-[-0.03em] text-ink">
-                  {scenario.label}
-                </h3>
-                <div className="mt-2 text-[15px] text-faint">
-                  Target · {scenario.target}
-                </div>
-                <p className="mt-4 text-[14px] leading-5 text-muted">{scenario.summary}</p>
-
-                <div className="mt-auto border-t border-line pt-4">
-                  <div className="label text-[14px]">Evidence base</div>
-                  <div className="mt-2.5 flex flex-wrap gap-1.5">
-                    {scenario.records.slice(0, 5).map((record) => (
-                      <Link
-                        key={record.id}
-                        href={`/investigations/${record.id}`}
-                        className="border border-line px-1.5 py-1 text-[15px] text-muted transition-colors hover:border-line-strong hover:text-ink"
-                      >
-                        {record.acronym ?? record.id}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
       {/* Coverage */}
-      <section className="border-y border-line bg-panel">
-        <div className="mx-auto grid max-w-[1200px] gap-12 px-6 py-20 lg:px-10 lg:py-28 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <SectionHeading
-              index="04"
-              kicker="Coverage"
-              title="What the tables actually cover."
-              body="Reported oxygen ranges by fuel phase. The dashed line is the lunar habitat threshold; no solid-material range crosses it."
-            />
+      <section className="mx-auto grid max-w-[1200px] gap-12 px-6 py-20 lg:px-10 lg:py-24 lg:grid-cols-[1.15fr_0.85fr]">
+        <div>
+          <SectionHeading
+            index="03"
+            kicker="Coverage"
+            title="What the tables actually cover."
+            body="Reported oxygen ranges by fuel phase. The dashed line is the lunar habitat threshold; no solid-material range crosses it."
+          />
 
-            <div className="mt-8 space-y-6">
-              {phaseStats.map((item) => {
-                const color = PHASE_COLOR[item.phase];
-                return (
-                  <div key={item.phase}>
-                    <div className="flex items-end justify-between gap-4">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-[14px] text-ink">{phaseLabel(item.phase)}</span>
-                        <span className="text-[15px] text-faint">
-                          {item.investigations} investigations · {item.rows} rows
-                        </span>
-                      </div>
-                      <span className="font-mono text-[14px] tabular text-ink">
-                        {item.min.toFixed(1)}–{item.max.toFixed(1)}%
+          <div className="mt-8 space-y-6">
+            {phaseStats.map((item) => {
+              const color = PHASE_COLOR[item.phase];
+              return (
+                <div key={item.phase}>
+                  <div className="flex items-end justify-between gap-4">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-[14px] text-ink">{phaseLabel(item.phase)}</span>
+                      <span className="text-[15px] text-faint">
+                        {item.investigations} investigations · {item.rows} rows
                       </span>
                     </div>
-                    <div className="relative mt-2.5 h-7 border border-line bg-panel-2">
-                      <div
-                        className="absolute inset-y-0 border-x"
-                        style={{
-                          left: `${item.min}%`,
-                          width: `${Math.max(item.max - item.min, 0.7)}%`,
-                          backgroundColor: `${color}26`,
-                          borderColor: color,
-                        }}
-                      />
-                      <div
-                        className="absolute top-0 h-full border-l border-dashed border-flame/60"
-                        style={{ left: "30%" }}
-                        title="Lunar habitat threshold: 30% O₂"
-                      />
-                      <span
-                        className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full"
-                        style={{ left: `calc(${item.max}% - 4px)`, backgroundColor: color }}
-                      />
-                    </div>
-                    <div className="relative mt-1.5 h-3 text-[15px] text-faint">
-                      <span className="absolute left-0">0%</span>
-                      <span
-                        className="absolute -translate-x-1/2 text-flame/80"
-                        style={{ left: "30%" }}
-                      >
-                        30% lunar target
-                      </span>
-                      <span className="absolute right-0">100%</span>
-                    </div>
+                    <span className="font-mono text-[14px] tabular text-ink">
+                      {item.min.toFixed(1)}–{item.max.toFixed(1)}%
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-            <div className="mt-7">
-              <DataNote>
-                Ranges combine initial/ambient O₂ conditions from summary tables. They do
-                not include final-oxygen readings, which can reflect transient combustion
-                products.
-              </DataNote>
-            </div>
-          </div>
-
-          <div className="lg:border-l lg:border-line lg:pl-10">
-            <div className="label">Archive at a glance</div>
-            <div className="mt-5 grid grid-cols-2 gap-px bg-line">
-              {[
-                { value: stats.flightInvestigations, label: "Flight experiments" },
-                { value: stats.analysisInvestigations, label: "Modeling & analysis" },
-                { value: stats.groundInvestigations, label: "Ground experiment" },
-                { value: stats.documentsIndexed, label: "Reports + science docs" },
-                { value: stats.publications, label: "Publications indexed" },
-                { value: stats.tablesWithO2, label: "Tables reporting O₂" },
-              ].map((item) => (
-                <div key={item.label} className="bg-panel px-4 py-4">
-                  <div className="font-mono text-[24px] leading-none tracking-[-0.04em] text-ink">
-                    {formatNumber(item.value)}
+                  <div className="relative mt-2.5 h-7 border border-line bg-panel-2">
+                    <div
+                      className="absolute inset-y-0 border-x"
+                      style={{
+                        left: `${item.min}%`,
+                        width: `${Math.max(item.max - item.min, 0.7)}%`,
+                        backgroundColor: `${color}26`,
+                        borderColor: color,
+                      }}
+                    />
+                    <div
+                      className="absolute top-0 h-full border-l border-dashed border-flame/60"
+                      style={{ left: "30%" }}
+                      title="Lunar habitat threshold: 30% O₂"
+                    />
+                    <span
+                      className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rounded-full"
+                      style={{ left: `calc(${item.max}% - 4px)`, backgroundColor: color }}
+                    />
                   </div>
-                  <div className="label mt-2 text-[14px]">{item.label}</div>
+                  <div className="relative mt-1.5 h-3 text-[15px] text-faint">
+                    <span className="absolute left-0">0%</span>
+                    <span className="absolute -translate-x-1/2 text-flame/80" style={{ left: "30%" }}>
+                      30% lunar target
+                    </span>
+                    <span className="absolute right-0">100%</span>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="mt-5 space-y-3 text-[14px] leading-5 text-muted">
-              <p>
-                The searchable evidence layer is deliberately thin: {stats.experimentalTables}{" "}
-                summary tables across {stats.investigations} investigations, backed by{" "}
-                {formatNumber(stats.rawFiles)} raw file entries that are indexed but not
-                ingested.
-              </p>
-              <p>
-                Partial-gravity analog work exists (E-FIELD), but analog is not measurement
-                — the interface keeps that distinction visible.
-              </p>
-            </div>
-            <div className="mt-5">
-              <ArrowLink href="/methodology">Read the methodology</ArrowLink>
-            </div>
+              );
+            })}
+          </div>
+          <div className="mt-7">
+            <DataNote>
+              Ranges combine initial/ambient O₂ conditions from summary tables. They do not
+              include final-oxygen readings, which can reflect transient combustion products.
+            </DataNote>
+          </div>
+        </div>
+
+        <div className="lg:border-l lg:border-line lg:pl-10">
+          <div className="label">Archive at a glance</div>
+          <div className="mt-5 grid grid-cols-2 gap-px bg-line">
+            {[
+              { value: stats.flightInvestigations, label: "Flight experiments" },
+              { value: stats.analysisInvestigations, label: "Modeling & analysis" },
+              { value: stats.groundInvestigations, label: "Ground experiment" },
+              { value: stats.documentsIndexed, label: "Reports + science docs" },
+              { value: stats.publications, label: "Publications indexed" },
+              { value: stats.tablesWithO2, label: "Tables reporting O₂" },
+            ].map((item) => (
+              <div key={item.label} className="bg-panel px-4 py-4">
+                <div className="font-mono text-[24px] leading-none tracking-[-0.04em] text-ink">
+                  {formatNumber(item.value)}
+                </div>
+                <div className="label mt-2 text-[14px]">{item.label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 space-y-3 text-[14px] leading-5 text-muted">
+            <p>
+              The searchable evidence layer is deliberately thin: {stats.experimentalTables}{" "}
+              summary tables across {stats.investigations} investigations, backed by{" "}
+              {formatNumber(stats.rawFiles)} raw file entries that are indexed but not
+              ingested.
+            </p>
+            <p>
+              Partial-gravity analog work exists (E-FIELD), but analog is not measurement — the
+              interface keeps that distinction visible.
+            </p>
+          </div>
+          <div className="mt-5">
+            <ArrowLink href="/methodology">Read the methodology</ArrowLink>
           </div>
         </div>
       </section>
 
       {/* Featured records */}
-      <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-28">
-        <SectionHeading
-          index="05"
-          kicker="Starting points"
-          title="Three records that frame the question."
-          body="One solid-fuel microgravity campaign, one high-oxygen gaseous campaign, and one partial-gravity analog that is not gravity data."
-          action={<ArrowLink href="/investigations">All 24 investigations</ArrowLink>}
-        />
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {featured.map((investigation) => (
-            <InvestigationCard key={investigation.id} investigation={investigation} />
-          ))}
+      <section className="border-t border-line bg-panel">
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
+          <SectionHeading
+            index="04"
+            kicker="Starting points"
+            title="Three records that frame the question."
+            body="One solid-fuel microgravity campaign, one high-oxygen gaseous campaign, and one partial-gravity analog that is not gravity data."
+            action={<ArrowLink href="/investigations">All 24 investigations</ArrowLink>}
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {featured.map((investigation) => (
+              <InvestigationCard key={investigation.id} investigation={investigation} />
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Assistant CTA */}
       <section className="border-t border-line">
-        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-20 lg:px-10 lg:py-28 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-[1200px] items-center gap-10 px-6 py-20 lg:px-10 lg:py-24 lg:grid-cols-2">
           <div>
             <div className="label flex items-center gap-2.5 text-flame">
               <ShieldCheck className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -503,10 +517,10 @@ export default function Home() {
               Ask the evidence, not the internet.
             </h2>
             <p className="mt-4 max-w-lg text-[14px] leading-6 text-muted">
-              The assistant queries structured PSI tables first, then document metadata. It
-              cites the investigation and table behind each number — and says “not
-              reported” when the data is silent. A deterministic fallback keeps it useful
-              even when the language model is offline.
+              The assistant retrieves passages from real NASA reports, quotes them with a page
+              number, and cites the investigation behind every claim. It says “not reported”
+              when the data is silent. A deterministic fallback keeps it useful even when the
+              language model is offline.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <ActionLink href="/assistant">Open the assistant</ActionLink>
@@ -522,9 +536,7 @@ export default function Home() {
                 <StatusDot tone="moss" />
                 Evidence assistant · grounded mode
               </div>
-              <span className="text-[15px] text-faint">
-                PSI snapshot
-              </span>
+              <span className="text-[15px] text-faint">PSI snapshot</span>
             </div>
             <div className="space-y-3 p-4">
               <div className="ml-auto max-w-[88%] border border-line bg-panel-2 px-3 py-2 text-[14px] leading-5 text-ink">
@@ -534,8 +546,8 @@ export default function Home() {
                 <p>
                   <span className="text-flame">No.</span> None of the 24 PSI combustion
                   investigations in this snapshot reports a direct lunar- or Mars-gravity
-                  measurement. E-FIELD used electric fields as a partial-gravity analog,
-                  but it is not gravity data.
+                  measurement. E-FIELD used electric fields as a partial-gravity analog, but it
+                  is not gravity data.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   <span className="border border-line px-1.5 py-1 text-[15px] text-faint">

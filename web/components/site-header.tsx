@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { StatusDot } from "@/components/ui";
+import { StatusDot, TickRule } from "@/components/ui";
 
 const nav = [
   { href: "/", label: "Overview" },
@@ -47,8 +47,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-10">
-        <Link
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-10">        <Link
           href="/"
           className="flex shrink-0 items-center gap-2.5"
           aria-label="Flame in Freefall home"
@@ -99,6 +98,8 @@ export function SiteHeader() {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
+
+      <TickRule className="opacity-70" />
 
       {open ? (
         <div id="mobile-nav" className="border-t border-line bg-panel lg:hidden">

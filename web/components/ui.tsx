@@ -257,6 +257,51 @@ export function PageIntro({
   );
 }
 
+export function TickRule({
+  className,
+  up = false,
+}: {
+  className?: string;
+  up?: boolean;
+}) {
+  return (
+    <div
+      className={cn(up ? "tick-rule-up" : "tick-rule", className)}
+      aria-hidden="true"
+    />
+  );
+}
+
+/**
+ * A centred band heading. Used between the long sections so the page reads as
+ * a sequence of bands rather than a run of headings.
+ */
+export function SectionIntro({
+  kicker,
+  title,
+  body,
+  className,
+}: {
+  kicker: string;
+  title: React.ReactNode;
+  body?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("text-center", className)}>
+      <div className="text-[14px] text-faint">{kicker}</div>
+      <h2 className="mx-auto mt-3 max-w-3xl text-balance text-[30px] font-medium leading-[1.14] tracking-[-0.03em] text-ink sm:text-[40px]">
+        {title}
+      </h2>
+      {body ? (
+        <p className="mx-auto mt-4 max-w-2xl text-pretty text-[16px] leading-7 text-muted">
+          {body}
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 export function Field({
   label,
   children,
