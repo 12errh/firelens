@@ -40,7 +40,18 @@ const tables = investigations.flatMap((record) => record.tables ?? []);
 const allowed = allowedPercentages();
 
 function cites(text, accession) {
-  return text.includes(accession);
+  if (text.includes(accession)) return true;
+  // An answer may name the record by its acronym instead of its accession.
+  const record = investigations.find((r) => r.id === accession);
+  const acronym = record?.acronym;
+  if (!acronym) return false;
+  const short = acronym.replace(/^ACME\/?\s*/i, "").trim();
+  if (!short) return false;
+  const pattern = new RegExp(
+    `(^|[^\\w-])${short.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?![-\\w])`,
+    "i",
+  );
+  return pattern.test(text);
 }
 
 function hasFact(text, fact) {

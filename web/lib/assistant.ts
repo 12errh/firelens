@@ -260,9 +260,9 @@ function solidAnswer(): ChatAnswer {
     answer: [
       "Solid-material evidence is direct but narrow.",
       "",
-      `${solidRows} microgravity test rows are normalized for solid materials across BASS-II and the SAFFIRE series. Reported oxygen stays near Earth-like levels: BASS-II 13.6–22.2%, SAFFIRE-I 21.5–21.7%, SAFFIRE-II 21.5–22.1%. SAFFIRE-III's summary table does not report O₂.`,
+      `${solidRows} microgravity test rows are normalized for solid materials across BASS-II (PSI-25) and the SAFFIRE series (PSI-98, PSI-99, PSI-100). Reported oxygen stays near Earth-like levels: BASS-II 13.6–22.2%, SAFFIRE-I 21.5–21.7%, SAFFIRE-II 21.5–22.1%. SAFFIRE-III (PSI-100)'s summary table does not report O₂.`,
       "",
-      `No solid-material table reaches 30% O₂. The highest is ${solid}%, so the archive can speak to ignition and flame growth near 21% O₂ — not to a 30% lunar cabin.`,
+      `No solid-material table reaches 30% O₂. The highest is ${solid}% (PSI-25), so the archive can speak to ignition and flame growth near 21% O₂ — not to a 30% lunar cabin.`,
     ].join("\n"),
     sources: sourcesFor(["PSI-25", "PSI-98", "PSI-99", "PSI-100", "PSI-26"]),
     confidence: "high",
@@ -848,6 +848,10 @@ export function answerFromEvidence(question: string): ChatAnswer {
     return designAnswer();
   }
 
+  if (/(pressure|atm|psi|bar\b)/.test(normalized)) {
+    return pressureAnswer();
+  }
+
   if (/(cfi-g|flame design|inverse flame|normal flame)/.test(normalized)) {
     return highOxygenAnswer();
   }
@@ -875,11 +879,6 @@ export function answerFromEvidence(question: string): ChatAnswer {
   if (/(normal gravity|1\s*g\b|one[-\s]?g|microgravity.*normal|compare.*gravity)/.test(normalized)) {
     return normalGravityAnswer();
   }
-
-  if (/(pressure|atm|psi|bar\b)/.test(normalized)) {
-    return pressureAnswer();
-  }
-
   if (/(publication|paper|doi|journal|literature)/.test(normalized)) {
     return publicationAnswer();
   }
