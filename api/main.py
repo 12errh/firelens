@@ -30,6 +30,11 @@ from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.environ.get("DATA_DIR", ROOT / "web" / "data"))
+# Vercel deployments use `api/` as the project root and copy the snapshot beside main.py.
+if not DATA_DIR.exists():
+    local_snapshot = Path(__file__).resolve().parent / "data"
+    if local_snapshot.exists():
+        DATA_DIR = local_snapshot
 SNAPSHOT_FILES = {
     "investigations": "investigations.json",
     "evidence": "evidence_points.json",

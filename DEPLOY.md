@@ -35,7 +35,22 @@ npx vercel env add GROQ_MODEL production
 npx vercel --prod
 ```
 
-## 2. Render — the API mirror (optional)
+## 2. API mirror
+
+### Vercel (no billing required)
+
+The `firelens-api` project deploys `api/` with the FastAPI preset. Build command:
+
+```
+pip install -r requirements.txt && cp -r ../web/data ./data
+```
+
+Set `ALLOWED_ORIGINS=https://firelens-chi.vercel.app`.
+
+### Render (requires payment verification)
+
+Render returns `402 Payment information is required` for new services on this account.
+If a card is added, the steps below still apply.
 
 1. Open <https://dashboard.render.com/blueprints> and connect `12errh/firelens`.
 2. Render reads `render.yaml` and creates `flame-in-freefall-api`.
