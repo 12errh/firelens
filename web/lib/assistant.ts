@@ -960,11 +960,34 @@ function hasGroundedPercentages(
   return true;
 }
 
+/**
+ * The deterministic answer is the source of truth for its numbers. A drafted
+ * answer that drops one of them is rejected, so the two lanes can never
+ * disagree about what the archive says.
+ */
+function dropsKnownFigures(draft: string, baseline: ChatAnswer): boolean {
+  if (baseline.answer.startsWith("I can't answer that")) return false;
+  if (baseline.answer.startsWith("The snapshot does not have a direct answer")) {
+    return false;
+  }
+  const draftValues = new Set(
+    [...draft.matchAll(/(\d+(?:\.\d+)?)\s*%/g)].map((match) =>
+      Number(Number(match[1]).toFixed(2)),
+    ),
+  );
+  for (const match of baseline.answer.matchAll(/(\d+(?:\.\d+)?)\s*%/g)) {
+    const value = Number(Number(match[1]).toFixed(2));
+    if (!draftValues.has(value)) return true;
+  }
+  return false;
+}
+
 function contextFor(question: string, hits: RagHit[] = []): string {
   const matches = searchRecords(question);
   const lines = [
-    `SNAPSHOT: ${stats.investigations} NASA PSI Combustion Science investigations, ${stats.experimentalTables} experimental summary tables, ${stats.tableRows} normalized rows, ${stats.documentsIndexed} reports/science documents, ${stats.rawFiles} raw file entries indexed but not ingested. Snapshot date ${stats.snapshotDate}.`,
+    `SNAPSHOT: ${stats.investigations} NASA PSI Combustion Science investigations, ${stats.experimentalTables} experimental summary tables, ${formatNumber(stats.tableRows)} normalized rows, ${stats.documentsIndexed} reports/science documents, ${formatNumber(stats.rawFiles)} raw file entries indexed but not ingested. Snapshot date ${stats.snapshotDate}.`,
     `KEY FACTS: ${stats.partialGravityDatasets} direct partial-gravity datasets. Highest solid-material O₂ ${stats.o2.solidMax}% (BASS-II). Highest liquid O₂ ${stats.o2.liquidMax}% (FLEX). Highest gas O₂ ${stats.o2.gasMax}% (Flame Design and CFI-G). ${stats.o2.lunarBandCount} table points at or above 30% O₂, all gaseous or droplet. E-FIELD (PSI-22) is an electric-field analog, not a gravity measurement; its table does not report O₂.`,
+    `COVERAGE: only ${stats.tablesWithO2} of ${stats.experimentalTables} experimental tables report an oxygen concentration. Pressure is reported by fewer tables still, and most solid-material campaigns do not report pressure at all.`,
     "SCENARIOS: " +
       scenarios
         .map(
@@ -977,10 +1000,17 @@ function contextFor(question: string, hits: RagHit[] = []): string {
   if (matches.length) {
     lines.push("RELEVANT RECORDS:");
     for (const record of matches) {
+      const fuels = [
+        ...new Set(record.tables.flatMap((table) => table.fuelValues)),
+      ]
+        .slice(0, 6)
+        .join(", ");
       lines.push(
         `- ${record.id} ${record.acronym ?? ""}: ${record.title}. ${record.kindLabel}, ${
           record.gravity === "microgravity" ? "microgravity" : "normal gravity"
-        }, subarea ${record.subResearchArea ?? "unclassified"}. O₂ ${o2For(record)}; pressure ${pressureFor(record)}; ${record.tableCount} tables; ${record.publicationCount} publications. Summary: ${(
+        }, subarea ${record.subResearchArea ?? "unclassified"}. O₂ ${o2For(record)}; pressure ${pressureFor(record)}; ${record.tableCount} tables; ${record.publicationCount} publications. License: ${
+          record.licenseId ? "CC0 1.0" : "not stated in the PSI record"
+        }. Materials and fuels in the table: ${fuels || "not listed"}. Summary: ${(
           record.summary ?? ""
         ).slice(0, 360)}`,
       );
@@ -1080,6 +1110,17 @@ async function callGroq(
         limitations: [
           ...baseline.limitations,
           "A language-model draft was rejected by the numeric grounding check because it contained a percentage that appears in neither the normalized tables nor the retrieved passages.",
+        ],
+      };
+    }
+
+    if (dropsKnownFigures(draft, baseline)) {
+      return {
+        ...baseline,
+        excerpts: hits.length ? hits.map(toExcerpt) : undefined,
+        limitations: [
+          ...baseline.limitations,
+          "A language-model draft was rejected because it dropped a figure that the structured answer states; the structured answer was served instead.",
         ],
       };
     }

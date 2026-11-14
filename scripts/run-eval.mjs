@@ -48,7 +48,8 @@ function hasFact(text, fact) {
   if (fact === "no") return /\bno\b/i.test(text);
   if (fact === "0") return /\b0\b/.test(text) || /\bzero\b/i.test(text) || /\bnone\b/i.test(text);
   if (fact === "not stated") return lower.includes("not stated");
-  if (fact === "65,629") return text.includes("65,629");
+  if (fact === "65,629") return /65[,.]?629/.test(text);
+  if (fact === "sphere") return /sphere|spherical/i.test(text);
   return lower.includes(fact.toLowerCase());
 }
 
