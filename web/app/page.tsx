@@ -23,14 +23,13 @@ import {
   StatusDot,
   TickRule,
 } from "@/components/ui";
+import { HeroKicker, HeroVisual } from "@/components/hero-visual";
 import {
-  ChatGlyph,
-  ExplorerGlyph,
-  HeroKicker,
-  HeroVisual,
-  MapGlyph,
-  ScaleGlyph,
-} from "@/components/hero-visual";
+  BalanceGlyph,
+  CabinetGlyph,
+  PlotterGlyph,
+  ReaderGlyph,
+} from "@/components/figures/feature-vignettes/vignettes";
 import { PHASE_COLOR } from "@/lib/tokens";
 
 const FEATURES = [
@@ -38,29 +37,29 @@ const FEATURES = [
     title: "Evidence map",
     body: "Every tabulated test condition plotted by oxygen concentration and gravity environment. The lunar habitat band is shaded and the partial-gravity lane is left empty, because it is.",
     href: "/evidence",
-    link: "Open the evidence map",
-    glyph: MapGlyph,
+    link: "Open evidence map",
+    glyph: PlotterGlyph,
   },
   {
     title: "Investigation explorer",
     body: "All 24 records filtered by gravity class, material phase and data availability, with the normalized conditions and the source table behind every number.",
     href: "/investigations",
     link: "Browse 24 records",
-    glyph: ExplorerGlyph,
+    glyph: CabinetGlyph,
   },
   {
     title: "Grounded assistant",
     body: "Retrieves passages from 91 real NASA reports, quotes them verbatim with a page number, and rejects any percentage that appears in neither the tables nor the cited passages.",
     href: "/assistant",
     link: "Ask the assistant",
-    glyph: ChatGlyph,
+    glyph: ReaderGlyph,
   },
   {
     title: "Methodology and limits",
     body: "Six normalization rules, four evidence classes, and an explicit list of the questions this snapshot cannot answer. Nothing on the site is hand-typed.",
     href: "/methodology",
     link: "Read the methodology",
-    glyph: ScaleGlyph,
+    glyph: BalanceGlyph,
   },
 ];
 export default function Home() {
@@ -185,12 +184,12 @@ export default function Home() {
           body="Every view on this site reads the same normalized JSON. There is no second dataset and no hand-typed figure, so two parts of the site can never disagree."
         />
 
-        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+        <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((feature) => {
             const Glyph = feature.glyph;
             return (
-              <article key={feature.title} className="flex flex-col bg-panel p-6 sm:p-8">
-                <div className="h-32 overflow-hidden rounded border border-line bg-canvas p-2">
+              <article key={feature.title} className="flex flex-col bg-panel p-6 xl:p-8">
+                <div className="h-44 overflow-hidden rounded border border-line bg-canvas p-2">
                   <Glyph />
                 </div>
                 <h3 className="mt-6 text-[19px] font-medium tracking-[-0.02em] text-ink">
@@ -199,7 +198,7 @@ export default function Home() {
                 <p className="mt-2.5 max-w-md text-[14px] leading-6 text-muted">
                   {feature.body}
                 </p>
-                <div className="mt-5">
+                <div className="mt-auto pt-6">
                   <ArrowLink href={feature.href}>{feature.link}</ArrowLink>
                 </div>
               </article>

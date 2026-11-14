@@ -1,0 +1,624 @@
+/* Four bench instruments for the feature cards. */
+
+.fv-vignette {
+  display: block;
+  width: 100%;
+  height: 100%;
+  --anatomy-paper: #faf9f4;
+  --anatomy-face: #f4f2ea;
+  --anatomy-card: #ffffff;
+  --anatomy-top: #ffffff;
+  --anatomy-shade-0: #c9c5b7;
+  --anatomy-shade-1: #d8d4c6;
+  --anatomy-shade-2: #e6e2d6;
+  --anatomy-shade-3: #f1eee5;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #e9e5d9;
+  --anatomy-hi: #1a1a14;
+  --anatomy-mid: #6f6d61;
+  --anatomy-lo: #a09c8d;
+  --anatomy-faint: #d3cfc1;
+  --anatomy-lit: #000000;
+  --anatomy-halo: #55524a;
+  --anatomy-halo-opacity: 0.26;
+  --anatomy-dot: #1a1a14;
+  --anatomy-red: #c2410c;
+  --anatomy-green: #3f7a12;
+  --anatomy-blue: #0e7490;
+  --anatomy-weight: 0.8px;
+  --fv-paper: #fffdf6;
+  --fv-panel: #f7f5ec;
+  --fv-recess: rgba(26, 26, 20, 0.12);
+  --fv-accent: #c2410c;
+}
+
+html[data-theme="dark"] .fv-vignette {
+  --anatomy-paper: #131d2e;
+  --anatomy-face: #182338;
+  --anatomy-card: #101726;
+  --anatomy-top: #223049;
+  --anatomy-shade-0: #0a1220;
+  --anatomy-shade-1: #0e1829;
+  --anatomy-shade-2: #121d30;
+  --anatomy-shade-3: #18243a;
+  --anatomy-lit-top: #2a3a54;
+  --anatomy-lit-shade: #202e47;
+  --anatomy-hi: #eef3ff;
+  --anatomy-mid: #93a2bb;
+  --anatomy-lo: #5b6c88;
+  --anatomy-faint: #34435c;
+  --anatomy-lit: #ffffff;
+  --anatomy-halo: #000000;
+  --anatomy-halo-opacity: 0.58;
+  --anatomy-dot: #e3eaf7;
+  --anatomy-red: #ff8a63;
+  --anatomy-green: #8ecb5a;
+  --anatomy-blue: #5fc7dd;
+  --fv-paper: #22304a;
+  --fv-panel: #162032;
+  --fv-recess: rgba(0, 0, 0, 0.4);
+  --fv-accent: #ff8a63;
+}
+
+.fv-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* the platen is machined metal, the sheet is bright paper */
+.fv-platen .iso-fill,
+.fv-platen .iso-top {
+  fill: #dedacb;
+}
+html[data-theme="dark"] .fv-platen .iso-fill,
+html[data-theme="dark"] .fv-platen .iso-top {
+  fill: #162032;
+}
+.fv-sheet-shadow {
+  fill: rgba(26, 26, 20, 0.14);
+}
+html[data-theme="dark"] .fv-sheet-shadow {
+  fill: rgba(0, 0, 0, 0.34);
+}
+.fv-sheet .iso-fill,
+.fv-sheet .iso-top {
+  fill: var(--fv-paper);
+}
+html[data-theme="dark"] .fv-sheet .iso-fill,
+html[data-theme="dark"] .fv-sheet .iso-top {
+  fill: #1b2638;
+}
+
+/* evidence map: the pen carriage sweeps the oxygen axis */
+.fv-carriage {
+  animation: fv-sweep 11s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes fv-sweep {
+  from {
+    transform: translate(calc(var(--fv-dx) * -1), calc(var(--fv-dy) * -1));
+  }
+  to {
+    transform: translate(var(--fv-dx), var(--fv-dy));
+  }
+}
+
+.fv-lunar-band {
+  fill: rgba(194, 65, 12, 0.035);
+}
+.fv-lunar-hatch {
+  fill: none;
+  stroke: #c2410c;
+  stroke-width: 0.35;
+  opacity: 0.14;
+}
+html[data-theme="dark"] .fv-lunar-band {
+  fill: rgba(255, 138, 99, 0.05);
+}
+html[data-theme="dark"] .fv-lunar-hatch {
+  stroke: #ff8a63;
+  opacity: 0.18;
+}
+
+.fv-empty-lane {
+  fill: rgba(194, 65, 12, 0.03);
+}
+html[data-theme="dark"] .fv-empty-lane {
+  fill: rgba(255, 138, 99, 0.045);
+}
+.fv-empty-edge {
+  opacity: 0.42;
+  stroke-width: 0.6px;
+}
+.fv-none-mark {
+  opacity: 0.6;
+  stroke-width: 0.7px;
+}
+
+.fv-plot-bar {
+  fill: none;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fv-plot-dot {
+  stroke: #fffdf6;
+  stroke-width: 0.8;
+}
+html[data-theme="dark"] .fv-plot-dot {
+  stroke: #1b2638;
+}
+
+.fv-phase-solid {
+  stroke: #c2410c;
+  fill: #c2410c;
+}
+.fv-phase-liquid {
+  stroke: #0e7490;
+  fill: #0e7490;
+}
+.fv-phase-gas {
+  stroke: #6d28d9;
+  fill: #6d28d9;
+}
+html[data-theme="dark"] .fv-phase-solid {
+  stroke: #ff8a63;
+  fill: #ff8a63;
+}
+html[data-theme="dark"] .fv-phase-liquid {
+  stroke: #5fc7dd;
+  fill: #5fc7dd;
+}
+html[data-theme="dark"] .fv-phase-gas {
+  stroke: #b79cff;
+  fill: #b79cff;
+}
+
+.fv-pen-led {
+  fill: #c2410c;
+  animation: fv-led 3.4s ease-in-out infinite;
+}
+html[data-theme="dark"] .fv-pen-led {
+  fill: #ff8a63;
+}
+@keyframes fv-led {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+
+/* investigation explorer: recessed drawer faces and paper records */
+.fv-recess {
+  fill: var(--fv-recess);
+}
+.fv-drawer-face {
+  fill: var(--fv-panel);
+}
+.fv-label {
+  fill: var(--fv-paper);
+  stroke: var(--anatomy-faint);
+  stroke-width: 0.6px;
+}
+.fv-tray-floor .iso-fill,
+.fv-tray-floor .iso-shade {
+  fill: #ede9dd;
+}
+.fv-tray-floor .iso-top {
+  fill: #f3efe4;
+}
+html[data-theme="dark"] .fv-tray-floor .iso-fill,
+html[data-theme="dark"] .fv-tray-floor .iso-shade {
+  fill: #16202f;
+}
+html[data-theme="dark"] .fv-tray-floor .iso-top {
+  fill: #1b2739;
+}
+.fv-pull {
+  fill: #f4f1e8;
+  stroke: var(--anatomy-lo);
+  stroke-width: 0.7px;
+}
+html[data-theme="dark"] .fv-tray-floor .iso-fill,
+.fv-tray-floor .iso-shade {
+  fill: #ede9dd;
+}
+.fv-tray-floor .iso-top {
+  fill: #f3efe4;
+}
+html[data-theme="dark"] .fv-tray-floor .iso-fill,
+html[data-theme="dark"] .fv-tray-floor .iso-shade {
+  fill: #16202f;
+}
+html[data-theme="dark"] .fv-tray-floor .iso-top {
+  fill: #1b2739;
+}
+.fv-pull {
+  fill: #26344a;
+}
+.fv-cheek-plate {
+  fill: #f2efe5;
+  stroke: var(--anatomy-faint);
+  stroke-width: 0.6px;
+}
+html[data-theme="dark"] .fv-cheek-plate {
+  fill: #1a2637;
+}
+.fv-record .iso-fill,
+.fv-record .iso-shade,
+.fv-record .iso-top {
+  fill: var(--fv-paper);
+}
+.fv-tab {
+  fill: var(--fv-accent);
+  opacity: 0.92;
+}
+.fv-card-heading {
+  fill: rgba(26, 26, 20, 0.14);
+}
+html[data-theme="dark"] .fv-card-heading {
+  fill: rgba(227, 234, 247, 0.18);
+}
+.fv-card-shadow {
+  fill: rgba(26, 26, 20, 0.12);
+}
+html[data-theme="dark"] .fv-card-shadow {
+  fill: rgba(0, 0, 0, 0.32);
+}
+.fv-scale-mark {
+  fill: var(--anatomy-red);
+}
+.fv-scale-zero {
+  opacity: 0.85;
+}
+.fv-card-marker {
+  fill: var(--fv-accent);
+  opacity: 0.45;
+}
+.fv-card {
+  animation: fv-lift 7s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes fv-lift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--fv-rise) * -0.45));
+  }
+}
+
+/* bench hardware the four instruments share */
+.fv-contact {
+  fill: var(--anatomy-halo);
+  opacity: 0.16;
+  filter: blur(7px);
+  transform: translateY(2px);
+}
+html[data-theme="dark"] .fv-contact {
+  opacity: 0.5;
+}
+.fv-ruler .iso-fill,
+.fv-ruler .iso-shade {
+  fill: #e4e0d3;
+}
+.fv-ruler .iso-top {
+  fill: #eeeadd;
+}
+html[data-theme="dark"] .fv-ruler .iso-fill,
+html[data-theme="dark"] .fv-ruler .iso-shade {
+  fill: #1a2637;
+}
+html[data-theme="dark"] .fv-ruler .iso-top {
+  fill: #223049;
+}
+.fv-labelplate .iso-fill,
+.fv-labelplate .iso-shade {
+  fill: #efede3;
+}
+.fv-labelplate .iso-top {
+  fill: #f7f5ec;
+}
+html[data-theme="dark"] .fv-labelplate .iso-fill,
+html[data-theme="dark"] .fv-labelplate .iso-shade {
+  fill: #16202f;
+}
+html[data-theme="dark"] .fv-labelplate .iso-top {
+  fill: #1d2a3d;
+}
+
+/* grounded assistant: a lit page, a hooded lamp and a focus knob */
+.fv-bezel-well {
+  fill: #37342c;
+}
+html[data-theme="dark"] .fv-bezel-well {
+  fill: #060c16;
+}
+.fv-bezel {
+  fill: #d8d4c5;
+}
+html[data-theme="dark"] .fv-bezel {
+  fill: #0c1626;
+}
+.fv-page-shadow {
+  fill: rgba(26, 26, 20, 0.24);
+}
+html[data-theme="dark"] .fv-page-shadow {
+  fill: rgba(0, 0, 0, 0.6);
+}
+.fv-page {
+  fill: #fffdf4;
+  filter: drop-shadow(0 0 2.5px rgba(255, 205, 130, 0.4));
+}
+html[data-theme="dark"] .fv-page {
+  fill: #d8e4ea;
+  filter: drop-shadow(0 0 4px rgba(170, 214, 255, 0.4));
+}
+.fv-page-shade {
+  fill: rgba(26, 26, 20, 0.1);
+}
+html[data-theme="dark"] .fv-page-shade {
+  fill: rgba(0, 0, 0, 0.28);
+}
+.fv-page-glare {
+  fill: rgba(255, 255, 255, 0.1);
+}
+html[data-theme="dark"] .fv-page-glare {
+  fill: rgba(255, 255, 255, 0.12);
+}
+.fv-page-title {
+  fill: #24241d;
+}
+html[data-theme="dark"] .fv-page-title {
+  fill: #142029;
+}
+.fv-page-subtitle {
+  fill: #6f6d61;
+}
+html[data-theme="dark"] .fv-page-subtitle {
+  fill: #40565f;
+}
+.fv-page-ink .iso-line[data-tone="hi"] {
+  stroke: #1a1a14;
+}
+.fv-page-ink .iso-line[data-tone="mid"] {
+  stroke: #706d61;
+}
+html[data-theme="dark"] .fv-page-ink .iso-line[data-tone="hi"] {
+  stroke: #13212b;
+}
+html[data-theme="dark"] .fv-page-ink .iso-line[data-tone="mid"] {
+  stroke: #40565f;
+}
+html[data-theme="dark"] .fv-page-ink .iso-line[data-tone="lo"] {
+  stroke: #5e7681;
+}
+html[data-theme="dark"] .fv-page-ink .iso-line[data-tone="faint"] {
+  stroke: #8aa0aa;
+}
+html[data-theme="dark"] .fv-page-ink .iso-line[data-tone="red"] {
+  stroke: #a83418;
+}
+.fv-page-ink .iso-line {
+  stroke-width: 0.9px;
+}
+.fv-quote {
+  fill: rgba(194, 65, 12, 0.16);
+}
+html[data-theme="dark"] .fv-quote {
+  fill: rgba(168, 52, 24, 0.2);
+}
+.fv-cite {
+  fill: #fffdf6;
+  stroke: rgba(194, 65, 12, 0.65);
+  stroke-width: 0.8px;
+}
+html[data-theme="dark"] .fv-cite {
+  fill: #eef2ee;
+  stroke: rgba(168, 52, 24, 0.75);
+}
+.fv-cite-pin {
+  fill: #c2410c;
+}
+html[data-theme="dark"] .fv-cite-pin {
+  fill: #a83418;
+}
+.fv-cite-dot {
+  fill: #3a3a32;
+}
+html[data-theme="dark"] .fv-cite-dot {
+  fill: #31424a;
+}
+.fv-scan {
+  opacity: 0.55;
+  stroke-width: 1.1px;
+  animation: fv-scan 6.5s ease-in-out infinite;
+}
+@keyframes fv-scan {
+  0%,
+  8% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.6;
+  }
+  72% {
+    opacity: 0.6;
+  }
+  92%,
+  100% {
+    transform: translateY(var(--fv-scan-drop));
+    opacity: 0;
+  }
+}
+.fv-hood-lamp {
+  fill: #ffd9a0;
+  animation: fv-glow 5s ease-in-out infinite;
+}
+html[data-theme="dark"] .fv-hood-lamp {
+  fill: #ffcf8c;
+}
+@keyframes fv-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+.fv-button {
+  fill: #f7f5ec;
+}
+html[data-theme="dark"] .fv-button {
+  fill: #2a3950;
+}
+.fv-lamp {
+  fill: #8b8a80;
+}
+.fv-lamp-live {
+  fill: #c2410c;
+  animation: fv-led 3.4s ease-in-out infinite;
+}
+html[data-theme="dark"] .fv-lamp {
+  fill: #5b6c88;
+}
+html[data-theme="dark"] .fv-lamp-live {
+  fill: #ff8a63;
+}
+.fv-tray {
+  animation: fv-tray 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes fv-tray {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--fv-slide-x), calc(var(--fv-slide-y) * 0.6));
+  }
+}
+.fv-knob {
+  animation: fv-knob 13s ease-in-out infinite alternate;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes fv-knob {
+  from {
+    transform: rotate(-7deg);
+  }
+  to {
+    transform: rotate(7deg);
+  }
+}
+.fv-fiche .iso-fill,
+.fv-fiche .iso-shade {
+  fill: var(--fv-paper);
+}
+.fv-fiche .iso-top {
+  fill: #fffdf6;
+}
+html[data-theme="dark"] .fv-fiche .iso-top {
+  fill: #d8e4ea;
+}
+
+/* methodology: a balance settling, weights against an empty pan */
+.fv-scale {
+  fill: #ece8da;
+  stroke: var(--anatomy-lo);
+  stroke-width: 0.6px;
+}
+html[data-theme="dark"] .fv-scale {
+  fill: #101a2b;
+}
+.fv-weight .iso-fill {
+  fill: #aaa596;
+}
+.fv-weight .iso-shade[data-shade="0"] {
+  fill: #827e70;
+}
+.fv-weight .iso-shade[data-shade="1"] {
+  fill: #908c7e;
+}
+.fv-weight .iso-shade[data-shade="2"] {
+  fill: #a29d8e;
+}
+.fv-weight .iso-shade[data-shade="3"] {
+  fill: #b2ad9e;
+}
+.fv-weight .iso-top {
+  fill: #c1bcac;
+}
+html[data-theme="dark"] .fv-weight .iso-fill {
+  fill: #2c3a50;
+}
+html[data-theme="dark"] .fv-weight .iso-shade[data-shade="0"] {
+  fill: #1a2638;
+}
+html[data-theme="dark"] .fv-weight .iso-shade[data-shade="1"] {
+  fill: #202d42;
+}
+html[data-theme="dark"] .fv-weight .iso-shade[data-shade="2"] {
+  fill: #2a3850;
+}
+html[data-theme="dark"] .fv-weight .iso-shade[data-shade="3"] {
+  fill: #33425c;
+}
+html[data-theme="dark"] .fv-weight .iso-top {
+  fill: #40516c;
+}
+.fv-pan .iso-fill {
+  fill: #d8d4c6;
+}
+html[data-theme="dark"] .fv-pan .iso-fill {
+  fill: #1b2739;
+}
+.fv-beam-rod {
+  fill: none;
+  stroke: var(--anatomy-mid);
+  stroke-width: 4.4;
+  stroke-linecap: round;
+}
+.fv-beam-shine {
+  fill: none;
+  stroke: var(--anatomy-hi);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  opacity: 0.45;
+}
+.fv-pointer {
+  stroke-width: 1px;
+  opacity: 0.75;
+}
+.fv-pointer-weight {
+  fill: var(--anatomy-mid);
+}
+.fv-beam-group {
+  transform-box: view-box;
+  transform-origin: var(--fv-pivot-x) var(--fv-pivot-y);
+  animation: fv-tip 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+@keyframes fv-tip {
+  from {
+    transform: rotate(-0.75deg);
+  }
+  to {
+    transform: rotate(0.75deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fv-carriage,
+  .fv-pen-led,
+  .fv-card,
+  .fv-scan,
+  .fv-tray,
+  .fv-knob,
+  .fv-lens-glow,
+  .fv-hood-lamp,
+  .fv-lamp-live,
+  .fv-beam-group {
+    animation: none !important;
+  }
+}
