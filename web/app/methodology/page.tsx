@@ -18,6 +18,18 @@ import {
   stats,
 } from "@/lib/data";
 import { corpusDocumentCount, corpusPassageCount } from "@/lib/rag-stats";
+import evaluationData from "@/data/eval-summary.json";
+
+const evaluation = evaluationData as unknown as {
+  snapshotDate: string;
+  questions: number;
+  passed: number;
+  citationAccuracy: number;
+  retrievalHitAtK: number;
+  groundingSafety: number;
+  latencyP50: number;
+  latencyP95: number;
+};
 import {
   ActionLink,
   Badge,
@@ -394,12 +406,95 @@ export default function MethodologyPage() {
         </div>
       </section>
 
-      {/* Evidence classes */}
+      {/* Evaluation */}
       <section className="border-b border-line bg-panel">
         <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
             index="04"
+            kicker="Measured, not claimed"
+            title="The assistant is scored against a golden set."
+            body="Twenty questions were written from the archive, each naming the record that must be cited, the facts the answer must contain, and the claims it must not make. The set runs against the deployed assistant, not a mock."
+          />
+
+          <div className="mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                value: `${evaluation.passed}/${evaluation.questions}`,
+                label: "Questions passed",
+                note: "citation, facts and grounding all correct",
+                tone: "text-moss",
+              },
+              {
+                value: `${Math.round(evaluation.citationAccuracy * 100)}%`,
+                label: "Citation accuracy",
+                note: "the expected PSI record was cited",
+                tone: "text-ink",
+              },
+              {
+                value: `${Math.round(evaluation.groundingSafety * 100)}%`,
+                label: "Grounding safety",
+                note: "no invented percentages, ever",
+                tone: "text-flame",
+              },
+              {
+                value: `${Math.round(evaluation.retrievalHitAtK * 100)}%`,
+                label: "Retrieval hit@k",
+                note: "the expected record surfaced in the top passages",
+                tone: "text-ice",
+              },
+            ].map((item) => (
+              <div key={item.label} className="bg-panel p-6">
+                <div
+                  className={`font-mono text-[30px] font-medium leading-none tracking-[-0.035em] ${item.tone}`}
+                >
+                  {item.value}
+                </div>
+                <div className="mt-3 text-[14px] font-medium text-ink">{item.label}</div>
+                <p className="mt-1.5 text-[13.5px] leading-5 text-faint">{item.note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_1fr]">
+            <div className="max-w-2xl">
+              <DataNote>
+                The four retrieval misses are informative rather than hidden: on those
+                questions the lexical index did not surface the expected document in its
+                top passages, and the structured layer answered instead. Adding dense
+                retrieval to the BM25 index is the next step, and the measurement that
+                justifies it is already in place.
+              </DataNote>
+            </div>
+            <div className="text-[14px] leading-6 text-muted">
+              <p>
+                Grounding safety is the number that matters most. Across {evaluation.questions}{" "}
+                answers the assistant produced <strong className="text-ink">zero</strong>{" "}
+                percentages that appear in neither the normalized tables nor a cited
+                passage. A drafted answer that introduces one is rejected before it
+                reaches the reader, and a drafted answer that drops a figure the
+                structured answer states is rejected too.
+              </p>
+              <p className="mt-3">
+                Median latency is {evaluation.latencyP50} ms and the 95th percentile is{" "}
+                {evaluation.latencyP95} ms, measured against the live deployment. The
+                golden set and the runner are in the repository:{" "}
+                <code className="font-mono text-[13.5px] text-ink">
+                  scripts/run-eval.mjs
+                </code>
+                .
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Evidence classes */}
+      <section className="border-b border-line bg-panel">
+        <TickRule />
+        <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
+          <SectionHeading
+            index="05"
             kicker="Evidence classification"
             title="Four classes. No promotion between them."
             body="A comparison is not a measurement, an analog is not a dataset, and a missing dataset is not a null result. The evidence map uses these classes literally."
@@ -432,7 +527,7 @@ export default function MethodologyPage() {
       {/* Limits */}
       <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
-          index="05"
+          index="06"
           kicker="Known limits"
           title="What this snapshot cannot answer."
           body="These are not edge cases. They are the boundaries that determine whether a claim should be made at all."
@@ -486,7 +581,7 @@ export default function MethodologyPage() {
         <TickRule />
         <div className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
           <SectionHeading
-            index="06"
+            index="07"
             kicker="Licensing and attribution"
             title="NASA data has its own terms."
             body="Inclusion in this interface does not change the license of the underlying record. Attribution and license status travel with every investigation."
@@ -532,7 +627,7 @@ export default function MethodologyPage() {
       {/* Disclosure */}
       <section className="mx-auto max-w-[1200px] px-6 py-20 lg:px-10 lg:py-24">
         <SectionHeading
-          index="07"
+          index="08"
           kicker="AI and SI disclosure"
           title="Where AI is used, and where it stops."
           body="Space Apps requires disclosure of AI and significant support. This is the full account for this project."

@@ -106,7 +106,17 @@ for (const item of golden.questions) {
   const passages = payload.excerpts ?? [];
   const sourceText = `${answer}\n${payload.sources.map((s) => s.label).join(" ")}`;
 
-  const citedExpected = item.expectAccessions.some((a) => cites(sourceText, a));
+  // A question with no required accession only checks facts and grounding.
+  const citedExpected =
+    item.expectAccessions.length === 0 ||
+    item.expectAccessions.some((a) => cites(sourceText, a));
+  // Retrieval hit@k: did the document corpus surface the expected record?
+  const retrievedAccessions = [
+    ...new Set(passages.map((p) => p.investigationId)),
+  ];
+  const retrievalHit =
+    item.expectAccessions.length === 0 ||
+    item.expectAccessions.some((a) => retrievedAccessions.includes(a));
   const missingFacts = item.mustContain.filter((f) => !hasFact(answer, f));
   const forbidden = item.mustNotContain.filter((f) => hasFact(answer, f));
   const ungrounded = ungroundedPercentages(answer, passages);
@@ -122,11 +132,12 @@ for (const item of golden.questions) {
     latency,
     mode: payload.mode,
     citedExpected,
+    retrievalHit,
     missingFacts,
     forbidden,
     ungrounded,
     passageCount: passages.length,
-    passageAccessions: [...new Set(passages.map((p) => p.investigationId))],
+    passageAccessions: retrievedAccessions,
     passed,
   });
 }
@@ -134,6 +145,7 @@ for (const item of golden.questions) {
 const scored = results.filter((r) => !r.error);
 const pass = scored.filter((r) => r.passed).length;
 const citation = scored.filter((r) => r.citedExpected).length;
+const retrieval = scored.filter((r) => r.retrievalHit).length;
 const grounding = scored.filter((r) => r.ungrounded.length === 0).length;
 const latencies = scored.map((r) => r.latency).sort((a, b) => a - b);
 const p95 = latencies[Math.floor(latencies.length * 0.95) - 1] ?? 0;
@@ -149,6 +161,9 @@ for (const r of results) {
   if (!r.citedExpected && r.expectAccessions.length) {
     console.log(`      missing citation: expected one of ${r.expectAccessions.join(", ")}`);
   }
+  if (!r.retrievalHit && r.expectAccessions.length) {
+    console.log(`      retrieval miss: passages were ${r.passageAccessions.join(", ") || "none"}`);
+  }
   if (r.missingFacts?.length) console.log(`      missing facts: ${r.missingFacts.join(", ")}`);
   if (r.forbidden?.length) console.log(`      forbidden claims present: ${r.forbidden.join(", ")}`);
   if (r.ungrounded?.length) console.log(`      ungrounded percentages: ${r.ungrounded.join(", ")}`);
@@ -156,6 +171,7 @@ for (const r of results) {
 
 console.log(`\n${pass}/${scored.length} passed`);
 console.log(`citation accuracy   ${citation}/${scored.length}`);
+console.log(`retrieval hit@k     ${retrieval}/${scored.length} (expected record in the retrieved passages)`);
 console.log(`grounding safety    ${grounding}/${scored.length} (no invented percentages)`);
 console.log(`latency             p50 ${latencies[Math.floor(latencies.length / 2)] ?? 0}ms · p95 ${p95}ms`);
 
@@ -165,6 +181,7 @@ const out = {
   questions: scored.length,
   passed: pass,
   citationAccuracy: citation / scored.length,
+  retrievalHitAtK: retrieval / scored.length,
   groundingSafety: grounding / scored.length,
   latencyP50: latencies[Math.floor(latencies.length / 2)] ?? 0,
   latencyP95: p95,

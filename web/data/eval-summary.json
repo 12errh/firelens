@@ -1,0 +1,12 @@
+{
+  "snapshotDate": "2026-11-14",
+  "questions": 20,
+  "passed": 20,
+  "citationAccuracy": 1,
+  "retrievalHitAtK": 0.8,
+  "groundingSafety": 1,
+  "latencyP50": 444,
+  "latencyP95": 2652,
+  "corpusDocuments": 91,
+  "corpusPassages": 2583
+}
