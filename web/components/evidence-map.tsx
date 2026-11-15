@@ -96,7 +96,7 @@ function buildLayout(points: EvidencePoint[]) {
     kind: "group",
     y: cursor,
     label: "Microgravity",
-    sub: "STATION EXPERIMENTS · 3 FUEL PHASES",
+    sub: "STATION EXPERIMENTS · 3 PHASES",
     count: datasetCount(micro.length),
   });
   cursor += GROUP_HEIGHT;
