@@ -1,0 +1,379 @@
+/* Evidence map — per-dataset O2 ranges.
+   Chart-only tokens keep the combustion phase colours warm and legible in
+   both themes instead of inheriting the page accent, which turns blue in dark. */
+
+.ev-map {
+  --ev-solid: #c2410c;
+  --ev-liquid: #0e7490;
+  --ev-gas: #6d28d9;
+  --ev-warm: #b45309;
+  --ev-band: rgba(180, 83, 9, 0.055);
+  --ev-grid: rgba(24, 24, 20, 0.075);
+  --ev-axis: rgba(24, 24, 20, 0.22);
+  --ev-hover: rgba(24, 24, 20, 0.04);
+  --ev-track: rgba(24, 24, 20, 0.065);
+  --ev-dot-ring: #ffffff;
+}
+
+html[data-theme="dark"] .ev-map {
+  --ev-solid: #fb923c;
+  --ev-liquid: #22d3ee;
+  --ev-gas: #c4b5fd;
+  --ev-warm: #fbbf24;
+  --ev-band: rgba(251, 191, 36, 0.06);
+  --ev-grid: rgba(231, 237, 248, 0.08);
+  --ev-axis: rgba(231, 237, 248, 0.24);
+  --ev-hover: rgba(231, 237, 248, 0.045);
+  --ev-track: rgba(231, 237, 248, 0.09);
+  --ev-dot-ring: #101726;
+}
+
+.ev-map .ev-colhead {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+}
+
+.ev-map .ev-group {
+  fill: var(--ink);
+  font-family: var(--font-plex-sans);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ev-map .ev-group-sub {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 9.5px;
+}
+
+.ev-map .ev-group-count {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 10px;
+  letter-spacing: 0.03em;
+}
+
+.ev-map .ev-subhead {
+  fill: var(--muted);
+  font-family: var(--font-plex-mono);
+  font-size: 9px;
+  letter-spacing: 0.09em;
+}
+
+.ev-map .ev-subcount {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 9px;
+}
+
+.ev-map .ev-label {
+  fill: var(--ink);
+  font-family: var(--font-plex-sans);
+  font-size: 12px;
+}
+
+.ev-map .ev-value {
+  fill: var(--muted);
+  font-family: var(--font-plex-mono);
+  font-size: 10.5px;
+}
+
+.ev-map .ev-axis-label {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 10px;
+}
+
+.ev-map .ev-tick-hot {
+  fill: var(--ev-warm);
+}
+
+.ev-map .ev-axis-title {
+  fill: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 10px;
+}
+
+.ev-map .ev-axis {
+  stroke: var(--ev-axis);
+  stroke-width: 1;
+}
+
+.ev-map .ev-grid-line {
+  stroke: var(--ev-grid);
+  stroke-width: 1;
+}
+
+.ev-map .ev-band {
+  fill: var(--ev-band);
+}
+
+.ev-map .ev-target-line {
+  stroke: var(--ev-warm);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.55;
+}
+
+.ev-map .ev-band-label {
+  fill: var(--ev-warm);
+  font-family: var(--font-plex-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.02em;
+}
+
+.ev-map .ev-empty {
+  fill: var(--ev-warm);
+  fill-opacity: 0.035;
+  stroke: var(--ev-warm);
+  stroke-opacity: 0.38;
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.ev-map .ev-empty-title {
+  fill: var(--ev-warm);
+  font-family: var(--font-plex-sans);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.ev-map .ev-empty-body {
+  fill: var(--muted);
+  font-family: var(--font-plex-sans);
+  font-size: 10.5px;
+}
+
+.ev-map .ev-hit {
+  fill: transparent;
+}
+
+.ev-map .ev-row {
+  cursor: pointer;
+  outline: none;
+}
+
+.ev-map .ev-row:hover .ev-hit,
+.ev-map .ev-row:focus-visible .ev-hit,
+.ev-map .ev-row[data-active] .ev-hit {
+  fill: var(--ev-hover);
+}
+
+.ev-map .ev-row:focus-visible .ev-hit {
+  stroke: var(--ev-warm);
+  stroke-width: 1;
+}
+
+.ev-map .ev-bar {
+  stroke: transparent;
+  stroke-width: 0.8;
+}
+
+.ev-map .ev-row:hover .ev-bar,
+.ev-map .ev-row:focus-visible .ev-bar,
+.ev-map .ev-row[data-active] .ev-bar {
+  stroke: currentColor;
+}
+
+.ev-map .ev-row[data-active] .ev-label {
+  font-weight: 500;
+}
+
+.ev-map .ev-row[data-active] .ev-value {
+  fill: var(--ink);
+}
+
+.ev-map .ev-bar-solid {
+  fill: var(--ev-solid);
+}
+
+.ev-map .ev-bar-liquid {
+  fill: var(--ev-liquid);
+}
+
+.ev-map .ev-bar-gas {
+  fill: var(--ev-gas);
+}
+
+.ev-map .ev-median {
+  fill: var(--ev-dot-ring);
+  stroke-width: 1.2;
+}
+
+.ev-map .ev-median-solid {
+  stroke: var(--ev-solid);
+}
+
+.ev-map .ev-median-liquid {
+  stroke: var(--ev-liquid);
+}
+
+.ev-map .ev-median-gas {
+  stroke: var(--ev-gas);
+}
+
+.ev-map .ev-swatch {
+  display: inline-block;
+  width: 20px;
+  height: 7px;
+  border-radius: 999px;
+}
+
+.ev-map .ev-median-key {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1.5px solid var(--muted);
+  background: var(--ev-dot-ring);
+}
+
+.ev-map .ev-swatch-solid {
+  background: var(--ev-solid);
+}
+
+.ev-map .ev-swatch-liquid {
+  background: var(--ev-liquid);
+}
+
+.ev-map .ev-swatch-gas {
+  background: var(--ev-gas);
+}
+
+.ev-map .ev-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--ev-gas);
+}
+
+.ev-map .ev-dot-solid {
+  background: var(--ev-solid);
+}
+
+.ev-map .ev-dot-liquid {
+  background: var(--ev-liquid);
+}
+
+.ev-map .ev-dot-gas {
+  background: var(--ev-gas);
+}
+
+/* Compact layout below the wide breakpoint: one full-width track per row,
+   so the chart stays readable on tablets and phones without sideways scroll. */
+
+.ev-map .ev-m-tick {
+  color: var(--faint);
+  font-family: var(--font-plex-mono);
+  font-size: 9px;
+}
+
+.ev-map .ev-m-tick-hot {
+  color: var(--ev-warm);
+}
+
+.ev-map .ev-m-track {
+  position: relative;
+  display: block;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 999px;
+  background: var(--ev-track);
+}
+
+.ev-map .ev-m-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 30%;
+  right: 0;
+  border-radius: 0 999px 999px 0;
+  background: var(--ev-band);
+}
+
+.ev-map .ev-m-target {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: 30%;
+  border-left: 1px dashed var(--ev-warm);
+  opacity: 0.7;
+}
+
+.ev-map .ev-m-bar {
+  position: absolute;
+  top: 2px;
+  height: 6px;
+  border-radius: 999px;
+}
+
+.ev-map .ev-m-bar-solid {
+  background: var(--ev-solid);
+}
+
+.ev-map .ev-m-bar-liquid {
+  background: var(--ev-liquid);
+}
+
+.ev-map .ev-m-bar-gas {
+  background: var(--ev-gas);
+}
+
+.ev-map .ev-m-median {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 1.5px solid;
+  background: var(--ev-dot-ring);
+}
+
+.ev-map .ev-m-median-solid {
+  border-color: var(--ev-solid);
+}
+
+.ev-map .ev-m-median-liquid {
+  border-color: var(--ev-liquid);
+}
+
+.ev-map .ev-m-median-gas {
+  border-color: var(--ev-gas);
+}
+
+.ev-map .ev-m-row {
+  border-radius: 4px;
+}
+
+.ev-map .ev-m-row:hover,
+.ev-map .ev-m-row:focus-visible,
+.ev-map .ev-m-row[data-active] {
+  background: var(--ev-hover);
+}
+
+.ev-map .ev-m-row:focus-visible {
+  outline: 1px solid var(--ev-warm);
+  outline-offset: 1px;
+}
+
+.ev-map .ev-m-empty {
+  border: 1px dashed var(--ev-warm);
+  background: var(--ev-band);
+}
+
+.ev-map .ev-m-empty-title {
+  color: var(--ev-warm);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.ev-map .ev-m-empty-body {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1rem;
+}

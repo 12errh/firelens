@@ -6,68 +6,142 @@ import { ArrowUpRight, Info } from "lucide-react";
 import type { EvidencePoint } from "@/lib/types";
 import { formatO2, phaseLabel } from "@/lib/data";
 import { cn } from "@/lib/cn";
-import { Badge, ScrollHint } from "@/components/ui";
-import { CANVAS, FAINT, FLAME, INK, MUTED, PHASE_COLOR } from "@/lib/tokens";
-
-
-const LANES = [
-  {
-    id: "partial",
-    label: "Partial gravity",
-    sub: "Moon 1/6 g · Mars 0.38 g",
-    y: 104,
-    phase: null,
-    empty: true,
-  },
-  {
-    id: "micro-solid",
-    label: "Microgravity",
-    sub: "Solid materials",
-    y: 202,
-    phase: "solid",
-    empty: false,
-  },
-  {
-    id: "micro-liquid",
-    label: "Microgravity",
-    sub: "Liquid fuels",
-    y: 272,
-    phase: "liquid",
-    empty: false,
-  },
-  {
-    id: "micro-gas",
-    label: "Microgravity",
-    sub: "Gaseous fuels",
-    y: 342,
-    phase: "gas",
-    empty: false,
-  },
-  {
-    id: "normal-solid",
-    label: "Normal gravity",
-    sub: "Solid materials · 1 g",
-    y: 412,
-    phase: "solid",
-    empty: false,
-  },
-] as const;
+import "@/components/evidence-map.css";
 
 const WIDTH = 1080;
-const HEIGHT = 476;
-const PLOT_LEFT = 214;
-const PLOT_RIGHT = 1004;
-const PLOT_TOP = 55;
-const PLOT_BOTTOM = 426;
+const PLOT_LEFT = 268;
+const PLOT_RIGHT = 936;
+const VALUE_RIGHT = 1076;
+const PLOT_TOP = 30;
+const ROW_HEIGHT = 22;
 
-const x = (value: number) => PLOT_LEFT + (value / 100) * (PLOT_RIGHT - PLOT_LEFT);
+const GROUP_HEIGHT = 34;
+const SUBHEAD_HEIGHT = 18;
+const EMPTY_HEIGHT = 46;
+const TICKS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-function lanePoints(points: EvidencePoint[], lane: (typeof LANES)[number]) {
-  if (!lane.phase) return [];
-  if (lane.id === "normal-solid") {
-    return points.filter((p) => p.gravity === "normal_gravity" && p.phase === "solid");
+const x = (value: number) =>
+  PLOT_LEFT +
+  (Math.min(100, Math.max(0, value)) / 100) * (PLOT_RIGHT - PLOT_LEFT);
+
+type Phase = "solid" | "liquid" | "gas";
+
+const PHASES: Phase[] = ["solid", "liquid", "gas"];
+
+const SUBHEAD: Record<Phase, string> = {
+  solid: "SOLID MATERIALS",
+  liquid: "LIQUID FUELS",
+  gas: "GASEOUS FUELS",
+};
+
+const phaseOf = (point: EvidencePoint): Phase =>
+  point.phase === "solid" || point.phase === "liquid" || point.phase === "gas"
+    ? point.phase
+    : "gas";
+
+const datasetCount = (count: number) =>
+  `${count} dataset${count === 1 ? "" : "s"}`;
+
+type Node =
+  | {
+      kind: "group";
+      y: number;
+      label: string;
+      sub: string;
+      count: string;
+    }
+  | { kind: "subhead"; y: number; label: string; count: number }
+  | { kind: "empty"; y: number }
+  | { kind: "row"; y: number; point: EvidencePoint };
+
+function sortRows(rows: EvidencePoint[]) {
+  return [...rows].sort((a, b) => {
+    const aMin = a.o2?.min ?? 0;
+    const bMin = b.o2?.min ?? 0;
+    if (aMin !== bMin) return aMin - bMin;
+    return (a.o2?.max ?? 0) - (b.o2?.max ?? 0);
+  });
+}
+
+function buildLayout(points: EvidencePoint[]) {
+  const plotted = points.filter(
+    (point) => point.o2 && point.gravity !== "partial_gravity_analog",
+  );
+  const micro = sortRows(
+    plotted.filter((point) => point.gravity === "microgravity"),
+  );
+  const normal = sortRows(
+    plotted.filter((point) => point.gravity === "normal_gravity"),
+  );
+  const analog = points.filter(
+    (point) => point.gravity === "partial_gravity_analog",
+  );
+
+  const nodes: Node[] = [];
+  let cursor = 42;
+
+  nodes.push({
+    kind: "group",
+    y: cursor,
+    label: "Partial gravity",
+    sub: "MOON 1/6 g · MARS 0.38 g",
+    count: datasetCount(0),
+  });
+  cursor += GROUP_HEIGHT;
+
+  nodes.push({ kind: "empty", y: cursor });
+  cursor += EMPTY_HEIGHT;
+
+  nodes.push({
+    kind: "group",
+    y: cursor,
+    label: "Microgravity",
+    sub: "STATION EXPERIMENTS · 3 FUEL PHASES",
+    count: datasetCount(micro.length),
+  });
+  cursor += GROUP_HEIGHT;
+
+  for (const phase of PHASES) {
+    const rows = micro.filter((point) => phaseOf(point) === phase);
+    if (!rows.length) continue;
+    nodes.push({
+      kind: "subhead",
+      y: cursor,
+      label: SUBHEAD[phase],
+      count: rows.length,
+    });
+    cursor += SUBHEAD_HEIGHT;
+    for (const point of rows) {
+      nodes.push({ kind: "row", y: cursor, point });
+      cursor += ROW_HEIGHT;
+    }
   }
-  return points.filter((p) => p.gravity === "microgravity" && p.phase === lane.phase);
+
+  nodes.push({
+    kind: "group",
+    y: cursor,
+    label: "Normal gravity",
+    sub: "EARTH 1 g · SOLID MATERIALS",
+    count: datasetCount(normal.length),
+  });
+  cursor += GROUP_HEIGHT;
+
+  for (const point of normal) {
+    nodes.push({ kind: "row", y: cursor, point });
+    cursor += ROW_HEIGHT;
+  }
+
+  const plotBottom = cursor + 10;
+
+  return {
+    nodes,
+    plotted,
+    analog,
+    plotBottom,
+    tickY: plotBottom + 18,
+    axisTitleY: plotBottom + 38,
+    height: plotBottom + 46,
+  };
 }
 
 export function EvidenceMap({
@@ -79,322 +153,447 @@ export function EvidenceMap({
   className?: string;
   showLegend?: boolean;
 }) {
-  const plotted = useMemo(
-    () => points.filter((p) => p.o2 && p.gravity !== "partial_gravity_analog"),
-    [points],
-  );
-  const analog = points.filter((p) => p.gravity === "partial_gravity_analog");
+  const { nodes, plotted, analog, plotBottom, tickY, axisTitleY, height } =
+    useMemo(() => buildLayout(points), [points]);
   const [activeId, setActiveId] = useState<string | null>(null);
-  const active = points.find((p) => p.id === activeId) ?? null;
+  const active = points.find((point) => point.id === activeId) ?? null;
 
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("ev-map relative", className)}>
       {showLegend ? (
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
-          <div className="flex flex-wrap items-center gap-4">
-            {(["solid", "liquid", "gas"] as const).map((phase) => (
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-line pb-3">
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {PHASES.map((phase) => (
               <span key={phase} className="flex items-center gap-2">
                 <span
-                  className="h-1.5 w-5 rounded-full"
-                  style={{ backgroundColor: PHASE_COLOR[phase] }}
+                  aria-hidden="true"
+                  className={cn("ev-swatch", `ev-swatch-${phase}`)}
                 />
-                <span className="text-[15px] text-muted">
+                <span className="text-[14px] text-muted">
                   {phaseLabel(phase)}
                 </span>
               </span>
             ))}
+            <span
+              className="h-3 w-px bg-line"
+              aria-hidden="true"
+            />
+            <span className="flex items-center gap-2">
+              <span aria-hidden="true" className="ev-median-key" />
+              <span className="text-[14px] text-muted">median</span>
+            </span>
           </div>
-          <div className="flex items-center gap-2 text-[15px] text-faint">
-            <Info className="h-3 w-3" strokeWidth={1.5} />
-            Hover or tap a range for provenance
+          <div className="flex items-center gap-1.5 text-[13.5px] text-faint">
+            <Info className="h-3.5 w-3.5" strokeWidth={1.5} />
+            Hover or tap a row for provenance
           </div>
         </div>
       ) : null}
 
-      <ScrollHint className="mb-2">Scroll sideways for the full oxygen range</ScrollHint>
+      <div className="xl:hidden">
+        <div className="flex items-baseline justify-between border-b border-line pb-1">
+          <span className="font-mono text-[9px] uppercase tracking-[0.09em] text-faint">
+            Dataset
+          </span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.09em] text-faint">
+            O₂ % by volume
+          </span>
+        </div>
 
-      <div className="overflow-x-auto scroll-thin">
-        <div className="min-w-[820px]">
-          <svg
-            viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-            className="w-full"
-            role="img"
-            aria-label="Oxygen concentration versus gravity environment for NASA PSI combustion experiments. Solid materials are only tested below 23 percent oxygen; partial gravity has no datasets."
-          >
-            <defs>
-              <pattern
-                id="lunar-hatch"
-                width="7"
-                height="7"
-                patternUnits="userSpaceOnUse"
-                patternTransform="rotate(45)"
+        <div className="relative mt-1 h-5 border-b border-line">
+          {TICKS.map((tick) => (
+            <span
+              key={`compact-tick-${tick}`}
+              className={cn(
+                "ev-m-tick absolute bottom-0.5",
+                tick === 30 && "ev-m-tick-hot",
+              )}
+              style={{
+                left: `${tick}%`,
+                transform:
+                  tick === 0
+                    ? "none"
+                    : tick === 100
+                      ? "translateX(-100%)"
+                      : "translateX(-50%)",
+              }}
+            >
+              {tick}
+            </span>
+          ))}
+        </div>
+
+        <p className="mt-1.5 text-[10px] leading-4 text-faint">
+          Shaded band = lunar habitat target ≥30% O₂. Bar = reported min–max,
+          dot = median.
+        </p>
+
+        <div>
+          {nodes.map((node, index) => {
+            if (node.kind === "group") {
+              return (
+                <div
+                  key={`m-group-${node.label}`}
+                  className={cn(
+                    "flex items-baseline justify-between gap-3",
+                    index === 0 ? "mt-2" : "mt-5",
+                  )}
+                >
+                  <div>
+                    <div className="text-[14px] font-medium text-ink">
+                      {node.label}
+                    </div>
+                    <div className="mt-0.5 font-mono text-[9px] tracking-[0.06em] text-faint">
+                      {node.sub}
+                    </div>
+                  </div>
+                  <span className="shrink-0 font-mono text-[10px] text-faint">
+                    {node.count}
+                  </span>
+                </div>
+              );
+            }
+
+            if (node.kind === "subhead") {
+              return (
+                <div
+                  key={`m-subhead-${node.label}`}
+                  className="mt-3 flex items-baseline justify-between gap-3"
+                >
+                  <span className="font-mono text-[8.5px] tracking-[0.09em] text-muted">
+                    {node.label}
+                  </span>
+                  <span className="font-mono text-[8.5px] text-faint">
+                    {node.count}
+                  </span>
+                </div>
+              );
+            }
+
+            if (node.kind === "empty") {
+              return (
+                <div
+                  key="m-partial-empty"
+                  className="ev-m-empty my-2 rounded px-3 py-2.5"
+                >
+                  <p className="ev-m-empty-title">
+                    No direct partial-gravity dataset
+                  </p>
+                  <p className="ev-m-empty-body mt-0.5">
+                    E-FIELD is an electric-field analog and reports no O₂
+                  </p>
+                </div>
+              );
+            }
+
+            const point = node.point;
+            const phase = phaseOf(point);
+            const o2 = point.o2!;
+            const isActive = activeId === point.id;
+
+            return (
+              <button
+                key={`m-row-${point.id}`}
+                type="button"
+                className="ev-m-row block w-full py-1.5 text-left"
+                data-active={isActive ? "" : undefined}
+                onMouseEnter={() => setActiveId(point.id)}
+                onFocus={() => setActiveId(point.id)}
+                onClick={() => setActiveId(point.id)}
+                aria-label={`${point.label}: ${formatO2(o2)} oxygen, median ${o2.median}%, ${point.rows} table rows, ${point.gravityLabel}`}
               >
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="7"
-                  stroke={FLAME}
-                  strokeWidth="1"
-                  opacity="0.14"
-                />
-              </pattern>
-            </defs>
+                <span className="flex items-baseline justify-between gap-3">
+                  <span className="text-[12.5px] leading-4 text-ink">
+                    {point.label}
+                  </span>
+                  <span className="shrink-0 font-mono text-[10.5px] text-muted">
+                    {formatO2(o2)}
+                  </span>
+                </span>
+                <span className="ev-m-track" aria-hidden="true">
+                  <span className="ev-m-band" />
+                  <span className="ev-m-target" />
+                  <span
+                    className={cn("ev-m-bar", `ev-m-bar-${phase}`)}
+                    style={{
+                      left: `${o2.min}%`,
+                      width: `${Math.max(o2.max - o2.min, 1.6)}%`,
+                    }}
+                  />
+                  <span
+                    className={cn("ev-m-median", `ev-m-median-${phase}`)}
+                    style={{ left: `${o2.median}%` }}
+                  />
+                </span>
+                {isActive ? (
+                  <span className="mt-1 block text-[10.5px] leading-4 text-muted">
+                    {formatO2(o2)} O₂ · median {o2.median}% · {point.rows} table
+                    rows · {o2.basis ?? "reported"} basis
+                  </span>
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
+      <div className="hidden xl:block">
+        <svg
+          viewBox={`0 0 ${WIDTH} ${height}`}
+          className="w-full"
+            role="group"
+            aria-label="Per-dataset reported oxygen ranges for 13 NASA PSI combustion tables. Partial gravity has no direct datasets; the E-FIELD entry is an electric-field analog without reported oxygen. Use Tab to move between rows."
+          >
             <rect
+              className="ev-band"
               x={x(30)}
               y={PLOT_TOP}
-              width={x(100) - x(30)}
-              height={PLOT_BOTTOM - PLOT_TOP}
-              fill="url(#lunar-hatch)"
+              width={PLOT_RIGHT - x(30)}
+              height={plotBottom - PLOT_TOP}
             />
-            <rect
-              x={x(30)}
-              y={PLOT_TOP}
-              width={x(100) - x(30)}
-              height={PLOT_BOTTOM - PLOT_TOP}
-              fill={FLAME}
-              opacity="0.035"
-            />
-            <line
-              x1={x(30)}
-              y1={PLOT_TOP - 6}
-              x2={x(30)}
-              y2={PLOT_BOTTOM}
-              stroke={FLAME}
-              strokeWidth="1"
-              strokeDasharray="3 4"
-              opacity="0.7"
-            />
-            <text
-              x={x(30) + 8}
-              y={PLOT_TOP - 12}
-              fill={FLAME}
-              fontFamily="var(--font-plex-mono)"
-              fontSize="11"
-            >
-              Lunar habitat target ≥30% O₂
-            </text>
-            <text
-              x={PLOT_RIGHT}
-              y={PLOT_TOP - 12}
-              textAnchor="end"
-              fill={FAINT}
-              fontFamily="var(--font-plex-mono)"
-              fontSize="8"
-            >
-              Spacesuit 100% O₂
-            </text>
 
-            {[0, 10, 20, 30, 40, 60, 80, 100].map((tick) => (
-              <g key={tick}>
+            {TICKS.map((tick) =>
+              tick === 30 ? null : (
                 <line
+                  key={`grid-${tick}`}
+                  className="ev-grid-line"
                   x1={x(tick)}
                   y1={PLOT_TOP}
                   x2={x(tick)}
-                  y2={PLOT_BOTTOM}
-                  stroke={tick === 30 ? FLAME : INK}
-                  strokeWidth="1"
-                  opacity={tick === 30 ? 0.35 : 0.08}
-                  strokeDasharray={tick === 30 ? "3 4" : undefined}
+                  y2={plotBottom}
                 />
-                <text
-                  x={x(tick)}
-                  y={PLOT_BOTTOM + 22}
-                  textAnchor="middle"
-                  fill={tick === 30 ? FLAME : FAINT}
-                  fontFamily="var(--font-plex-mono)"
-                  fontSize="11"
-                >
-                  {tick}
-                </text>
-              </g>
-            ))}
+              ),
+            )}
 
-            {LANES.map((lane) => {
-              const laneData = lanePoints(plotted, lane);
-              const offsets = laneData.length
-                ? laneData.map(
-                    (_, index) =>
-                      (index - (laneData.length - 1) / 2) * Math.min(10, 30 / laneData.length),
-                  )
-                : [];
+            <line
+              className="ev-target-line"
+              x1={x(30)}
+              y1={PLOT_TOP}
+              x2={x(30)}
+              y2={plotBottom}
+            />
+
+            <line
+              className="ev-axis"
+              x1={PLOT_LEFT}
+              y1={plotBottom}
+              x2={PLOT_RIGHT}
+              y2={plotBottom}
+            />
+
+            <text className="ev-colhead" x={0} y={16}>
+              DATASET
+            </text>
+            <text
+              className="ev-colhead"
+              x={VALUE_RIGHT}
+              y={16}
+              textAnchor="end"
+            >
+              REPORTED O₂ RANGE
+            </text>
+
+            <text
+              className="ev-band-label"
+              x={x(30) + 8}
+              y={PLOT_TOP + 16}
+            >
+              LUNAR HABITAT ≥30% O₂
+            </text>
+
+            {nodes.map((node) => {
+              if (node.kind === "group") {
+                return (
+                  <g key={`group-${node.label}`}>
+                    <text
+                      className="ev-group"
+                      x={0}
+                      y={node.y + 16}
+                    >
+                      {node.label}
+                    </text>
+                    <text
+                      className="ev-group-sub"
+                      x={0}
+                      y={node.y + 29}
+                    >
+                      {node.sub}
+                    </text>
+                    <text
+                      className="ev-group-count"
+                      x={VALUE_RIGHT}
+                      y={node.y + 16}
+                      textAnchor="end"
+                    >
+                      {node.count}
+                    </text>
+                  </g>
+                );
+              }
+
+              if (node.kind === "subhead") {
+                return (
+                  <g key={`subhead-${node.label}`}>
+                    <text
+                      className="ev-subhead"
+                      x={0}
+                      y={node.y + 12}
+                    >
+                      {node.label}
+                    </text>
+                    <text
+                      className="ev-subcount"
+                      x={VALUE_RIGHT}
+                      y={node.y + 12}
+                      textAnchor="end"
+                    >
+                      {node.count}
+                    </text>
+                  </g>
+                );
+              }
+
+              if (node.kind === "empty") {
+                return (
+                  <g key="partial-empty">
+                    <rect
+                      className="ev-empty"
+                      x={PLOT_LEFT}
+                      y={node.y + 3}
+                      width={PLOT_RIGHT - PLOT_LEFT}
+                      height={40}
+                    />
+                    <text
+                      className="ev-empty-title"
+                      x={(PLOT_LEFT + PLOT_RIGHT) / 2}
+                      y={node.y + 22}
+                      textAnchor="middle"
+                    >
+                      No direct partial-gravity dataset
+                    </text>
+                    <text
+                      className="ev-empty-body"
+                      x={(PLOT_LEFT + PLOT_RIGHT) / 2}
+                      y={node.y + 36}
+                      textAnchor="middle"
+                    >
+                      E-FIELD is an electric-field analog and reports no O₂
+                    </text>
+                  </g>
+                );
+              }
+
+              const point = node.point;
+              const phase = phaseOf(point);
+              const o2 = point.o2!;
+              const cy = node.y + ROW_HEIGHT / 2;
+              const isActive = activeId === point.id;
+
               return (
-                <g key={lane.id}>
-                  <text
+                <g
+                  key={point.id}
+                  className="ev-row"
+                  data-active={isActive ? "" : undefined}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${point.label}: ${formatO2(o2)} oxygen, median ${o2.median}%, ${point.rows} table rows, ${point.gravityLabel}`}
+                  onMouseEnter={() => setActiveId(point.id)}
+                  onFocus={() => setActiveId(point.id)}
+                  onClick={() => setActiveId(point.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setActiveId(point.id);
+                    }
+                    if (event.key === "Escape") setActiveId(null);
+                  }}
+                  style={{ color: `var(--ev-${phase})` }}
+                >
+                  <rect
+                    className="ev-hit"
                     x={0}
-                    y={lane.y - 3}
-                    fill={INK}
-                    fontFamily="var(--font-plex-sans)"
-                    fontSize="12.5"
-                    fontWeight="500"
-                  >
-                    {lane.label}
+                    y={node.y}
+                    width={VALUE_RIGHT}
+                    height={ROW_HEIGHT}
+                  />
+                  <text className="ev-label" x={0} y={cy + 4}>
+                    {point.label}
                   </text>
+                  <rect
+                    className={cn("ev-bar", `ev-bar-${phase}`)}
+                    x={x(o2.min)}
+                    y={cy - 4}
+                    width={Math.max(x(o2.max) - x(o2.min), 4)}
+                    height={8}
+                    rx={4}
+                  />
+                  <circle
+                    className={cn("ev-median", `ev-median-${phase}`)}
+                    cx={x(o2.median)}
+                    cy={cy}
+                    r={3.3}
+                  />
                   <text
-                    x={0}
-                    y={lane.y + 12}
-                    fill={FAINT}
-                    fontFamily="var(--font-plex-sans)"
-                    fontSize="11.5"
+                    className="ev-value"
+                    x={VALUE_RIGHT}
+                    y={cy + 3.5}
+                    textAnchor="end"
                   >
-                    {lane.sub}
+                    {formatO2(o2)}
                   </text>
-
-                  {lane.empty ? (
-                    <>
-                      <rect
-                        x={PLOT_LEFT}
-                        y={lane.y - 22}
-                        width={PLOT_RIGHT - PLOT_LEFT}
-                        height={44}
-                        fill={FLAME}
-                        fillOpacity="0.035"
-                        stroke={FLAME}
-                        strokeOpacity="0.3"
-                        strokeDasharray="4 5"
-                      />
-                      <text
-                        x={(PLOT_LEFT + PLOT_RIGHT) / 2}
-                        y={lane.y - 2}
-                        textAnchor="middle"
-                        fill={FLAME}
-                        fontFamily="var(--font-plex-sans)"
-                        fontSize="12"
-                        fontWeight="500"
-                      >
-                        No direct partial-gravity dataset
-                      </text>
-                      <text
-                        x={(PLOT_LEFT + PLOT_RIGHT) / 2}
-                        y={lane.y + 13}
-                        textAnchor="middle"
-                        fill={FAINT}
-                        fontFamily="var(--font-plex-sans)"
-                        fontSize="11.5"
-                      >
-                        0 direct datasets · E-FIELD is an analog
-                      </text>
-                    </>
-                  ) : (
-                    <>
-                      <line
-                        x1={PLOT_LEFT}
-                        y1={lane.y}
-                        x2={PLOT_RIGHT}
-                        y2={lane.y}
-                        stroke={INK}
-                        strokeOpacity="0.12"
-                        strokeDasharray="2 5"
-                      />
-                      {laneData.map((point, index) => {
-                        const y = lane.y + offsets[index];
-                        const color = PHASE_COLOR[point.phase ?? "gas"] ?? MUTED;
-                        const isActive = activeId === point.id;
-                        return (
-                          <g
-                            key={point.id}
-                            role="button"
-                            tabIndex={0}
-                            aria-label={`${point.label}: ${formatO2(point.o2)} oxygen, ${point.rows} table rows`}
-                            onMouseEnter={() => setActiveId(point.id)}
-                            onFocus={() => setActiveId(point.id)}
-                            onClick={() => setActiveId(point.id)}
-                            className="cursor-pointer outline-none"
-                          >
-                            <rect
-                              x={x(point.o2!.min) - 6}
-                              y={y - 10}
-                              width={Math.max(x(point.o2!.max) - x(point.o2!.min) + 12, 16)}
-                              height={20}
-                              fill="transparent"
-                            />
-                            <rect
-                              x={x(point.o2!.min)}
-                              y={y - 4}
-                              width={Math.max(x(point.o2!.max) - x(point.o2!.min), 2.5)}
-                              height={8}
-                              rx={3}
-                              style={{ fill: color }}
-                              opacity={isActive ? 1 : 0.82}
-                              stroke={isActive ? INK : "transparent"}
-                              strokeWidth="0.8"
-                            />
-                            <circle
-                              cx={x(point.o2!.min)}
-                              cy={y}
-                              r={isActive ? 4 : 2.8}
-                              style={{ fill: color }}
-                            />
-                            <circle
-                              cx={x(point.o2!.max)}
-                              cy={y}
-                              r={isActive ? 4 : 2.8}
-                              style={{ fill: color }}
-                              stroke={CANVAS}
-                              strokeWidth="1"
-                            />
-                          </g>
-                        );
-                      })}
-                      <text
-                        x={PLOT_RIGHT + 12}
-                        y={lane.y - 2}
-                        fill={MUTED}
-                        fontFamily="var(--font-plex-mono)"
-                        fontSize="10.5"
-                      >
-                        {laneData.length} {laneData.length === 1 ? "dataset" : "datasets"}
-                      </text>
-                      <text
-                        x={PLOT_RIGHT + 12}
-                        y={lane.y + 11}
-                        fill={FAINT}
-                        fontFamily="var(--font-plex-mono)"
-                        fontSize="10.5"
-                      >
-                        max {Math.max(...laneData.map((p) => p.o2!.max)).toFixed(1)}%
-                      </text>
-                    </>
-                  )}
                 </g>
               );
             })}
 
+            {TICKS.map((tick) => (
+              <text
+                key={`tick-${tick}`}
+                className={cn(
+                  "ev-axis-label",
+                  tick === 30 && "ev-tick-hot",
+                )}
+                x={x(tick)}
+                y={tickY}
+                textAnchor="middle"
+              >
+                {tick}
+              </text>
+            ))}
+
             <text
+              className="ev-axis-title"
               x={(PLOT_LEFT + PLOT_RIGHT) / 2}
-              y={HEIGHT - 10}
+              y={axisTitleY}
               textAnchor="middle"
-              fill={FAINT}
-              fontFamily="var(--font-plex-mono)"
-              fontSize="10.5"
             >
               Oxygen concentration, % by volume (reported test condition)
             </text>
-          </svg>
-        </div>
+        </svg>
       </div>
 
-      <div className="mt-2 min-h-[52px] border-t border-line pt-3">
+      <div
+        className="mt-3 min-h-[54px] border-t border-line pt-3"
+        aria-live="polite"
+      >
         {active ? (
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-start gap-2.5">
               <span
-                className="mt-1 h-2 w-2 shrink-0 rounded-full"
-                style={{ backgroundColor: PHASE_COLOR[active.phase ?? "gas"] }}
+                aria-hidden="true"
+                className={cn("ev-dot mt-1.5", `ev-dot-${phaseOf(active)}`)}
               />
               <div>
                 <div className="text-[14px] text-ink">{active.label}</div>
-                <div className="mt-0.5 text-[15px] text-muted">
+                <div className="mt-0.5 text-[13.5px] leading-5 text-muted">
                   {formatO2(active.o2)} O₂ · {active.rows} table rows ·{" "}
-                  {active.o2?.basis ?? "reported"} · {phaseLabel(active.phase)} ·{" "}
+                  {active.o2?.basis ?? "reported"} basis · {phaseLabel(active.phase)} ·{" "}
                   {active.gravityLabel}
                 </div>
               </div>
             </div>
             <Link
               href={`/investigations/${active.investigationId}`}
-              className="group inline-flex shrink-0 items-center gap-1 text-[15px] text-flame"
+              className="group inline-flex shrink-0 items-center gap-1 text-[14px] text-flame"
             >
               Open {active.investigationId}
               <ArrowUpRight
@@ -404,13 +603,13 @@ export function EvidenceMap({
             </Link>
           </div>
         ) : (
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-[14px] leading-5 text-faint">
-              Ranges are reported test conditions, not model predictions. Final-oxygen
-              readings are excluded from test conditions.
+          <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between">
+            <p className="text-[13.5px] leading-5 text-faint">
+              Bar = reported min–max O₂ · dot = median. Ranges are test
+              conditions, not flammability limits.
             </p>
-            <span className="text-[15px] text-faint">
-              {plotted.length} plotted datasets
+            <span className="shrink-0 text-[13.5px] text-faint">
+              {plotted.length} plotted datasets · {analog.length} analog
             </span>
           </div>
         )}
@@ -418,16 +617,15 @@ export function EvidenceMap({
 
       {analog.length ? (
         <div className="mt-3 flex flex-col gap-2 border border-violet/20 bg-violet/[0.04] px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[14px] leading-5 text-muted">
-            <span className="text-[15px] text-violet">
-              Analog only ·
-            </span>{" "}
-            E-FIELD used electric fields to mimic some partial-gravity effects. It is not
-            a gravity measurement, and its summary table does not report O₂.
+          <p className="text-[13.5px] leading-5 text-muted">
+            <span className="text-[13.5px] text-violet">Analog only ·</span>{" "}
+            E-FIELD used electric fields to mimic some partial-gravity effects.
+            It is not a gravity measurement, and its summary table does not
+            report O₂.
           </p>
           <Link
             href="/investigations/PSI-22"
-            className="shrink-0 text-[15px] text-violet hover:text-ink"
+            className="shrink-0 text-[13.5px] text-violet hover:text-ink"
           >
             Inspect analog →
           </Link>
