@@ -335,7 +335,7 @@ export default async function InvestigationPage({
                         </div>
                         <div className="relative mt-2.5 h-2 bg-panel-2">
                           <div
-                            className="absolute top-0 z-10 h-full border-l border-dashed border-flame/80"
+                            className="absolute top-0 z-10 h-full border-l border-dashed border-lunar/70"
                             style={{ left: "30%" }}
                             title="Lunar habitat threshold: 30% O₂"
                           />
@@ -369,7 +369,7 @@ export default async function InvestigationPage({
 
                 <div className="flex justify-between border-t border-line pt-2.5 text-[15px] text-faint">
                   <span>0%</span>
-                  <span className="text-flame/80">30% lunar target</span>
+                  <span className="text-lunar">30% lunar target</span>
                   <span>100%</span>
                 </div>
 

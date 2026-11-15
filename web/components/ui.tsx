@@ -151,7 +151,7 @@ export function ActionLink({
 }) {
   const classes = {
     primary:
-      "border-flame bg-flame text-white hover:bg-flame-deep hover:border-flame-deep",
+      "border-flame bg-flame text-on-flame hover:bg-flame-deep hover:border-flame-deep",
     secondary:
       "border-line-strong bg-panel text-ink hover:border-ink hover:bg-panel-2",
     ghost: "border-transparent text-muted hover:text-ink",

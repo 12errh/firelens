@@ -16,13 +16,15 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
   const primaryTable = investigation.tables.find((table) => table.o2) ?? investigation.tables[0];
   const phase = primaryTable?.phase ?? null;
   const image = investigation.image;
+  const summary = investigation.summary?.trim() ?? "";
+  const hasSummary = summary.length >= 24;
 
   return (
     <Link
       href={`/investigations/${investigation.id}`}
       className="group panel panel-hover flex flex-col overflow-hidden"
     >
-      <div className="relative aspect-[16/9] overflow-hidden bg-ink">
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#0b1220]">
         {image ? (
           <Image
             src={image.src}
@@ -40,7 +42,9 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
             </span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent" />
+        {image ? (
+          <div className="absolute inset-0 bg-gradient-to-t from-panel via-transparent to-transparent" />
+        ) : null}
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
           {phase ? <Badge tone={PHASE_TONE[phase] ?? "neutral"}>{phaseLabel(phase)}</Badge> : null}
           <Badge tone="neutral">
@@ -72,11 +76,18 @@ export function InvestigationCard({ investigation }: { investigation: Investigat
         <h3 className="mt-2.5 text-[18px] font-medium leading-6 tracking-[-0.015em] text-ink">
           {investigation.acronym ?? investigation.title}
         </h3>
-        <p className="mt-1.5 line-clamp-2 text-[14.5px] leading-6 text-muted">
-          {investigation.summary ?? investigation.title}
-        </p>
+        {hasSummary ? (
+          <p className="mt-1.5 line-clamp-2 text-[14.5px] leading-6 text-muted">{summary}</p>
+        ) : (
+          <p className="mt-1.5 text-[14.5px] leading-6 text-faint">
+            Summary not reported in this snapshot.
+          </p>
+        )}
         <div className="mt-4 flex items-center gap-3 border-t border-line pt-3 text-[15px] text-faint">
-          <span>{investigation.tableCount} tables</span>
+          <span>
+            {investigation.tableCount}{" "}
+            {investigation.tableCount === 1 ? "table" : "tables"}
+          </span>
           <span className="h-2.5 w-px bg-line" />
           <span>{investigation.publicationCount} publications</span>
           {investigation.analog ? (

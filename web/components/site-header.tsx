@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
-import { StatusDot, TickRule } from "@/components/ui";
+import { StatusDot } from "@/components/ui";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { FlameLogo } from "@/components/flame-logo";
 
@@ -17,66 +17,84 @@ const nav = [
   { href: "/methodology", label: "Methodology" },
 ];
 
-function Mark() {
-  return <FlameLogo className="h-7 w-7" />;
+function isActive(pathname: string, href: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
+function Mark({ className }: { className?: string }) {
+  return (
+    <span
+      className={cn(
+        "flex shrink-0 items-center justify-center rounded-[11px] border border-line bg-panel text-ink",
+        className,
+      )}
+    >
+      <FlameLogo className="h-6 w-6" decorative />
+    </span>
+  );
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-10">        <Link
+    <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-xl">
+      <div className="mx-auto flex h-[68px] max-w-[1200px] items-center justify-between gap-6 px-6 lg:px-10">
+        <Link
           href="/"
-          className="flex shrink-0 items-center gap-2.5"
+          className="group flex shrink-0 items-center gap-3"
           aria-label="Flame in Freefall home"
         >
-          <Mark />
-          <span className="flex flex-col leading-none">
-            <span className="text-[15px] font-semibold tracking-[-0.01em] text-ink">
+          <Mark className="h-10 w-10 transition-colors group-hover:border-line-strong" />
+          <span className="flex flex-col">
+            <span className="text-[15px] font-semibold leading-[1.2] tracking-[-0.015em] text-ink">
               Flame in Freefall
             </span>
-            <span className="mt-1 text-[14px] text-faint">PSI evidence workbench</span>
+            <span className="mt-0.5 text-[11.5px] leading-[1.2] text-faint">
+              PSI evidence workbench
+            </span>
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav
+          className="hidden items-center gap-0.5 rounded-full border border-line bg-panel/70 p-1 lg:flex"
+          aria-label="Primary"
+        >
           {nav.map((item) => {
-            const active =
-              item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+            const active = isActive(pathname, item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded px-3 py-2 text-[14px] transition-colors",
+                  "inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[13.5px] leading-5 transition-colors",
                   active
-                    ? "font-medium text-ink"
-                    : "text-muted hover:bg-panel-2 hover:text-ink",
+                    ? "bg-panel-2 font-medium text-ink"
+                    : "text-muted hover:bg-panel-2/60 hover:text-ink",
                 )}
               >
+                {active ? (
+                  <span className="h-1 w-1 rounded-full bg-flame" aria-hidden="true" />
+                ) : null}
                 {item.label}
               </Link>
             );
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 xl:flex">
-          <StatusDot tone="moss" />
-          <span className="text-[14px] text-faint">Snapshot 14 Nov 2026</span>
-        </div>
-
         <div className="flex items-center gap-2">
+          <span className="hidden items-center gap-2 rounded-full border border-line bg-panel px-3 py-1.5 text-[12.5px] leading-4 text-muted xl:inline-flex">
+            <StatusDot tone="moss" />
+            Snapshot 14 Nov 2026
+          </span>
+
           <ThemeToggle />
 
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded border border-line text-muted transition-colors hover:bg-panel-2 hover:text-ink lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-line-strong hover:text-ink lg:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -87,27 +105,37 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <TickRule className="opacity-70" />
-
       {open ? (
         <div id="mobile-nav" className="border-t border-line bg-panel lg:hidden">
-          <nav className="mx-auto grid max-w-[1200px] gap-1 px-4 py-4" aria-label="Mobile">
-            {nav.map((item) => {
-              const active =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "rounded px-3 py-3 text-[15px]",
-                    active ? "bg-panel-2 font-medium text-ink" : "text-muted",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <nav className="mx-auto max-w-[1200px] px-4 py-3" aria-label="Mobile">
+            <div className="grid gap-0.5">
+              {nav.map((item) => {
+                const active = isActive(pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "flex items-center justify-between rounded-lg px-3 py-3 text-[15px] transition-colors",
+                      active
+                        ? "bg-panel-2 font-medium text-ink"
+                        : "text-muted hover:bg-panel-2/60 hover:text-ink",
+                    )}
+                  >
+                    {item.label}
+                    {active ? (
+                      <span className="h-1.5 w-1.5 rounded-full bg-flame" aria-hidden="true" />
+                    ) : null}
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="mt-2 flex items-center gap-2 border-t border-line px-3 pb-1 pt-4 text-[12.5px] text-faint">
+              <StatusDot tone="moss" />
+              PSI snapshot 14 Nov 2026 · 24 investigations
+            </div>
           </nav>
         </div>
       ) : null}

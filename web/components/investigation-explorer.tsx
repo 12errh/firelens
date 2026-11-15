@@ -329,7 +329,7 @@ export function InvestigationExplorer({
                               }}
                             />
                             <div
-                              className="absolute -top-0.5 h-2.5 border-l border-dashed border-flame/60"
+                              className="absolute -top-0.5 h-2.5 border-l border-dashed border-lunar/70"
                               style={{ left: "30%" }}
                               title="Lunar habitat threshold: 30% O₂"
                             />
@@ -353,7 +353,7 @@ export function InvestigationExplorer({
                     <div className="font-mono text-[14px] tabular text-muted">
                       {record.tableCount}
                       <span className="ml-1 text-[15px] text-faint">
-                        tables
+                        {record.tableCount === 1 ? "table" : "tables"}
                       </span>
                       <div className="mt-1 text-[15px] text-faint">
                         {formatNumber(record.publicationCount)} pubs
@@ -396,7 +396,8 @@ export function InvestigationExplorer({
                   </p>
                   <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
                     <span className="text-[15px] text-faint">
-                      {record.gravity === "microgravity" ? "µg" : "1 g"} · {record.tableCount} tables
+                      {record.gravity === "microgravity" ? "µg" : "1 g"} · {record.tableCount}{" "}
+                      {record.tableCount === 1 ? "table" : "tables"}
                     </span>
                     <span className="font-mono text-[14px] tabular text-ink">
                       {record.o2 ? formatO2(record.o2) : "O₂ n/r"}
@@ -413,7 +414,7 @@ export function InvestigationExplorer({
                         }}
                       />
                       <div
-                        className="absolute -top-0.5 h-2 border-l border-dashed border-flame/60"
+                        className="absolute -top-0.5 h-2 border-l border-dashed border-lunar/70"
                         style={{ left: "30%" }}
                       />
                     </div>

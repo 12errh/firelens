@@ -1,9 +1,35 @@
 /* the combustion bench: one accent hue, scoped to the figure */
 
 .iso.combustion-bench {
-  --anatomy-paper: #ffffff;
+  --anatomy-page: #f2f2ef;
+  --anatomy-card: #fbfbfa;
+  --anatomy-text: #57575a;
+  --anatomy-strong: #18181a;
+  --anatomy-muted: #8c8c90;
+  --anatomy-paper: #fbfbfa;
   --anatomy-face: #ffffff;
   --anatomy-top: #ffffff;
+  --anatomy-shade-0: #dcdcd9;
+  --anatomy-shade-1: #e5e5e2;
+  --anatomy-shade-2: #ededea;
+  --anatomy-shade-3: #f4f4f1;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #eeeeeb;
+  --anatomy-hi: #26262a;
+  --anatomy-mid: #8a8a8f;
+  --anatomy-lo: #b4b4b8;
+  --anatomy-faint: #d4d4d6;
+  --anatomy-lit: #000000;
+  --anatomy-halo: #8a8a80;
+  --anatomy-halo-opacity: 0.32;
+  --anatomy-dot: #3a3a3e;
+  --anatomy-red: #e5484d;
+  --anatomy-green: #30a46c;
+  --anatomy-blue: #3e63dd;
+  --anatomy-lift:
+    inset 0 1px 0 0 #ffffff, 0 0 0 1px #0000000f, 0 1px 1px -0.5px #0000000a,
+    0 3px 3px -1.5px #0000000a, 0 6px 6px -3px #0000000a,
+    0 12px 12px -6px #0000000a;
   --cb-accent: #c2410c;
   --cb-accent-core: #f6b46a;
   --cb-glass: #aeb9bd;
@@ -11,10 +37,39 @@
   width: 100%;
 }
 
-.iso.combustion-bench[data-theme="dark"] {
-  --anatomy-paper: #141414;
-  --anatomy-face: #1c1c1c;
-  --anatomy-top: #1e1e1e;
+/* The bench follows the page theme, but keeps the navy palette of the site
+   rather than the neutral grey of the standalone kit. */
+html[data-theme="dark"] .iso.combustion-bench {
+  --anatomy-page: #080c15;
+  --anatomy-card: #101726;
+  --anatomy-text: #a3b3cc;
+  --anatomy-strong: #e7edf8;
+  --anatomy-muted: #8294ad;
+  --anatomy-paper: #121c2e;
+  --anatomy-face: #172034;
+  --anatomy-top: #1b2740;
+  --anatomy-shade-0: #0a111d;
+  --anatomy-shade-1: #0d1626;
+  --anatomy-shade-2: #101a2c;
+  --anatomy-shade-3: #142034;
+  --anatomy-lit-top: #22314c;
+  --anatomy-lit-shade: #1a2740;
+  --anatomy-hi: #e7edf8;
+  --anatomy-mid: #93a2bb;
+  --anatomy-lo: #5b6c88;
+  --anatomy-faint: #34435c;
+  --anatomy-lit: #ffffff;
+  --anatomy-halo: #05080f;
+  --anatomy-halo-opacity: 0.9;
+  --anatomy-dot: #e7edf8;
+  --anatomy-red: #f87171;
+  --anatomy-green: #8ecb3a;
+  --anatomy-blue: #5aa9f0;
+  --anatomy-lift:
+    inset 0 1px 0 0 #ffffff0a, inset 0 0 0 1px #ffffff06,
+    0 0 0 1px #00000026, 0 1px 1px -0.5px #00000014,
+    0 3px 3px -1.5px #00000014, 0 6px 6px -3px #00000014,
+    0 12px 12px -6px #00000014;
   --cb-accent: #f08a3c;
   --cb-accent-core: #ffd9a0;
   --cb-glass: #4d7f92;

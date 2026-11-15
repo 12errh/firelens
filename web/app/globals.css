@@ -15,6 +15,15 @@
   --violet: #6d28d9;
   --moss: #4d7c0f;
   --danger: #b91c1c;
+  --lunar: #b45309;
+  --on-flame: #ffffff;
+
+  /* Phase colours carry data meaning, so they stay warm/cyan/violet in both
+     themes instead of following the page accent. Mirrors evidence-map.css. */
+  --phase-solid: #c2410c;
+  --phase-liquid: #0e7490;
+  --phase-gas: #6d28d9;
+  --phase-aerosol: #8b8a80;
 }
 
 @theme inline {
@@ -32,6 +41,12 @@
   --color-violet: var(--violet);
   --color-moss: var(--moss);
   --color-danger: var(--danger);
+  --color-lunar: var(--lunar);
+  --color-on-flame: var(--on-flame);
+  --color-phase-solid: var(--phase-solid);
+  --color-phase-liquid: var(--phase-liquid);
+  --color-phase-gas: var(--phase-gas);
+  --color-phase-aerosol: var(--phase-aerosol);
   --font-sans: var(--font-plex-sans);
   --font-mono: var(--font-plex-mono);
 }
@@ -49,13 +64,20 @@ html[data-theme="dark"] {
   --line-strong: #33455f;
   --ink: #e7edf8;
   --muted: #a3b3cc;
-  --faint: #71839d;
+  --faint: #8294ad;
   --flame: #5aa9f0;
   --flame-deep: #3d87d6;
   --ice: #4fc3f7;
   --violet: #a78bfa;
   --moss: #8ecb3a;
   --danger: #f87171;
+  --lunar: #fbbf24;
+  --on-flame: #06101f;
+
+  --phase-solid: #fb923c;
+  --phase-liquid: #22d3ee;
+  --phase-gas: #c4b5fd;
+  --phase-aerosol: #8294ad;
   color-scheme: dark;
 }
 

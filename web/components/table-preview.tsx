@@ -127,13 +127,13 @@ export function TablePreview({ tables }: { tables: ExperimentalTable[] }) {
                 }}
               />
               <div
-                className="absolute -top-0.5 z-10 h-2.5 border-l border-dashed border-flame/80"
+                className="absolute -top-0.5 z-10 h-2.5 border-l border-dashed border-lunar/70"
                 style={{ left: "30%" }}
               />
             </div>
             <div className="mt-1.5 flex justify-between text-[12.5px] text-faint">
               <span>0% O₂</span>
-              <span className="text-flame/80">30% lunar target</span>
+              <span className="text-lunar">30% lunar target</span>
               <span>100%</span>
             </div>
           </div>

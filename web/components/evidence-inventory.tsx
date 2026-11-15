@@ -254,7 +254,7 @@ export function EvidenceInventory({ points }: { points: EvidencePoint[] }) {
                           }}
                         />
                         <div
-                          className="absolute -top-1 z-10 h-[18px] border-l border-dashed border-flame/80"
+                          className="absolute -top-1 z-10 h-[18px] border-l border-dashed border-lunar/70"
                           style={{ left: "30%" }}
                           title="Lunar habitat threshold: 30% O₂"
                         />

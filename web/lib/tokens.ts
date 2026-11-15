@@ -6,11 +6,16 @@
  * of truth for both.
  */
 
+/*
+ * Phase colours resolve through CSS custom properties so a phase swatch or
+ * bar stays legible when the theme flips. All current call sites apply these
+ * to DOM `style` props, where `var()` is supported.
+ */
 export const PHASE_COLOR: Record<string, string> = {
-  solid: "#c2410c",
-  liquid: "#0e7490",
-  gas: "#6d28d9",
-  aerosol: "#8b8a80",
+  solid: "var(--phase-solid)",
+  liquid: "var(--phase-liquid)",
+  gas: "var(--phase-gas)",
+  aerosol: "var(--phase-aerosol)",
 };
 
 export const PHASE_FALLBACK = PHASE_COLOR.aerosol;

@@ -10,7 +10,7 @@ import "./combustion-bench.css";
  */
 export function CombustionBenchFigure({ className }: { className?: string }) {
   return (
-    <div className={"iso combustion-bench" + (className ? ` ${className}` : "")} data-theme="light">
+    <div className={"iso combustion-bench" + (className ? ` ${className}` : "")}>
       <div className="iso-plate cb-plate">
         <CombustionArt />
         <div className="cb-readout" data-readout="" aria-live="polite">

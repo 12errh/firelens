@@ -228,13 +228,13 @@ export default function Home() {
                 metric: `${stats.o2.solidMax.toFixed(1)}%`,
                 label: "Highest solid-material O₂",
                 note: "BASS-II initial test condition. The lunar habitat target begins at 30%.",
-                tone: "text-flame",
+                tone: "text-phase-solid",
               },
               {
                 metric: `${stats.o2.gasMax.toFixed(0)}%`,
                 label: "Highest gaseous O₂",
                 note: "CFI-G and Flame Design inverse flames. Fuel phase changes the flammability question.",
-                tone: "text-violet",
+                tone: "text-phase-gas",
               },
               {
                 metric: "0",
@@ -415,12 +415,12 @@ export default function Home() {
                       style={{
                         left: `${item.min}%`,
                         width: `${Math.max(item.max - item.min, 0.7)}%`,
-                        backgroundColor: `${color}26`,
+                        backgroundColor: `color-mix(in srgb, ${color} 15%, transparent)`,
                         borderColor: color,
                       }}
                     />
                     <div
-                      className="absolute top-0 h-full border-l border-dashed border-flame/60"
+                      className="absolute top-0 h-full border-l border-dashed border-lunar/70"
                       style={{ left: "30%" }}
                       title="Lunar habitat threshold: 30% O₂"
                     />
@@ -431,7 +431,7 @@ export default function Home() {
                   </div>
                   <div className="relative mt-1.5 h-3 text-[15px] text-faint">
                     <span className="absolute left-0">0%</span>
-                    <span className="absolute -translate-x-1/2 text-flame/80" style={{ left: "30%" }}>
+                    <span className="absolute -translate-x-1/2 text-lunar" style={{ left: "30%" }}>
                       30% lunar target
                     </span>
                     <span className="absolute right-0">100%</span>

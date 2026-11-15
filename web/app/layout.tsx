@@ -55,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col bg-canvas text-ink">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:bg-flame focus:rounded focus:px-3 focus:py-2 focus:text-[14px] focus:text-white"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[100] focus:bg-flame focus:rounded focus:px-3 focus:py-2 focus:text-[14px] focus:text-on-flame"
         >
           Skip to content
         </a>
